@@ -1,0 +1,40 @@
+.headerGrid {
+  display: grid;
+  width: 100vw;
+  grid-template-columns: [logo]350px [navbar]1fr;
+}
+.TopBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  top: 125px;
+}
+.fieldandbutton {
+  display: flex;
+  align-items: center;
+  border: 1px black solid;
+}
+
+.logo {
+  width: 150px;
+  margin: 20px 50px 50px 100px;
+}
+.account,
+.dms,
+.home {
+  width: 70px;
+  height: 70px;
+}
+.searchField {
+  height: 38px;
+  font-size: 1rem;
+  border: 0px;
+}
+button {
+  color: rgb(0, 0, 0);
+  background: #c6bfbf;
+  /* background: url("../../icons/magnify.svg") no-repeat; */
+  height: 44px;
+  padding: 5px;
+  border: 0px;
+}
