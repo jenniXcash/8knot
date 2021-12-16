@@ -1,0 +1,26 @@
+.post {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 10px 10px 10px 0px;
+  margin: 30px;
+  padding: 50px;
+  width: 444px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 15px rgba(135, 135, 135, 0.3);
+}
+.post:hover {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+.dateAndTime {
+  display: flex;
+  margin: 10px;
+  justify-content: center;
+}
+.dateAndTime > div {
+  padding: 10px;
+}
+
+.bolding {
+  font-weight: bold;
+}
