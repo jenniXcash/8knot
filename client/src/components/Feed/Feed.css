@@ -1,5 +1,20 @@
-.feedItems {
+.container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+}
+.arrowLeft {
+  position: relative;
+  top: 100px;
+  width: 20px;
+  height: 20px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.feedItems {
+  align-self: center;
+  background-color: rgb(243, 241, 240);
+  border: 2px solid white;
+  padding: 30px;
+  border-radius: 30px;
+  box-shadow: 5px 0px 30px rgb(165, 164, 164);
 }

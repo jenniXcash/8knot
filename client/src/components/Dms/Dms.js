@@ -1,3 +1,4 @@
+import "./Dms.css";
 export default function Dms() {
-  return <div>Here are your messaes!</div>;
+  return <div className="divy">Here are your messaes!</div>;
 }

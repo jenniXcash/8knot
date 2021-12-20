@@ -1,45 +1,46 @@
 .headerGrid {
   display: grid;
   width: 100vw;
-  grid-template-columns: [logo]350px [navbar]1fr;
+  grid-template-columns: [logo]20vw [navbar]1fr;
 }
 .TopBar {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   top: 125px;
 }
 .fieldandbutton {
   display: flex;
-  align-items: center;
-}
-
-.logo {
-  width: 243px;
-  height: 174px;
-  margin: 20px 50px 50px 100px;
-}
-.account,
-.dms,
-.home,
-.postNew {
-  width: 44px;
-  height: 44px;
+  justify-content: baseline;
+  border: 2px solid white;
+  box-shadow: 5px 0px 30px rgb(165, 164, 164);
 }
 .searchField {
-  height: 25px;
   font-size: 1rem;
-  border: 0px;
-  background: rgba(191, 77, 40, 0.5);
+  border: 1px solid black;
+  /* background: #c6c5dd; */
+  height: 2rem;
+  padding-left: 10px;
 }
 ::placeholder {
   color: rgba(0, 0, 0, 1);
 }
 button {
   color: rgb(0, 0, 0);
-  background: rgb(191, 77, 40);
-  /* background: url("../../icons/magnify.svg") no-repeat; */
-  height: 25px;
-  padding: 5px;
-  border: 0px;
+  background: #ffffff;
+  height: 34px;
+  border: 1px solid black;
+  font-weight: bold;
+}
+.searchFilter {
+  /* background-color: #c6c5dd; */
+  height: 34px;
+  margin-left: 100px;
+  border: 1px solid black;
+}
+
+.logo {
+  position: relative;
+  width: 20vw;
+  margin: 30px;
 }

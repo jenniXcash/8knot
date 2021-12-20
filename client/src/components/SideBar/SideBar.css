@@ -1,0 +1,26 @@
+body {
+  overflow: visible;
+}
+
+.container {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0px;
+}
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  margin-top: 30px;
+  margin-left: 50px;
+}
+img {
+  width: 50px;
+}
+
+.iconAndDescFlex {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}

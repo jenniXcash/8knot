@@ -1,0 +1,9 @@
+.divy {
+  align-self: center;
+  background-color: rgb(243, 241, 240);
+  padding: 30px;
+  border-radius: 30px;
+  border: 2px solid white;
+  box-shadow: 5px 0px 30px rgb(165, 164, 164);
+  width: 75%;
+}

@@ -12,10 +12,15 @@ export default function FeedItem({
   return (
     <React.Fragment>
       <div className="post">
-        <div>
-          {" "}
-          <span className="bolding">By: </span>
-          {userName}
+        <div className="postHeader">
+          <div>
+            <span className="bolding">By: </span>
+            {userName}
+          </div>
+          <div className="dateAndTime">
+            <div>{date}</div>
+            <div>{time}</div>
+          </div>
         </div>
 
         <div>
@@ -29,10 +34,6 @@ export default function FeedItem({
         <div>
           <span className="bolding">What we gonna do: </span>
           {description}
-        </div>
-        <div className="dateAndTime">
-          <div>{date}</div>
-          <div>{time}</div>
         </div>
       </div>
     </React.Fragment>

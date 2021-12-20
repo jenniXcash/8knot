@@ -1,0 +1,10 @@
+.pop {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(243, 241, 240);
+  box-shadow: 3px 0px 20px rgb(245, 244, 245);
+  border-radius: 0 5px 5px 5px;
+  /* width: 10vw; */
+  text-align: center;
+  margin-left: 5px;
+}
