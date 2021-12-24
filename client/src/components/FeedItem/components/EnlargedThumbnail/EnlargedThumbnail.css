@@ -1,0 +1,9 @@
+.popy {
+  position: absolute;
+  width: 30%;
+  display: grid;
+  z-index: 0;
+  background-color: rgba(243, 241, 240, 0.5);
+  box-shadow: 3px 0px 20px rgb(245, 244, 245);
+  border-radius: 0 5px 5px 5px;
+}

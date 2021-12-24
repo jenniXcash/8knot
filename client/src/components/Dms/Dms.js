@@ -1,4 +1,9 @@
+import React from "react";
 import "./Dms.css";
 export default function Dms() {
-  return <div className="divy">Here are your messaes!</div>;
+  return (
+    <React.Fragment>
+      <div className="dmsContainer">Here are your messaes!</div>
+    </React.Fragment>
+  );
 }

@@ -17,7 +17,7 @@ export default function Feed() {
   }, []);
   return (
     <React.Fragment>
-      <div className="container">
+      <div className="feedContainer">
         <div className="feedItems">
           {posts.map(
             ({
@@ -28,9 +28,11 @@ export default function Feed() {
               typeOfWork,
               description,
               images,
+              id,
             }) => (
               <FeedItem
-                key={userName}
+                key={id}
+                id={id}
                 userName={userName}
                 date={date}
                 time={time}

@@ -20,7 +20,7 @@ app.listen(8000, () =>
     cowsay.say({
       text: "listening on port 8000",
       e: "jXc",
-      T: "U ",
+      T: "U",
     })
   )
 );

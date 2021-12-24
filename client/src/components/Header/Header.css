@@ -12,12 +12,12 @@
 .fieldandbutton {
   display: flex;
   justify-content: baseline;
-  border: 2px solid white;
+  border: 2px solid #8face5;
   box-shadow: 5px 0px 30px rgb(165, 164, 164);
 }
 .searchField {
   font-size: 1rem;
-  border: 1px solid black;
+  border: 1px solid #8face5;
   /* background: #c6c5dd; */
   height: 2rem;
   padding-left: 10px;
@@ -27,20 +27,22 @@
 }
 button {
   color: rgb(0, 0, 0);
-  background: #ffffff;
+  background: #8face5;
   height: 34px;
-  border: 1px solid black;
+  border: 1px solid #8face5;
   font-weight: bold;
 }
 .searchFilter {
   /* background-color: #c6c5dd; */
   height: 34px;
   margin-left: 100px;
-  border: 1px solid black;
+  border: 1px solid #8face5;
 }
 
 .logo {
-  position: relative;
   width: 20vw;
   margin: 30px;
+}
+p {
+  font-weight: bold;
 }

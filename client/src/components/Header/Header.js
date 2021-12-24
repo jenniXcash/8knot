@@ -24,7 +24,7 @@ export default function Header() {
               </option>
             </select>
           </form>
-          <p>Log In</p>
+          <p>Log In / Sign-Up</p>
         </div>
       </div>
     </React.Fragment>

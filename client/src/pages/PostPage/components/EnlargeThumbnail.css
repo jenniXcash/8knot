@@ -1,0 +1,21 @@
+.realSizedImage {
+  position: absolute;
+  z-index: 1;
+  background-color: black;
+  top: 0;
+  border: 2px solid black;
+}
+.rSI {
+  width: 50vw;
+  cursor: pointer;
+}
+
+.close {
+  position: relative;
+  top: 0;
+  left: 0;
+  background-color: black;
+  color: white;
+  margin: 0px;
+  cursor: pointer;
+}

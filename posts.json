@@ -8,9 +8,9 @@
 "typeOfWork":"window cleaning",
 "description":"Looking for 3 riggers for a windowcleaning job",
 "images":{
-    "image1":"image1.jpg",
-    "image2":"image2.jpg",
-    "image3":"image3.jpg"
+    "image1":"https://via-nadlan.co.il/wp-content/uploads/2020/11/DIZI1.jpg",
+    "image2":"https://via-nadlan.co.il/wp-content/uploads/2020/11/DIZI1.jpg",
+    "image3":"https://via-nadlan.co.il/wp-content/uploads/2020/11/DIZI1.jpg"
 }
     }, 
 {
@@ -22,9 +22,9 @@
 "typeOfWork":"Sealing",
 "description":"looking for 2 riggers for some window sealing using Sika-Flex and some stone sealing using liquid sealant",
 "images":{
-        "image1":"image1.jpg",
-        "image2":"image2.jpg",
-        "image3":"image3.jpg"
+        "image1":"https://via-nadlan.co.il/wp-content/uploads/2015/02/DIZI2.jpg",
+        "image2":"https://via-nadlan.co.il/wp-content/uploads/2015/02/DIZI2.jpg",
+        "image3":"https://via-nadlan.co.il/wp-content/uploads/2015/02/DIZI2.jpg"
     }   
 },
 {
@@ -36,9 +36,9 @@
 "typeOfWork":"window cleaning",
 "description":"Looking for 3 riggers for a windowcleaning job",
 "images":{
-        "image1":"image1.jpg",
-        "image2":"image2.jpg",
-        "image3":"image3.jpg"
+    "image1":"https://via-nadlan.co.il/wp-content/uploads/2015/02/DIZI2.jpg",
+    "image2":"https://via-nadlan.co.il/wp-content/uploads/2015/02/DIZI2.jpg",
+    "image3":"https://via-nadlan.co.il/wp-content/uploads/2015/02/DIZI2.jpg"
     }},
 {
     "id":3,
@@ -49,9 +49,9 @@
     "typeOfWork":"Concrete Restoration",
     "description":"In need of 5 propfessional riggers for a large concrete restoration work on a 15 story building.",
     "images":{
-        "image1":"image1.jpg",
-        "image2":"image2.jpg",
-        "image3":"image3.jpg"
+        "image1":"https://via-nadlan.co.il/wp-content/uploads/2020/11/IBEN-GVIROL.jpg",
+        "image2":"https://via-nadlan.co.il/wp-content/uploads/2020/11/IBEN-GVIROL.jpg",
+        "image3":"https://via-nadlan.co.il/wp-content/uploads/2020/11/IBEN-GVIROL.jpg"
     }
 }, 
 {
@@ -63,9 +63,9 @@
 "typeOfWork":"window cleaning",
 "description":"Looking for 3 riggers for a windowcleaning job",
 "images":{
-"image1":"image1.jpg",
-"image2":"image2.jpg",
-"image3":"image3.jpg"
+    "image1":"https://via-nadlan.co.il/wp-content/uploads/2020/11/IBEN-GVIROL.jpg",
+    "image2":"https://via-nadlan.co.il/wp-content/uploads/2020/11/IBEN-GVIROL.jpg",
+    "image3":"https://via-nadlan.co.il/wp-content/uploads/2020/11/IBEN-GVIROL.jpg"
 }
 }, 
 {
@@ -77,9 +77,9 @@
 "typeOfWork":"Sealing",
 "description":"looking for 2 riggers for some window sealing using Sika-Flex and some stone sealing using liquid sealant",
 "images":{
-    "image1":"image1.jpg",
-    "image2":"image2.jpg",
-    "image3":"image3.jpg"
+    "image1":"https://via-nadlan.co.il/wp-content/uploads/2015/02/DIZI2.jpg",
+    "image2":"https://via-nadlan.co.il/wp-content/uploads/2015/02/DIZI2.jpg",
+    "image3":"https://via-nadlan.co.il/wp-content/uploads/2015/02/DIZI2.jpg"
 }   
 },
 {
@@ -91,9 +91,9 @@
 "typeOfWork":"window cleaning",
 "description":"Looking for 3 riggers for a windowcleaning job",
 "images":{
-    "image1":"image1.jpg",
-    "image2":"image2.jpg",
-    "image3":"image3.jpg"
+    "image1":"https://via-nadlan.co.il/wp-content/uploads/2020/11/DIZI1.jpg",
+    "image2":"https://via-nadlan.co.il/wp-content/uploads/2020/11/DIZI1.jpg",
+    "image3":"https://via-nadlan.co.il/wp-content/uploads/2020/11/DIZI1.jpg"
 }},
 {
 "id":7,
@@ -104,9 +104,9 @@
 "typeOfWork":"Concrete Restoration",
 "description":"In need of 5 propfessional riggers for a large concrete restoration work on a 15 story building.",
 "images":{
-    "image1":"image1.jpg",
-    "image2":"image2.jpg",
-    "image3":"image3.jpg"
+    "image1":"https://via-nadlan.co.il/wp-content/uploads/2020/11/IBEN-GVIROL.jpg",
+    "image2":"https://via-nadlan.co.il/wp-content/uploads/2020/11/IBEN-GVIROL.jpg",
+    "image3":"https://via-nadlan.co.il/wp-content/uploads/2020/11/IBEN-GVIROL.jpg"
 }
 }
 ]

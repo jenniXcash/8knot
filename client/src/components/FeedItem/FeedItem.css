@@ -1,18 +1,24 @@
 .post {
   background-color: rgb(255, 252, 250);
-  /* border-radius: 20px 20px 0px 0px; */
-  /* box-shadow: 0 5px 15px rgba(135, 135, 135, 0.3); */
-  margin: 100px 30px 100px 30px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+
+  box-shadow: 0 5px 15px rgba(135, 135, 135, 0.3);
   padding: 50px;
-  width: 30vw;
+  /* width: 30vw; */
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 }
 .post:hover {
-  background: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.8);
   box-shadow: 5px 5px 15px rgba(135, 135, 135, 0.3);
+}
+a:link,
+a:active,
+a:hover {
+  color: black;
 }
 .postHeader {
   display: flex;
@@ -28,4 +34,9 @@
 
 .bolding {
   font-weight: bold;
+}
+
+.thumbnailsInPost {
+  display: flex;
+  margin: 30px;
 }
