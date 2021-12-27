@@ -1,20 +1,21 @@
 .headerGrid {
-  display: grid;
-  width: 100vw;
-  grid-template-columns: [logo]20vw [navbar]1fr;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0px;
+  display: flex;
+  width: 90vw;
+  justify-items: flex-end;
+  margin-bottom: 50px;
+  padding: 20px;
+  background-color: white;
 }
 .TopBar {
   display: flex;
+  flex-grow: 2;
   align-items: center;
-  justify-content: space-evenly;
-  top: 125px;
+  justify-content: space-between;
 }
-.fieldandbutton {
-  display: flex;
-  justify-content: baseline;
-  border: 2px solid #8face5;
-  box-shadow: 5px 0px 30px rgb(165, 164, 164);
-}
+
 .searchField {
   font-size: 1rem;
   border: 1px solid #8face5;
@@ -32,16 +33,10 @@ button {
   border: 1px solid #8face5;
   font-weight: bold;
 }
-.searchFilter {
-  /* background-color: #c6c5dd; */
-  height: 34px;
-  margin-left: 100px;
-  border: 1px solid #8face5;
-}
 
 .logo {
-  width: 20vw;
-  margin: 30px;
+  width: 12vw;
+  margin: 0px 40px 0px 0px;
 }
 p {
   font-weight: bold;

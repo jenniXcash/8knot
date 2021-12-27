@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 import "./FeedItem.css";
 
@@ -12,6 +13,7 @@ export default function FeedItem({
   images,
   id,
 }) {
+  const imageKeys = Object.keys(images);
   return (
     <React.Fragment>
       <Link to={`PostPage/${id}`}>
@@ -27,23 +29,30 @@ export default function FeedItem({
               </div>
             </div>
           </div>
-
           <div>
             <span className="bolding">Address: </span>
             {address}
           </div>
+          <br />
           <div>
             <span className="bolding">Type of work: </span>
             {typeOfWork}
-          </div>
+          </div>{" "}
+          <br />
           <div>
             <span className="bolding">What we gonna do: </span>
             {description}
-          </div>
+          </div>{" "}
+          <br />
           <div className="thumbnailsInPost">
-            <img src={images.image1} alt="fuck shit up" className="fsu" />
-            <img src={images.image2} alt="fuck shit up" className="fsu" />
-            <img src={images.image3} alt="fuck shit up" className="fsu" />
+            {imageKeys.map((src) => (
+              <img
+                src={images[src]}
+                alt="fuck shit up"
+                className="fsu"
+                key={uuidv4()}
+              />
+            ))}
           </div>
         </div>
       </Link>

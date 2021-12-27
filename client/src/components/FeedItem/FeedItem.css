@@ -1,19 +1,16 @@
 .post {
-  background-color: rgb(255, 252, 250);
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-
-  box-shadow: 0 5px 15px rgba(135, 135, 135, 0.3);
-  padding: 50px;
-  /* width: 30vw; */
-  margin: 0 auto;
+  /* background-color: rgb(105, 238, 88); */
+  border: 1px solid black;
+  border-radius: 0px 0px 15px 15px;
+  box-shadow: 0px 5px 2px rgb(0, 0, 0);
+  width: 60vw;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
 }
 .post:hover {
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 5px 5px 15px rgba(135, 135, 135, 0.3);
+  box-shadow: inset 0 3px 2px #000000;
 }
 a:link,
 a:active,
@@ -25,7 +22,8 @@ a:hover {
   flex-direction: row;
   margin-bottom: 20px;
   align-content: space-around;
-  width: 50vw;
+  width: 200px;
+  border-bottom: 1px solid rgb(201, 199, 199);
 }
 .dateAndTime {
   display: flex;
@@ -39,4 +37,8 @@ a:hover {
 .thumbnailsInPost {
   display: flex;
   margin: 30px;
+}
+
+.fsu {
+  width: 100px;
 }

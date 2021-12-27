@@ -13,12 +13,16 @@
   width: 200px;
   padding: 0;
 }
-.changePicButton {
-  width: 30%;
+.changePicButton,
+.changeDetailsButton {
   font-weight: bold;
   border: 1px solid #8face5;
   background-color: #ffffff;
 }
 .changePicButton:hover {
   box-shadow: 0px 0px 10px rgb(165, 164, 164);
+}
+
+.bold {
+  font-weight: bold;
 }

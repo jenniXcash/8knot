@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import "./PostPage.css";
 import EnlargeThumbnail from "./components/EnlargeThumbnail";
+import "./PostPage.css";
 
 export default function PostPage() {
   const [imageHover, setImageHover] = useState(false);
   const [post, setPosts] = useState(null);
+  const [imageURL, setImageURL] = useState([]);
 
   const { id } = useParams();
 
   useEffect(() => {
     fetch(`/api/posts/${id}`)
       .then((res) => res.json())
-      .then((post) => setPosts(post));
+      .then((post) => {
+        setPosts(post);
+        let tempArray = Object.keys(post.images).map((e) => {
+          return post.images[e];
+        });
+        setImageURL(tempArray);
+      });
   }, [id]);
   return (
     <React.Fragment>
@@ -21,30 +28,27 @@ export default function PostPage() {
         <div className="postPageContainer">
           <div>{post.description}</div>
           <div>{post.address}</div>
+
           <div className="images">
-            <img
-              src={post.images.image1}
-              alt="pic"
-              onClick={() => setImageHover(post.images.image1)}
-              className="image"
-            />
-            <img
-              src={post.images.image2}
-              alt="pic"
-              onClick={() => setImageHover(post.images.image2)}
-              className="image"
-            />
-            <img
-              src={post.images.image3}
-              alt="pic"
-              onClick={() => setImageHover(post.images.image3)}
-              className="image"
-            />
+            {imageURL.map((src) => (
+              <img
+                key={uuidv4()}
+                src={src}
+                alt="pic"
+                className="image"
+                onClick={() => setImageHover(src)}
+              />
+            ))}
           </div>
         </div>
       )}
       {imageHover && (
-        <EnlargeThumbnail imageSrc={imageHover} setImageHover={setImageHover} />
+        <EnlargeThumbnail
+          imageSrc={imageHover}
+          setImageHover={setImageHover}
+          post={post}
+          className="enlargeCompo"
+        />
       )}
     </React.Fragment>
   );

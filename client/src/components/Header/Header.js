@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../images/logo.svg";
-
+import SideBar from "../SideBar/SideBar";
 export default function Header() {
   return (
     <React.Fragment>
@@ -14,16 +14,8 @@ export default function Header() {
           <form>
             <input placeholder="search field" className="searchField" />
             <button type="submit">search</button>
-            <select className="searchFilter" name="searchFilter">
-              <option value="all">...</option>
-              <option value="windowCleaning">Window Cleaning</option>
-              <option value="Sealing">Sealing</option>
-              <option value="Painting">Painting</option>
-              <option value="Concrete Reconstruction">
-                Concrete Reconstruction
-              </option>
-            </select>
           </form>
+          <SideBar />
           <p>Log In / Sign-Up</p>
         </div>
       </div>

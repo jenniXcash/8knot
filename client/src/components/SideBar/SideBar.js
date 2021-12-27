@@ -11,51 +11,48 @@ export default function SideBar() {
   const [detector, setDetector] = useState(false);
   return (
     <div className="sideBar">
-      <div className="iconAndDescFlex">
+      <div className="icons">
         <Link to="PostNew">
           <img
             src={plus}
             alt="Add a new post"
+            className="sidebarIcon"
             onMouseOver={() => setDetector("addPost")}
             onMouseOut={() => setDetector(false)}
           />
-        </Link>{" "}
-        {detector === "addPost" && <SideBarPop alt="Add a new post" />}
-      </div>
-      <div className="iconAndDescFlex">
+        </Link>
         <Link to="Dms">
           <img
             src={dms}
             alt="Inbox"
+            className="sidebarIcon"
             onMouseOver={() => setDetector("dms")}
             onMouseOut={() => setDetector(false)}
           />
         </Link>
-
-        {detector === "dms" && <SideBarPop alt="Enter your inbox" />}
-      </div>
-      <div className="iconAndDescFlex">
         <Link to="/">
           <img
             src={home}
             alt="home screen"
+            className="sidebarIcon"
             onMouseOver={() => setDetector("home")}
             onMouseOut={() => setDetector(false)}
           />
         </Link>
-
-        {detector === "home" && <SideBarPop alt="Home" />}
-      </div>
-      <div className="iconAndDescFlex">
         <Link to="Account">
           <img
             src={account}
             alt="personalprofile page"
+            className="sidebarIcon"
             onMouseOver={() => setDetector("account")}
             onMouseOut={() => setDetector(false)}
           />
         </Link>
-
+      </div>
+      <div className="secondRow">
+        {detector === "addPost" && <SideBarPop alt="Add a new post" />}
+        {detector === "dms" && <SideBarPop alt="Enter your inbox" />}
+        {detector === "home" && <SideBarPop alt="Home" />}
         {detector === "account" && <SideBarPop alt="Personal account" />}
       </div>
     </div>
