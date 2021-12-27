@@ -7,3 +7,8 @@
 .sidebarIcon {
   width: 50px;
 }
+
+.secondRow {
+  position: absolute;
+  top: 75px;
+}
