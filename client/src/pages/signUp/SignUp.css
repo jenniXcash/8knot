@@ -1,0 +1,14 @@
+.signupPage {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ffffff26;
+  padding: 30px;
+  border-radius: 15px 15px 15px 15px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+  width: 50vw;
+}
+.signupFormGrid {
+  display: grid;
+  grid-template-rows: repeat(5, auto);
+  grid-template-columns: 160px 300px;
+  grid-gap: 16px;
+}

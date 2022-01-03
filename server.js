@@ -15,6 +15,11 @@ app.get("/api/posts/:id", async (req, res) => {
   posts = JSON.parse(posts);
   res.send(posts.find((item) => item.id === +id));
 });
+
+app.get("/api/yeshuvim", async (req, res) => {
+  const names = await readFile("./yeshuvim.json", "utf-8");
+  res.send(names);
+});
 app.listen(8000, () =>
   console.log(
     cowsay.say({

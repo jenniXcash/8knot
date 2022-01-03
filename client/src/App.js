@@ -9,6 +9,7 @@ import Account from "./components/Account/Account";
 import Header from "./components/Header/Header";
 import PostPage from "./pages/PostPage/PostPage";
 import EnlargeThumbnail from "./pages/PostPage/components/EnlargeThumbnail";
+import SignUp from "./pages/signUp/SignUp";
 
 //Style
 import "./App.css";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/Account" element={<Account />} />
           <Route path="/PostPage/:id" element={<PostPage />} />
           <Route path="/EnlargeThumbnail" element={<EnlargeThumbnail />} />
+          <Route path="/SignUp" element={<SignUp />} />
         </Routes>
       </div>
     </React.Fragment>
