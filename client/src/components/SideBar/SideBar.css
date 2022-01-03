@@ -14,3 +14,8 @@
   top: 100px;
   margin-top: 5px;
 }
+
+.secondRow {
+  position: absolute;
+  top: 75px;
+}
