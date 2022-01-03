@@ -12,6 +12,15 @@ export default function SideBar() {
   return (
     <div className="sideBar">
       <div className="icons">
+        <Link to="/">
+          <img
+            src={home}
+            alt="home screen"
+            className="sidebarIcon"
+            onMouseOver={() => setDetector("home")}
+            onMouseOut={() => setDetector(false)}
+          />
+        </Link>
         <Link to="PostNew">
           <img
             src={plus}
@@ -30,15 +39,6 @@ export default function SideBar() {
             onMouseOut={() => setDetector(false)}
           />
         </Link>
-        <Link to="/">
-          <img
-            src={home}
-            alt="home screen"
-            className="sidebarIcon"
-            onMouseOver={() => setDetector("home")}
-            onMouseOut={() => setDetector(false)}
-          />
-        </Link>
         <Link to="Account">
           <img
             src={account}
@@ -50,9 +50,9 @@ export default function SideBar() {
         </Link>
       </div>
       <div className="secondRow">
+        {detector === "home" && <SideBarPop alt="Home" />}
         {detector === "addPost" && <SideBarPop alt="Add a new post" />}
         {detector === "dms" && <SideBarPop alt="Enter your inbox" />}
-        {detector === "home" && <SideBarPop alt="Home" />}
         {detector === "account" && <SideBarPop alt="Personal account" />}
       </div>
     </div>

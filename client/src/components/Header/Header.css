@@ -15,24 +15,20 @@
   flex-grow: 2;
   align-items: center;
   justify-content: space-between;
+  margin-top: 10px;
 }
 
 .searchField {
-  font-size: 1rem;
-  border: 1px solid #8face5;
-  /* background: #c6c5dd; */
+  border: 1px solid white;
+  border-radius: 10px 10px 10px 10px;
+  background: #8face5;
+  opacity: 0.8;
   height: 2rem;
   padding-left: 10px;
+  font-size: inherit;
 }
 ::placeholder {
   color: rgba(0, 0, 0, 1);
-}
-button {
-  color: rgb(0, 0, 0);
-  background: #8face5;
-  height: 34px;
-  border: 1px solid #8face5;
-  font-weight: bold;
 }
 
 .logo {

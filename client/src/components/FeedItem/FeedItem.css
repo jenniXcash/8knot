@@ -1,7 +1,7 @@
 .post {
   background-color: rgb(255, 255, 255);
   border: 1px solid #76767626;
-  border-radius: 0px 0px 15px 15px;
+  border-radius: 15px 15px 15px 15px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
   width: 50vw;
   padding: 30px;

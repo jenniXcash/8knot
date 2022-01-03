@@ -6,4 +6,11 @@
 }
 .sidebarIcon {
   width: 50px;
+  margin-right: 50px;
+}
+.secondRow {
+  color: white;
+  position: absolute;
+  top: 100px;
+  margin-top: 5px;
 }
