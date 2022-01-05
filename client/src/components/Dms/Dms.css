@@ -1,11 +1,22 @@
-.dmsContainer {
+.singleMsgGrid {
+  display: grid;
+  grid-template-columns: 100px 30px 1fr;
+}
+.sendersProfilePic {
+  width: 100px;
+  height: 100px;
+}
+.space {
+  width: 30px;
+  height: 100px;
+}
+.msgDataGrid {
+  display: grid;
+}
+.userNameDateAndTime {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid #76767626;
-  padding: 30px;
-  border-radius: 15px 15px 15px 15px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+  font-weight: bold;
   width: 50vw;
 }
