@@ -5,6 +5,7 @@
   border-radius: 15px 15px 15px 15px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
   width: 50vw;
+  margin-bottom: 20px;
 }
 .postNewFormDiv {
   display: grid;
@@ -19,8 +20,6 @@
 }
 .postNewLabel {
   padding-right: 5px;
-  font-weight: bold;
-  font-size: 16px;
 }
 .typeOfWorkSelect {
   margin-left: 5px;
@@ -36,4 +35,32 @@
 }
 .formButtons > button {
   margin: 10px;
+}
+
+.inputim {
+  border: 1px solid white;
+  border-radius: 10px 10px 10px 10px;
+  background: rgba(143, 172, 229, 0.3);
+  font-size: inherit;
+  padding-left: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
+.formButtons {
+  margin-top: 50px;
+}
+
+.postNewButtons {
+  border: 1px solid white;
+  border-radius: 10px 10px 10px 10px;
+  background: rgba(143, 172, 229, 0.3);
+  opacity: 0.8;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 5px;
+  width: 30%;
+}
+
+.postNewButtons:hover {
+  background: rgba(143, 172, 229, 0.7);
 }
