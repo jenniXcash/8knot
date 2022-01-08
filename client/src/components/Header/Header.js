@@ -12,11 +12,12 @@ export default function Header() {
         </Link>
         <div className="TopBar">
           <form>
-            <input placeholder="search in 8-knot" className="searchField" />
-            {/* <button type="submit">search</button> */}
+            <input placeholder="search in 8knot" className="searchField" />
           </form>
           <SideBar />
-          <p>Log In / Sign-Up</p>
+          <p>
+            Log In/ <Link to="SignUp">Sign-Up</Link>
+          </p>
         </div>
       </div>
     </React.Fragment>

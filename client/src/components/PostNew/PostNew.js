@@ -31,13 +31,13 @@ export default function PostNew() {
             Type of work:
           </label>
           <div className="typeOfWorkSelects">
-            <select className="typeOfWorkSelect">
+            <select className="typeOfWorkSelect inputim">
               <option value="rope access">Rope Access</option>
               <option value="aerial platforms">Aerial Platforms</option>
               <option value="cradels">Cradels</option>
               <option value="mast climbing">Mast Climbing</option>
             </select>
-            <select className="typeOfWorkSelect">
+            <select className="typeOfWorkSelect inputim">
               <option value="null"> </option>
               <option value="window cleaning">window cleaning</option>
               <option value="Sealing">Sealing</option>
@@ -55,12 +55,18 @@ export default function PostNew() {
           <label htmlFor="description" className="postNewLabel">
             Description:
           </label>
-          <textarea name="projectDescription" cols="30" rows="10" />
+          <textarea
+            name="projectDescription"
+            cols="30"
+            rows="10"
+            className="inputim"
+          />
           <label htmlFor="address" className="postNewLabel">
             Address:
           </label>
           <div className="addressInputs">
-            <select className="projetAddress">
+            <select className="projetAddress inputim">
+              <option>Choose settlement</option>
               {yeshuvimNames.map((yeshuv) => {
                 return (
                   <option value={yeshuv} key={yeshuv}>
@@ -69,31 +75,59 @@ export default function PostNew() {
                 );
               })}
             </select>
-            <input type="text" className="addressStreet" placeholder="Street" />
             <input
               type="text"
-              className="houseNum"
+              className="addressStreet inputim"
+              placeholder="Street"
+            />
+            <input
+              type="text"
+              className="houseNum inputim"
               placeholder="House Number"
             />
           </div>
           <label htmlFor="neededEquipment" className="postNewLabel">
             Needed Equipment:{" "}
           </label>
-          <textarea name="projectDescription" rows="4" cols="50" />
+          <textarea
+            name="projectDescription"
+            rows="4"
+            cols="50"
+            className="inputim"
+          />
           <label htmlFor="addImages" className="postNewLabel">
             Add Images:
           </label>
           <div className="addImagesDiv">
-            <input type="file" id="image1" accept="image/png, image/jpeg" />
-            <input type="file" id="image2" accept="image/png, image/jpeg" />
-            <input type="file" id="image3" accept="image/png, image/jpeg" />
-            <input type="file" id="image4" accept="image/png, image/jpeg" />
+            <input
+              type="file"
+              id="image1"
+              accept="image/png, image/jpeg"
+              className="addImageButton"
+            />
+            <input
+              type="file"
+              id="image2"
+              accept="image/png, image/jpeg"
+              className="addImageButton"
+            />
+            <input
+              type="file"
+              id="image3"
+              accept="image/png, image/jpeg"
+              className="addImageButton"
+            />
+            <input
+              type="file"
+              id="image4"
+              accept="image/png, image/jpeg"
+              className="addImageButton"
+            />
           </div>
         </form>
         <div className="formButtons">
-          {" "}
-          <button>Post</button>
-          <button>Reset</button>
+          <button className="postNewButtons">Post</button>
+          <button className="postNewButtons">Reset</button>
         </div>
       </div>
     </React.Fragment>

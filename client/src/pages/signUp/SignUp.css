@@ -6,9 +6,18 @@
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
   width: 50vw;
 }
-.signupFormGrid {
+.signupForm {
   display: grid;
   grid-template-rows: repeat(5, auto);
   grid-template-columns: 160px 300px;
   grid-gap: 16px;
+}
+
+.signupInputim {
+  border: 1px solid white;
+  border-radius: 10px 10px 10px 10px;
+  background: rgba(143, 172, 229, 0.3);
+  font-size: inherit;
+  font-family: "Poppins", sans-serif;
+  padding-left: 10px;
 }

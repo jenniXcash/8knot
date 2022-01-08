@@ -1,6 +1,6 @@
 import React from "react";
 import "./EnlargeThumbnail.css";
-
+import ImgCarousel from "./ImgCarousel/ImgCarousel";
 export default function EnlargeThumbnail({ imageSrc, setImageHover, post }) {
   return (
     <React.Fragment>
@@ -14,12 +14,7 @@ export default function EnlargeThumbnail({ imageSrc, setImageHover, post }) {
             <div className="infoConnectors">IS</div>
             <div className="description">{post.description}</div>
           </div>
-          <img
-            src={imageSrc}
-            alt="realSizeImage"
-            className="rSI"
-            onClick={() => setImageHover(false)}
-          />
+          <ImgCarousel imgURLS={post.images} currentImage={imageSrc} />
         </div>
       </div>
     </React.Fragment>

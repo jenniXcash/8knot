@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { useParams } from "react-router-dom";
 import EnlargeThumbnail from "./components/EnlargeThumbnail";
 import "./PostPage.css";
@@ -32,7 +31,7 @@ export default function PostPage() {
           <div className="images">
             {imageURL.map((src) => (
               <img
-                key={uuidv4()}
+                key={src}
                 src={src}
                 alt="pic"
                 className="image"
@@ -47,7 +46,6 @@ export default function PostPage() {
           imageSrc={imageHover}
           setImageHover={setImageHover}
           post={post}
-          className="enlargeCompo"
         />
       )}
     </React.Fragment>

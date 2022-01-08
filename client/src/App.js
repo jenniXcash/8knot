@@ -9,7 +9,7 @@ import Account from "./components/Account/Account";
 import Header from "./components/Header/Header";
 import PostPage from "./pages/PostPage/PostPage";
 import EnlargeThumbnail from "./pages/PostPage/components/EnlargeThumbnail";
-import SignUp from "./pages/signUp/SignUp";
+import SignUp from "./pages/SignUp/SignUp";
 
 //Style
 import "./App.css";
