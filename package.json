@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/jenniXcash/8knot#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "cowsay": "^1.5.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
