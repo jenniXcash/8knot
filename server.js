@@ -20,6 +20,18 @@ app.get("/api/yeshuvim", async (req, res) => {
   const names = await readFile("./yeshuvim.json", "utf-8");
   res.send(names);
 });
+app.get("/api/messages", async (req, res) => {
+  const messages = await readFile("./messages.json", "utf-8");
+  res.send(messages);
+});
+
+app.get("/api/messages/:id", async (req, res) => {
+  const { id } = req.params;
+  let message = await readFile("./messages.json", "utf-8");
+  message = JSON.parse(message);
+  res.send(message.find((item) => item.id === +id));
+});
+
 app.listen(8000, () =>
   console.log(
     cowsay.say({

@@ -1,22 +1,37 @@
 import React from "react";
-import userPic from "../../icons/account.svg";
+import { useEffect, useState } from "react";
 import "./Dms.css";
+import SingleMsgPreview from "./SinlgeMsgPreview/SinlgeMsgPreview";
 
 export default function Dms() {
+  const [msgs, setMsgs] = useState([]);
+
+  useEffect(() => {
+    const res = fetch("/api/messages");
+    res
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (messages) {
+        setMsgs(messages);
+      });
+  }, []);
   return (
     <React.Fragment>
-      <div className="singleMsgGrid">
-        <div className="sendersProfilePic">
-          <img src={userPic} alt="sendersProfilePic" />
-        </div>
-        <div className="space"></div>
-        <div className="msgDataGrid">
-          <div className="userNameDateAndTime">
-            <div className="sendersUsername">Idan Malka</div>
-            <div className="msgTime">25/1/2022</div>
-          </div>
-          <div className="firstLineOfMsg">first line of msg ...</div>
-        </div>
+      <div className="inbox">
+        {msgs.map((msg) => {
+          return (
+            <SingleMsgPreview
+              key={msg.id}
+              content={msg.content}
+              date={msg.date}
+              id={msg.id}
+              profilePic={msg.profilePic}
+              time={msg.time}
+              userName={msg.userName}
+            />
+          );
+        })}
       </div>
     </React.Fragment>
   );

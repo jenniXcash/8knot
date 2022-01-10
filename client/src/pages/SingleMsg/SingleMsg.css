@@ -1,0 +1,35 @@
+.singleMessageGrid {
+  display: grid;
+  grid-template-columns: 100px 30px auto;
+  grid-template-rows: 100px 1fr;
+  width: 50vw;
+
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #76767626;
+  border-radius: 15px 15px 15px 15px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  margin-bottom: 20px;
+}
+.singleMessageSpacer {
+  width: 100px;
+}
+.singleMessageProfilePic {
+  width: 100px;
+}
+
+.singleMessageNameAndTime {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.singleMessageContent {
+}
+.replyAndDelete {
+  display: flex;
+  justify-content: flex-end;
+}
+.replyAndDeleteSpacer {
+  width: 20px;
+}

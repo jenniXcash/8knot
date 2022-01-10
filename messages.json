@@ -5,7 +5,7 @@
     "userName": "Idan Malka",
     "date": "12/12/21",
     "time": "21:24",
-    "content": "Hallo, my name is Idan and ..."
+    "content": "Hello, my name is Idan and I would like to ask you of you would want to join me in an adventure"
   },
   {
     "id": 1,
@@ -13,7 +13,7 @@
     "userName": "Ram Epshtein",
     "date": "10/12/21",
     "time": "19:05",
-    "content": "Hallo, my name is Ram and ..."
+    "content": "Hello, my name is Ram and ..."
   },
   {
     "id": 2,
@@ -21,6 +21,6 @@
     "userName": "Hadas Gvili",
     "date": "12/12/21",
     "time": "21:24",
-    "content": "Hallo, my name is Hadas and ..."
+    "content": "Hello, my name is Hadas and ..."
   }
 ]
