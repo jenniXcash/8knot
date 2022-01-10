@@ -1,6 +1,6 @@
 import React from "react";
-import "./Dms.css";
 import userPic from "../../icons/account.svg";
+import "./Dms.css";
 
 export default function Dms() {
   return (

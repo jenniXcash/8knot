@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "profilePic": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+    "userName": "Idan Malka",
+    "date": "12/12/21",
+    "time": "21:24",
+    "content": "Hallo, my name is Idan and ..."
+  },
+  {
+    "id": 1,
+    "profilePic": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+    "userName": "Ram Epshtein",
+    "date": "10/12/21",
+    "time": "19:05",
+    "content": "Hallo, my name is Ram and ..."
+  },
+  {
+    "id": 2,
+    "profilePic": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+    "userName": "Hadas Gvili",
+    "date": "12/12/21",
+    "time": "21:24",
+    "content": "Hallo, my name is Hadas and ..."
+  }
+]
