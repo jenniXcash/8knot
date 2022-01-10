@@ -1,4 +1,5 @@
 .postPageContainer {
+  font-family: "Poppins", sans-serif;
   background-color: rgb(255, 255, 255);
   border: 1px solid #76767626;
   border-radius: 15px 15px 15px 15px;
@@ -9,7 +10,17 @@
   flex-direction: column;
   margin-bottom: 20px;
 }
-.image {
+.postPageAttachedImages {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 320px;
+}
+
+.postPageattachedSingleImg {
+  width: 150px; /* width of container */
+  height: 150px; /* height of container */
+  overflow: hidden;
+  margin: 0px 5px 10px 5px;
   cursor: pointer;
-  width: 100px;
 }

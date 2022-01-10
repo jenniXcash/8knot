@@ -12,46 +12,42 @@ export default function FeedItem({
   images,
   id,
 }) {
-  const imageKeys = Object.keys(images);
+  const imageKeys = Object.keys(images).map((key) => {
+    return images[key];
+  });
   return (
     <React.Fragment>
       <Link to={`PostPage/${id}`}>
         <div className="post">
-          <div className="postHeader">
+          <div className="postGrid">
             <div>
-              By:
-              <span className="thin">{userName}</span>
-            </div>
-            <div className="dateAndTime">
+              <div className="bolder">{userName}</div>
               <div>
-                {date} <span className="thin time">{time}</span>
+                {date}
+                {time}
               </div>
             </div>
-          </div>
-          <div>
-            Address:
-            <span className="thin"> {address}</span>
-          </div>
-          <br />
-          <div>
-            Type of work:
-            <span className="thin"> {typeOfWork}</span>
-          </div>
-          <br />
-          <div>
-            What we gonna do:
-            <span className="thin"> {description}</span>
-          </div>
-          <br />
-          <div className="thumbnailsInPost">
-            {imageKeys.map((src) => (
-              <img
-                src={images[src]}
-                alt="thumbnail"
-                className="thumbnail"
-                key={images[src]}
-              />
-            ))}
+
+            <div></div>
+            <div class="bolder">Type Of Work: </div>
+            <div>{typeOfWork}</div>
+            <div className="bolder">Description:</div>
+            <div>{description}</div>
+            <div className="bolder">Address: </div>
+            <div>{address}</div>
+            <div></div>
+            <div className="attachedImagesToPost">
+              {imageKeys.map((image) => {
+                return (
+                  <img
+                    src={image}
+                    key={image}
+                    alt="pic which is attached to the post"
+                    className="attachedImg"
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </Link>

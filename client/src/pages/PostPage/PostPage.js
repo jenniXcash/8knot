@@ -15,29 +15,45 @@ export default function PostPage() {
       .then((res) => res.json())
       .then((post) => {
         setPosts(post);
-        let tempArray = Object.keys(post.images).map((e) => {
-          return post.images[e];
-        });
-        setImageURL(tempArray);
+        setImageURL(
+          Object.keys(post.images).map((e) => {
+            return post.images[e];
+          })
+        );
       });
   }, [id]);
   return (
     <React.Fragment>
       {post && (
         <div className="postPageContainer">
-          <div>{post.description}</div>
-          <div>{post.address}</div>
+          <div className="postGrid">
+            <div>
+              <div className="bolder">{post.userName}</div>
+              <div>
+                {post.date}
+                {post.time}
+              </div>
+            </div>
 
-          <div className="images">
-            {imageURL.map((src) => (
-              <img
-                key={src}
-                src={src}
-                alt="pic"
-                className="image"
-                onClick={() => setImageHover(src)}
-              />
-            ))}
+            <div></div>
+            <div class="bolder">Type Of Work: </div>
+            <div>{post.typeOfWork}</div>
+            <div className="bolder">Description:</div>
+            <div>{post.description}</div>
+            <div className="bolder">Address: </div>
+            <div>{post.address}</div>
+            <div></div>
+            <div className="postPageAttachedImages">
+              {imageURL.map((src) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt="pic"
+                  className="postPageattachedSingleImg"
+                  onClick={() => setImageHover(src)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       )}

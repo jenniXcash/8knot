@@ -1,6 +1,5 @@
 .post {
   font-family: "Poppins", sans-serif;
-  font-weight: bold;
   background-color: rgb(255, 255, 255);
   border: 1px solid #76767626;
   border-radius: 15px 15px 15px 15px;
@@ -14,36 +13,34 @@
 .post:hover {
   box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.15);
 }
+
+.postGrid {
+  display: grid;
+  grid-template-rows: repeat(5, auto);
+  grid-template-columns: 160px 300px;
+  grid-gap: 16px;
+}
 a:link,
 a:active,
 a:hover {
   color: black;
 }
-.postHeader {
+
+.bolder {
+  font-weight: 600;
+}
+
+.attachedImagesToPost {
   display: flex;
   flex-direction: row;
-  margin-bottom: 20px;
-  justify-content: space-around;
-}
-.dateAndTime {
-  display: flex;
-  margin: 0px 30px 0px 30px;
-  font-weight: lighter;
-}
-.time {
-  padding-left: 15px;
+  flex-wrap: wrap;
+  width: 320px;
 }
 
-.thin {
-  font-weight: lighter;
-  padding-left: 5px;
-}
-
-.thumbnailsInPost {
-  display: flex;
-  margin: 30px;
-}
-
-.thumbnail {
-  width: 100px;
+.attachedImg {
+  width: 150px; /* width of container */
+  height: 150px; /* height of container */
+  object-fit: cover;
+  object-position: 20% 10%;
+  margin: 0px 5px 10px 5px;
 }

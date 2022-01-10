@@ -6,7 +6,7 @@ export default function EnlargeThumbnail({ imageSrc, setImageHover, post }) {
     <React.Fragment>
       <div className="realSizedImage">
         <div className="close" onClick={() => setImageHover(false)}>
-          X
+          Close
         </div>
         <div className="secondRowInEnlargedThumbnail">
           <div className="info">

@@ -15,6 +15,8 @@ export default function PostNew() {
         setSetlmentList(names.result.records);
       });
   }, []);
+
+  //mapping a new array so we would get it filtered of unwanted objects and sorted alphabetacly
   const yeshuvimNames = setlmentList
     .map((e) => {
       return e.שם_ישוב;
@@ -47,7 +49,7 @@ export default function PostNew() {
               <option value="anti-bird nets">Installing anti-bird nets</option>
               <option value="window repeairs">Window Repairs</option>
               <option value="welding">Welding</option>
-              <option value="hanging signs">Hanging Signs</option>
+              <option value="Sign Hanging">Sign Hanging</option>
 
               <option value="other">Other</option>
             </select>

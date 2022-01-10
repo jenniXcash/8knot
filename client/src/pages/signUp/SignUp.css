@@ -1,3 +1,6 @@
+.heading {
+  margin-bottom: 40px;
+}
 .signupPage {
   background-color: rgb(255, 255, 255);
   border: 1px solid #ffffff26;
@@ -13,11 +16,42 @@
   grid-gap: 16px;
 }
 
+.signupFormSelect {
+  background-color: rgba(143, 172, 229, 0.3);
+  border-radius: 10px 10px 10px 10px;
+  border: none;
+  padding-left: 10px;
+}
 .signupInputim {
-  border: 1px solid white;
+  border: none;
   border-radius: 10px 10px 10px 10px;
   background: rgba(143, 172, 229, 0.3);
   font-size: inherit;
   font-family: "Poppins", sans-serif;
   padding-left: 10px;
+}
+
+.signupFormSpacer {
+  height: 50px;
+  color: rgb(255, 255, 255);
+}
+
+.signupFormCheackbox {
+  justify-self: end;
+}
+
+.signupFormButtons {
+  border: 1px solid white;
+  border-radius: 10px 10px 10px 10px;
+  background: rgba(143, 172, 229, 0.3);
+  opacity: 0.8;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 5px;
+  width: 30%;
+  margin-top: 50px;
+}
+
+.signupFormButtons:hover {
+  background: rgba(143, 172, 229, 0.7);
 }
