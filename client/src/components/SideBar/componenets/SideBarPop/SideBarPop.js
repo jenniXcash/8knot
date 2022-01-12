@@ -1,4 +1,4 @@
 import "./SideBarPop.css";
-export default function SideBarPop(props) {
-  return <div className="pop">{props.alt}</div>;
+export default function SideBarPop({ alt }) {
+  return <div className="pop">{alt}</div>;
 }

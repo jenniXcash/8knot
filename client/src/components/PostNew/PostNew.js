@@ -126,11 +126,12 @@ export default function PostNew() {
               className="addImageButton"
             />
           </div>
+          <div></div>
+          <div className="formButtons">
+            <button className="postNewButtons">Post</button>
+            <button className="postNewButtons">Reset</button>
+          </div>
         </form>
-        <div className="formButtons">
-          <button className="postNewButtons">Post</button>
-          <button className="postNewButtons">Reset</button>
-        </div>
       </div>
     </React.Fragment>
   );

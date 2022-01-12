@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./SingleMsg.css";
 import { useParams } from "react-router-dom";
-import Reply from "../../components/Reply/Reply";
-import Delete from "../../components/Delete/Delete";
+import SendMsg from "../../components/SendMsg/SendMsg";
+import replyIcon from "../../icons/reply.svg";
+import deleteIcon from "../../icons/delete.svg";
 export default function SingleMsg() {
   const { id } = useParams();
   const [message, setMessage] = useState([]);
+  const [sendMessage, setSendMessage] = useState(false);
   useEffect(() => {
     fetch(`/api/messages/${id}`)
       .then((res) => res.json())
@@ -13,6 +15,10 @@ export default function SingleMsg() {
         setMessage(message);
       });
   }, [id]);
+
+  function openCloseSendingWindow() {
+    setSendMessage(!sendMessage);
+  }
   return (
     <React.Fragment>
       <div className="singleMessageGrid">
@@ -36,11 +42,27 @@ export default function SingleMsg() {
         <div></div>
         <div className="singleMessageSpacer"></div>
         <div className="replyAndDelete">
-          <Reply />
+          <img
+            src={replyIcon}
+            alt="reply button"
+            className="singleMessageTools"
+            onClick={openCloseSendingWindow}
+          />
           <div className="replyAndDeleteSpacer"></div>
-          <Delete />
+          <img
+            src={deleteIcon}
+            alt="Delete Message"
+            className="singleMessageTools"
+          />
         </div>
       </div>
+      {sendMessage && (
+        <SendMsg
+          reciever={message.userName}
+          recieversProfilePic={message.profilePic}
+          openOrClose={openCloseSendingWindow}
+        />
+      )}
     </React.Fragment>
   );
 }
