@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.css";
-import Feed from "../../components/Feed/Feed";
+import Feed from "../Feed/Feed";
 function Home() {
   return (
     <React.Fragment>

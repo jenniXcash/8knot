@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import "./Dms.css";
-import SingleMsgPreview from "./SinlgeMsgPreview/SinlgeMsgPreview";
+import SingleMsgPreview from "../../components/SinlgeMsgPreview/SinlgeMsgPreview";
 
 export default function Dms() {
   const [msgs, setMsgs] = useState([]);

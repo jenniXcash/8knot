@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import FeedItem from "../FeedItem/FeedItem";
+import FeedItem from "../../components/FeedItem/FeedItem";
 import "./Feed.css";
 export default function Feed() {
   const [posts, setPosts] = useState([]);
