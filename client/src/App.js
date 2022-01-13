@@ -8,7 +8,7 @@ import Dms from "./pages/Dms/Dms";
 import Account from "./pages/Account/Account";
 import Header from "./components/Header/Header";
 import PostPage from "./pages/PostPage/PostPage";
-import EnlargeThumbnail from "./pages/PostPage/components/EnlargeThumbnail";
+import EnlargeThumbnail from "./components/EnlargeThumbnail/EnlargeThumbnail";
 import SignUp from "./pages/SignUp/SignUp";
 import SingleMsg from "./pages/SingleMsg/SingleMsg";
 

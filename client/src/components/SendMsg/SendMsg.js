@@ -9,9 +9,6 @@ export default function SendMsg({
   return (
     <React.Fragment>
       <div className="sendMsgContainer">
-        <div className="closeSendMsg" onClick={openOrClose}>
-          X
-        </div>
         <div className="sendMsgGrid">
           <img
             src={recieversProfilePic}
@@ -19,7 +16,12 @@ export default function SendMsg({
             className="recieversProfilePic"
           />
           <div className="sendMsgSpacer"></div>
-          <div className="recieversName">To: {reciever}</div>
+          <div className="sendMsgheaderFlex">
+            <div className="recieversName">To: {reciever}</div>
+            <div className="closeSendMsg" onClick={openOrClose}>
+              X
+            </div>
+          </div>
           <div></div> <div className="sendMsgSpacer"></div>
           <form>
             <textarea className="newMessageText" rows="8" cols="50"></textarea>

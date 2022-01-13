@@ -29,7 +29,7 @@ export default function FeedItem({
             </div>
 
             <div></div>
-            <div class="bolder">Type Of Work: </div>
+            <div className="bolder">Type Of Work: </div>
             <div>{typeOfWork}</div>
             <div className="bolder">Description:</div>
             <div>{description}</div>

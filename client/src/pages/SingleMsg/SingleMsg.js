@@ -21,39 +21,44 @@ export default function SingleMsg() {
   }
   return (
     <React.Fragment>
-      <div className="singleMessageGrid">
-        <div className="singleMessageProfilePic">
-          <img
-            src={message.profilePic}
-            alt="Senders Profile Pic"
-            className="singleMessageProfilePic"
-          />
-        </div>
-        <div className="singleMessageSpacer"></div>
-        <div className="singleMessageNameAndTime">
-          <div className="singleMessageUserName">{message.userName}</div>
-          <div className="singleMessageTimeAndDate">
-            {message.date} / {message.time}
+      <div className="singleMessageContainer">
+        <div className="singleMessageGrid">
+          <div className="singleMessageProfilePic">
+            <img
+              src={message.profilePic}
+              alt="Senders Profile Pic"
+              className="singleMessageProfilePic"
+            />
           </div>
+          <div className="singleMessageSpacer"></div>
+          <div className="singleMessageNameAndTime">
+            <div className="singleMessageUserName">{message.userName}</div>
+            <div className="singleMessageTimeAndDate">
+              {message.date} / {message.time}
+            </div>
+          </div>
+          <div></div>
+          <div className="singleMessageSpacer"></div>
+          <div className="singleMessageContent">{message.content}</div>
         </div>
-        <div></div>
-        <div className="singleMessageSpacer"></div>
-        <div className="singleMessageContent">{message.content}</div>
-        <div></div>
-        <div className="singleMessageSpacer"></div>
-        <div className="replyAndDelete">
-          <img
-            src={replyIcon}
-            alt="reply button"
-            className="singleMessageTools"
-            onClick={openCloseSendingWindow}
-          />
-          <div className="replyAndDeleteSpacer"></div>
-          <img
-            src={deleteIcon}
-            alt="Delete Message"
-            className="singleMessageTools"
-          />
+        <div className="singleMessageTools">
+          <div className="tooltip">
+            <img
+              src={replyIcon}
+              alt="reply button"
+              className="replyButton"
+              onClick={openCloseSendingWindow}
+            />
+            <span className="tooltiptext">Reply</span>
+          </div>
+          <div className="tooltip">
+            <img
+              src={deleteIcon}
+              alt="Delete Message"
+              className="deleteButton"
+            />
+            <span className="tooltiptext">Delete</span>
+          </div>
         </div>
       </div>
       {sendMessage && (

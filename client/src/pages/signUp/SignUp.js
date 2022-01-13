@@ -28,16 +28,16 @@ export default function SignUp() {
       <div className="signupPage">
         <h1 className="heading">Sign Up to 8Knot</h1>
         <form className="signupForm">
-          <label for="firstName">First Name:</label>
+          <label htmlFor="firstName">First Name:</label>
           <input type="text" className="signupInputim" />
-          <label for="lastName">Last Name:</label>
+          <label htmlFor="lastName">Last Name:</label>
           <input type="text" className="signupInputim" />
-          <label for="email">Email address: </label>
+          <label htmlFor="email">Email address: </label>
           <input type="email" className="signupInputim" />
-          <label for="phoneNumber">Phone Number:</label>
+          <label htmlFor="phoneNumber">Phone Number:</label>
           <input type="text" className="signupInputim" />
-          <label for="region">Region:</label>
-          <select className="signupFormSelect">
+          {/* <label htmlFor="region">Region:</label> */}
+          {/* <select className="signupFormSelect">
             <option> </option>
             <option>--North</option>
             <option value="Golan Height">Golan Height</option>
@@ -63,8 +63,8 @@ export default function SignUp() {
             <option value="Western Negev">Western Negev</option>
             <option value="Southern Negev">Southern Negev</option>
             <option value="Arabah">Arabah</option>
-          </select>
-          <label for="address">City: </label>
+          </select> */}
+          <label htmlFor="address">City: </label>
           <select className="signupFormSelect">
             <option>Choose setlment</option>
             {yeshuvimNames.map((yeshuv) => {
@@ -79,7 +79,7 @@ export default function SignUp() {
           <div className="signupFormSpacer"></div>
           <div className="signupFormSpacer"></div>
 
-          <label for="certification">Certification:</label>
+          <label htmlFor="certification">Certification:</label>
           <div></div>
           <input
             type="checkbox"
@@ -88,7 +88,7 @@ export default function SignUp() {
             value="Rope Access Technician"
             className="signupFormCheackbox"
           />
-          <label for="certificate1">Rope Access Technician</label>
+          <label htmlForr="certificate1">Rope Access Technician</label>
           <input
             type="checkbox"
             id="cerificate2"
@@ -96,7 +96,7 @@ export default function SignUp() {
             value="Height Worker"
             className="signupFormCheackbox"
           />
-          <label for="certificate2">Height Worker</label>
+          <label htmlFor="certificate2">Height Worker</label>
           <input
             type="checkbox"
             id="certificate3"
@@ -104,12 +104,12 @@ export default function SignUp() {
             value="Mast Climber"
             className="signupFormCheackbox"
           />
-          <label for="certificate3">Mast Climber</label>
+          <label htmlFor="certificate3">Mast Climber</label>
 
           <div className="signupFormSpacer"></div>
           <div className="signupFormSpacer"></div>
 
-          <label for="prefered jobs">Prefered Jobs:</label>
+          <label htmlFor="prefered jobs">Prefered Jobs:</label>
           <div></div>
           <input
             type="checkbox"
@@ -118,7 +118,7 @@ export default function SignUp() {
             value="Window Cleaning"
             className="signupFormCheackbox"
           />
-          <label for="preferedJob1">Window Cleaning</label>
+          <label htmlFor="preferedJob1">Window Cleaning</label>
           <input
             type="checkbox"
             id="preferdJob2"
@@ -126,7 +126,7 @@ export default function SignUp() {
             value="Sealing"
             className="signupFormCheackbox"
           />
-          <label for="preferedJob2">Sealing</label>
+          <label htmlFor="preferedJob2">Sealing</label>
           <input
             type="checkbox"
             id="preferedJob3"
@@ -134,7 +134,7 @@ export default function SignUp() {
             value="Concrete Reconstruction"
             className="signupFormCheackbox"
           />
-          <label for="preferedJob3">Concrete Reconstruction</label>
+          <label htmlFor="preferedJob3">Concrete Reconstruction</label>
           <input
             type="checkbox"
             id="preferedJob4"
@@ -142,7 +142,7 @@ export default function SignUp() {
             value="Anti-Bird Nets Installing"
             className="signupFormCheackbox"
           />
-          <label for="preferedJob4">Anti-Bird Nets Installing</label>
+          <label htmlFor="preferedJob4">Anti-Bird Nets Installing</label>
           <input
             type="checkbox"
             id="preferedJob5"
@@ -150,7 +150,7 @@ export default function SignUp() {
             value="Window Repairs"
             className="signupFormCheackbox"
           />
-          <label for="preferdJob5">Window Repairs</label>
+          <label htmlFor="preferdJob5">Window Repairs</label>
           <input
             type="checkbox"
             id="preferedJob6"
@@ -158,7 +158,7 @@ export default function SignUp() {
             value="welding"
             className="signupFormCheackbox"
           />
-          <label for="preferedJob6">Welding</label>
+          <label htmlFor="preferedJob6">Welding</label>
           <input
             type="checkbox"
             id="preferedJob7"
@@ -166,7 +166,7 @@ export default function SignUp() {
             value="Sign Hanging"
             className="signupFormCheackbox"
           />
-          <label for="preferedJob7">Sign Hanging</label>
+          <label htmlFor="preferedJob7">Sign Hanging</label>
           <div></div>
           <div>
             <button className="signupFormButtons">Save</button>

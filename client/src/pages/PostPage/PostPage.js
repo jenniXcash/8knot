@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import EnlargeThumbnail from "./components/EnlargeThumbnail";
+import EnlargeThumbnail from "../../components/EnlargeThumbnail/EnlargeThumbnail";
 import "./PostPage.css";
 
 export default function PostPage() {

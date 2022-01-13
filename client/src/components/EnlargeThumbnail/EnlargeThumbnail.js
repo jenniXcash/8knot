@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./EnlargeThumbnail.css";
-import ImgCarousel from "./ImgCarousel/ImgCarousel";
+import ImgCarousel from "../ImgCarousel/ImgCarousel";
 export default function EnlargeThumbnail({ imageSrc, setImageHover, post }) {
+  useEffect(() => {
+    document.querySelector(".realSizedImage").style.scrollbar = "hidden";
+    return () => {
+      document.querySelector(".realSizedImage").style.scrollbar = "visible";
+    };
+  });
   return (
     <React.Fragment>
       <div className="realSizedImage">
