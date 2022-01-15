@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import FeedItemTooltip from "../FeedItemTooltip/FeedItemTooltip";
 import "./FeedItem.css";
 
 export default function FeedItem({
@@ -17,8 +18,8 @@ export default function FeedItem({
   });
   return (
     <React.Fragment>
-      <Link to={`PostPage/${id}`}>
-        <div className="post">
+      <div className="post">
+        <Link to={`PostPage/${id}`}>
           <div className="postGrid">
             <div>
               <div className="bolder">{userName}</div>
@@ -49,8 +50,9 @@ export default function FeedItem({
               })}
             </div>
           </div>
-        </div>
-      </Link>
+        </Link>
+        <FeedItemTooltip userName={userName} />
+      </div>
     </React.Fragment>
   );
 }

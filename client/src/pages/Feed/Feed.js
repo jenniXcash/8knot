@@ -1,6 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import FeedItem from "../../components/FeedItem/FeedItem";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import "./Feed.css";
 export default function Feed() {
   const [posts, setPosts] = useState([]);
@@ -21,7 +23,7 @@ export default function Feed() {
   return (
     <React.Fragment>
       <div className="feedItems">
-        {loading && <div className="loading">Loading</div>}
+        {loading && <CircularProgress />}
         {posts.map(
           ({
             userName,

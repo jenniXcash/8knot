@@ -88,7 +88,7 @@ export default function SignUp() {
             value="Rope Access Technician"
             className="signupFormCheackbox"
           />
-          <label htmlForr="certificate1">Rope Access Technician</label>
+          <label htmlFor="certificate1">Rope Access Technician</label>
           <input
             type="checkbox"
             id="cerificate2"

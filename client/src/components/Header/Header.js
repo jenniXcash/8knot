@@ -15,9 +15,9 @@ export default function Header() {
             <input placeholder="search in 8knot" className="searchField" />
           </form>
           <SideBar />
-          <p>
+          <div>
             Log In/ <Link to="SignUp">Sign-Up</Link>
-          </p>
+          </div>
         </div>
       </div>
     </React.Fragment>

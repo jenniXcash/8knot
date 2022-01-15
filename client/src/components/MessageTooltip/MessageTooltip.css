@@ -1,19 +1,25 @@
-.sideBar {
+.singleMessageTools {
   display: flex;
-  align-content: space-between;
-}
-.sidebarIcon {
-  width: 40px;
-  height: 34.55px;
-  margin-right: 50px;
+  justify-content: flex-end;
+  /* gap: 30px; */
+  height: 24px;
+  cursor: pointer;
+  margin: 30px 10px 0px 10px;
 }
 
-.topbarTooltip {
+.replyButton:hover,
+.deleteButton:hover {
+  background-color: rgb(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+
+/* Start of styling the popups on buttons */
+.tooltip {
   position: relative;
   display: inline-block;
 }
 
-.topbarTooltip .topbarTooltipText {
+.tooltip .tooltiptext {
   visibility: hidden;
   width: 110px;
   background-color: rgba(0, 0, 0, 0.5);
@@ -25,16 +31,16 @@
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
-  top: 120%;
-  left: 25%;
+  top: 150%;
+  left: 50%;
   margin-left: -60px;
 }
 
-.topbarTooltip:hover .topbarTooltipText {
+.tooltip:hover .tooltiptext {
   visibility: visible;
 }
 
-.topbarTooltip .topbarTooltipText::after {
+.tooltip .tooltiptext::after {
   content: " ";
   position: absolute;
   bottom: 100%; /* At the top of the tooltip */

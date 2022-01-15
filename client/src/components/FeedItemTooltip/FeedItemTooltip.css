@@ -1,0 +1,37 @@
+.dots {
+  background-color: rgba(143, 172, 229, 0.3);
+  width: 1rem;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.dots:hover {
+  background-color: rgba(143, 172, 229, 0.7);
+}
+.onlyDots {
+  font-weight: bold;
+}
+
+.xxx {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  background-color: rgba(143, 172, 229, 0.3);
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+}
+.xxx > * {
+  display: flex;
+  flex-direction: row;
+  justify-items: baseline;
+  margin-top: 5px;
+  gap: 10px;
+}
+.xxx > *:hover {
+  background-color: rgba(143, 172, 229, 0.7);
+}
