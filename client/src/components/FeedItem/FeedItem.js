@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import FeedItemTooltip from "../FeedItemTooltip/FeedItemTooltip";
 import "./FeedItem.css";
@@ -13,9 +14,16 @@ export default function FeedItem({
   images,
   id,
 }) {
+  const [replyMsg, setReplyMsg] = useState(false);
+
   const imageKeys = Object.keys(images).map((key) => {
     return images[key];
   });
+
+  function replyPost() {
+    setReplyMsg(!replyMsg);
+  }
+
   return (
     <React.Fragment>
       <div className="post">
@@ -51,7 +59,11 @@ export default function FeedItem({
             </div>
           </div>
         </Link>
-        <FeedItemTooltip userName={userName} />
+        <FeedItemTooltip
+          userName={userName}
+          openOrClose={replyPost}
+          replyMsg={replyMsg}
+        />
       </div>
     </React.Fragment>
   );

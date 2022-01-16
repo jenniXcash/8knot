@@ -16,7 +16,6 @@ import SingleMsg from "./pages/SingleMsg/SingleMsg";
 import "./App.css";
 
 function App() {
-  // const [enlargedThumbnail, setEnlargedThumbnail] = useSatat(false);
   return (
     <React.Fragment>
       <Header />

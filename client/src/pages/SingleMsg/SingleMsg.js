@@ -18,9 +18,11 @@ export default function SingleMsg() {
         setLoader(false);
       });
   }, [id]);
+
   function openCloseSendingWindow() {
     setReplyMessage(!replyMessage);
   }
+
   return (
     <React.Fragment>
       <div className="singleMessageContainer">

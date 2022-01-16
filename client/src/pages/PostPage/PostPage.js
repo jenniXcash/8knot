@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import EnlargeThumbnail from "../../components/EnlargeThumbnail/EnlargeThumbnail";
+import FeedItemTooltip from "../../components/FeedItemTooltip/FeedItemTooltip";
 import "./PostPage.css";
 
 export default function PostPage() {
@@ -55,6 +56,7 @@ export default function PostPage() {
               ))}
             </div>
           </div>
+          <FeedItemTooltip userName={post.userName} />
         </div>
       )}
       {imageHover && (

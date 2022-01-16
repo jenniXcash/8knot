@@ -17,6 +17,7 @@ export default function Dms() {
         setMsgs(messages);
       });
   }, []);
+
   return (
     <React.Fragment>
       <div className="inbox">

@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
-import "./EnlargeThumbnail.css";
+import React from "react";
+import { useEffect } from "react";
 import ImgCarousel from "../ImgCarousel/ImgCarousel";
+import "./EnlargeThumbnail.css";
 export default function EnlargeThumbnail({ imageSrc, setImageHover, post }) {
   useEffect(() => {
-    document.querySelector(".realSizedImage").style.scrollbar = "hidden";
+    document.querySelector(".realSizedImage").style.overflow = "hidden";
     return () => {
-      document.querySelector(".realSizedImage").style.scrollbar = "visible";
+      document.querySelector(".realSizedImage").style.overflow = "visible";
     };
   });
   return (

@@ -1,5 +1,4 @@
 import React from "react";
-import MessageTooltip from "../MessageTooltip/MessageTooltip";
 import { Link } from "react-router-dom";
 import "./SinlgeMsgPreview.css";
 
@@ -34,7 +33,6 @@ export default function SingleMsgPreview({
           </div>
           <div></div>
           <div></div>
-          <MessageTooltip />
         </div>
       </Link>
     </React.Fragment>
