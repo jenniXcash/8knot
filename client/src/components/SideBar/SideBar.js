@@ -19,7 +19,7 @@ export default function SideBar() {
         <Link to="PostNew">
           <img src={plus} alt="Add a new post" className="sidebarIcon" />
         </Link>
-        <span className="topbarTooltipText">Make a new post</span>
+        <span className="topbarTooltipText">Add post</span>
       </div>
 
       <div className="topbarTooltip">

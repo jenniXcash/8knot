@@ -1,6 +1,6 @@
 .sendMsgContainer {
-  position: absolute;
-  z-index: 1;
+  /* position: absolute;
+  z-index: 1; */
   /* width: 100vw;
   height: 100vh; */
 
@@ -10,13 +10,13 @@
   justify-content: center; */
 }
 .sendMsgGrid {
-  background-color: rgb(255, 255, 255);
+  /* background-color: rgb(255, 255, 255);
   border: 1px solid #ffffff26;
   padding: 30px;
   border-radius: 15px 15px 15px 15px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
   width: 50vw;
-  margin-bottom: 20px;
+  margin-bottom: 20px; */
 
   display: grid;
   grid-template-columns: 100px 30px auto;
@@ -52,6 +52,10 @@
   font-size: inherit;
   padding-left: 10px;
   font-family: "Poppins", sans-serif;
+
+}
+.newMessageText:focus{
+outline: none;
 }
 
 .sendMsgButton {

@@ -8,17 +8,34 @@ export default function Feed() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  function getData(term) {
+    if (term) {
+      const res = fetch(`api/posts/?term=${term}`);
+      setLoading(true);
+      res
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (posts) {
+          setPosts(posts);
+          setLoading(false);
+        });
+    } else {
+      const res = fetch(`api/posts`);
+      setLoading(true);
+      res
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (posts) {
+          setPosts(posts);
+          setLoading(false);
+        });
+    }
+  }
+
   useEffect(() => {
-    const res = fetch("/api/posts");
-    setLoading(true);
-    res
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (posts) {
-        setPosts(posts);
-        setLoading(false);
-      });
+    getData();
   }, []);
   return (
     <React.Fragment>

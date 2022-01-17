@@ -47,14 +47,15 @@ export default function SingleMsg() {
           <div className="singleMessageContent">{message.content}</div>
         </div>
         <MessageTooltip openCloseSendingWindow={openCloseSendingWindow} />
-      </div>
-      {replyMessage && (
+         {replyMessage && (
         <SendMsg
           reciever={message.userName}
           recieversProfilePic={message.profilePic}
           openOrClose={openCloseSendingWindow}
         />
       )}
+      </div>
+     
     </React.Fragment>
   );
 }

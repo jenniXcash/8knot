@@ -27,6 +27,9 @@
   padding-left: 10px;
   font-size: inherit;
 }
+.searchField:focus {
+  outline: none;
+}
 ::placeholder {
   color: rgba(0, 0, 0, 1);
   font-weight: lighter;
