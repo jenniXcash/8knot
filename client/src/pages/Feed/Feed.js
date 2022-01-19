@@ -1,42 +1,41 @@
 import React from "react";
-import { useEffect, useState } from "react";
 import FeedItem from "../../components/FeedItem/FeedItem";
 import CircularProgress from "@mui/material/CircularProgress";
-
 import "./Feed.css";
-export default function Feed() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
+export default function Feed({ posts, loading }) {
+  // const [posts, setPosts] = useState([]);
+  // const [loading, setLoading] = useState(false);
 
-  function getData(term) {
-    if (term) {
-      const res = fetch(`api/posts/?term=${term}`);
-      setLoading(true);
-      res
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (posts) {
-          setPosts(posts);
-          setLoading(false);
-        });
-    } else {
-      const res = fetch(`api/posts`);
-      setLoading(true);
-      res
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (posts) {
-          setPosts(posts);
-          setLoading(false);
-        });
-    }
-  }
+  // function getData(term) {
+  //   if (term) {
+  //     const res = fetch(`api/posts/?term=${term}`);
+  //     setLoading(true);
+  //     res
+  //       .then(function (response) {
+  //         return response.json();
+  //       })
+  //       .then(function (posts) {
+  //         setPosts(posts);
+  //         setLoading(false);
+  //       });
+  //   } else {
+  //     const res = fetch(`api/posts`);
+  //     setLoading(true);
+  //     res
+  //       .then(function (response) {
+  //         return response.json();
+  //       })
+  //       .then(function (posts) {
+  //         setPosts(posts);
+  //         setLoading(false);
+  //       });
+  //   }
+  // }
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // });
+
   return (
     <React.Fragment>
       <div className="feedItems">
@@ -50,11 +49,11 @@ export default function Feed() {
             typeOfWork,
             description,
             images,
-            id,
+            _id,
           }) => (
             <FeedItem
-              key={id}
-              id={id}
+              key={_id}
+              id={_id}
               userName={userName}
               date={date}
               time={time}

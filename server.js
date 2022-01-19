@@ -20,6 +20,8 @@ app.get("/api/posts", async (req, res) => {
   const { term } = req.query;
   try {
     if (term) {
+      console.log(term);
+
       res.send(
         await Post.find({ description: { $regex: term, $options: "gi" } })
       );

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../images/logo.svg";
 import SideBar from "../SideBar/SideBar";
-export default function Header() {
+export default function Header({ setSearch }) {
+  console.log("header render");
   return (
     <React.Fragment>
       <div className="headerGrid">
@@ -13,6 +14,13 @@ export default function Header() {
         <div className="TopBar">
           <form>
             <input placeholder="search in 8knot" className="searchField" />
+            <input
+              type="submit"
+              value="Search"
+              onClick={() => {
+                setSearch(document.querySelector(".searchField").value);
+              }}
+            />
           </form>
           <SideBar />
           <div>
