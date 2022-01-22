@@ -1,6 +1,6 @@
 import React from "react";
-import FeedItem from "../../components/FeedItem/FeedItem";
-import CircularProgress from "@mui/material/CircularProgress";
+// import FeedItem from "../../components/FeedItem/FeedItem";
+// import CircularProgress from "@mui/material/CircularProgress";
 import "./Feed.css";
 export default function Feed({ posts, loading }) {
   // const [posts, setPosts] = useState([]);
@@ -38,7 +38,7 @@ export default function Feed({ posts, loading }) {
 
   return (
     <React.Fragment>
-      <div className="feedItems">
+      {/* <div className="feedItems">
         {loading && <CircularProgress />}
         {posts.map(
           ({
@@ -64,7 +64,7 @@ export default function Feed({ posts, loading }) {
             />
           )
         )}
-      </div>
+      </div> */}
     </React.Fragment>
   );
 }

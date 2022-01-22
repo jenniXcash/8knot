@@ -1,9 +1,13 @@
 import React from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../images/logo.svg";
 import SideBar from "../SideBar/SideBar";
-export default function Header({ setSearch }) {
+import SearchPostsContext from "../../context/SearchPostsContext";
+export default function Header() {
+  const { setSearch } = useContext(SearchPostsContext);
+
   console.log("header render");
   return (
     <React.Fragment>
@@ -12,15 +16,20 @@ export default function Header({ setSearch }) {
           <img src={logo} alt="8knot logo" className="logo" />
         </Link>
         <div className="TopBar">
-          <form>
-            <input placeholder="search in 8knot" className="searchField" />
+          <form action={`/api/posts/`} method="get">
             <input
-              type="submit"
-              value="Search"
+              placeholder="search in 8knot"
+              className="searchField"
+              name="term"
+            />
+            <div
+              role="button"
               onClick={() => {
                 setSearch(document.querySelector(".searchField").value);
               }}
-            />
+            >
+              Search
+            </div>
           </form>
           <SideBar />
           <div>

@@ -2,6 +2,15 @@ body {
   background: rgb(255, 255, 255);
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
 .mainFrame {
   display: flex;
   align-items: center;
