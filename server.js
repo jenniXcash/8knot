@@ -16,6 +16,21 @@ const Post = mongoose.model("Post", {
   images: { type: Object, required: false },
 });
 
+const Users = mongoose.model("User", {
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  dataOfCreation: { type: String, required: true },
+  gender: { type: String, required: false },
+  emailAddress: { type: String, required: true },
+  phoneNumber: { type: String, required: false },
+  city: { type: String, required: false },
+  certification: { type: Object, required: true },
+  preferedJobs: { type: Object, required: true },
+});
+
+app.get("/", async (req, res) => {
+  res.send("satan is real");
+});
 app.get("/api/posts", async (req, res) => {
   const { term } = req.query;
   try {
@@ -57,6 +72,13 @@ app.get("/api/messages/:id", async (req, res) => {
   let message = await readFile("./messages.json", "utf-8");
   message = JSON.parse(message);
   res.send(message.find((item) => item.id === +id));
+});
+
+app.post("api/users", async (req, res) => {
+  const newUser = req.query;
+  console.log(req.query);
+  Users.insertOne({ newUser });
+  res.send("New user has been added");
 });
 
 mongoose.connect(`mongodb://127.0.0.1/8knot`, (err) => {

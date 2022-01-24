@@ -3,6 +3,23 @@ import "./SignUp.css";
 export default function SignUp() {
   const [setlmentList, setSetlmentList] = useState([]);
 
+  let newUserData = {
+    certification: {
+      ropeAccessTechnician: false,
+      heightWorker: false,
+      mastClimber: false,
+    },
+  };
+
+  // function postNewUser(newUser) {
+  //   const res = fetch(`api/users/?${newUser}`);
+  //   res
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then(setNewUserDetails(newUser));
+  // }
+
   useEffect(() => {
     const res = fetch(
       "https://data.gov.il/api/3/action/datastore_search?resource_id=5c78e9fa-c2e2-4771-93ff-7f400a12f7ba&limit=9000"
@@ -23,49 +40,57 @@ export default function SignUp() {
     })
     .filter((e) => e !== "לא רשום ")
     .sort();
+  console.log(newUserData);
   return (
     <React.Fragment>
       <div className="signupPage">
         <h1 className="heading">Sign Up to 8Knot</h1>
+        {/* start of Signup form */}
         <form className="signupForm">
           <label htmlFor="firstName">First Name:</label>
-          <input type="text" className="signupInputim" />
+          <input
+            type="text"
+            className="signupInputim"
+            onChange={(e) => {
+              newUserData.firstName = e.target.value;
+              console.log(newUserData);
+            }}
+          />
           <label htmlFor="lastName">Last Name:</label>
-          <input type="text" className="signupInputim" />
+          <input
+            type="text"
+            className="signupInputim"
+            onChange={(e) => {
+              newUserData.lastName = e.target.value;
+              console.log(newUserData);
+            }}
+          />
           <label htmlFor="email">Email address: </label>
-          <input type="email" className="signupInputim" />
+          <input
+            type="email"
+            className="signupInputim"
+            onChange={(e) => {
+              newUserData.emailAddress = e.target.value;
+              console.log(newUserData);
+            }}
+          />
           <label htmlFor="phoneNumber">Phone Number:</label>
-          <input type="text" className="signupInputim" />
-          {/* <label htmlFor="region">Region:</label> */}
-          {/* <select className="signupFormSelect">
-            <option> </option>
-            <option>--North</option>
-            <option value="Golan Height">Golan Height</option>
-            <option value="Northern Galilee">Northern Galilee</option>
-            <option value="Eastern Galilee">Eastern Galilee</option>
-            <option value="Southern Galilee">Southern Galilee</option>
-            <option value="Carmel Region">Carmel Region</option>
-            <option value="Jordan Valley">Jordan Valley</option>
-            <option> </option>
-            <option>--Center</option>
-            <option value="Hasharon">Hasharon</option>
-            <option value="Tel-Aviv metro">Tel-Aviv Metropolitan</option>
-            <option value="Shfela">Shfela</option>
-            <option value="Jerusalem">Jerusalem</option>
-            <option value="Judea and Samaria">Judea and Samaria</option>
-            <option> </option>
-            <option>--South</option>
-            <option value="Southern Coastal Plain">
-              Southern Coastal Plain
-            </option>
-            <option value="Lakhish">Lakhish</option>
-            <option value="Northern Negev">Northern Negev</option>
-            <option value="Western Negev">Western Negev</option>
-            <option value="Southern Negev">Southern Negev</option>
-            <option value="Arabah">Arabah</option>
-          </select> */}
+          <input
+            type="text"
+            className="signupInputim"
+            onChange={(e) => {
+              newUserData.phoneNumber = e.target.value;
+              console.log(newUserData);
+            }}
+          />
           <label htmlFor="address">City: </label>
-          <select className="signupFormSelect">
+          <select
+            className="signupFormSelect"
+            onChange={(e) => {
+              newUserData.city = e.target.value;
+              console.log(newUserData);
+            }}
+          >
             <option>Choose setlment</option>
             {yeshuvimNames.map((yeshuv) => {
               return (
@@ -87,6 +112,10 @@ export default function SignUp() {
             name="certificate1"
             value="Rope Access Technician"
             className="signupFormCheackbox"
+            onChange={(e) => {
+              newUserData.certification.ropeAccessTechnician = e.target.checked;
+              console.log(newUserData);
+            }}
           />
           <label htmlFor="certificate1">Rope Access Technician</label>
           <input
@@ -95,6 +124,10 @@ export default function SignUp() {
             name="certificate2"
             value="Height Worker"
             className="signupFormCheackbox"
+            onChange={(e) => {
+              newUserData.certification.heightWorker = e.target.checked;
+              console.log(newUserData);
+            }}
           />
           <label htmlFor="certificate2">Height Worker</label>
           <input
@@ -103,6 +136,10 @@ export default function SignUp() {
             name="certificate3"
             value="Mast Climber"
             className="signupFormCheackbox"
+            onChange={(e) => {
+              newUserData.certification.mastClimber = e.target.checked;
+              console.log(newUserData);
+            }}
           />
           <label htmlFor="certificate3">Mast Climber</label>
 
@@ -173,6 +210,7 @@ export default function SignUp() {
             <button className="signupFormButtons">Reset</button>
           </div>
         </form>
+        {/* End of signup form */}
       </div>
     </React.Fragment>
   );

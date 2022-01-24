@@ -1,8 +1,8 @@
 //Librarys
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-//Style
+//Style,
 import "./App.css";
 //Pages&Components
 import Home from "./pages/Home/Home";
@@ -13,26 +13,41 @@ import PostPage from "./pages/PostPage/PostPage";
 import EnlargeThumbnail from "./components/EnlargeThumbnail/EnlargeThumbnail";
 import SignUp from "./pages/SignUp/SignUp";
 import SingleMsg from "./pages/SingleMsg/SingleMsg";
-import SearchPostsResults from "./pages/SearchPostsResults/SearchPostsResults";
 import Header from "./components/Header/Header";
 import SearchPostsContext from "./context/SearchPostsContext";
+
 function App() {
   const [search, setSearch] = useState("");
-  console.log("search in App:" + search);
+  const [posts, setPosts] = useState([]);
+
+  function getPosts(term) {
+    console.log(term);
+    const res = fetch(`api/posts/?term=${term}`);
+    res
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (posts) {
+        setPosts(posts);
+      });
+  }
+  useEffect(() => {
+    getPosts(search);
+    console.log("used effect, search is:" + search);
+  }, [search]);
+
   return (
     <React.Fragment>
-      <SearchPostsContext.Provider value={{ search, setSearch }}>
+      <SearchPostsContext.Provider
+        value={{ search, setSearch, posts, getPosts }}
+      >
         <div className="header">
           <Header />
         </div>
         <div className="mainFrame">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/api/posts/"
-              element={<SearchPostsResults />}
-              search={search}
-            />
+
             <Route path="/PostNew" element={<PostNew />} />
             <Route path="/Dms" element={<Dms />} />
             <Route path="/Account" element={<Account />} />

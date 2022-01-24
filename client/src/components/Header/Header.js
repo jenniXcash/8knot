@@ -6,9 +6,8 @@ import logo from "../../images/logo.svg";
 import SideBar from "../SideBar/SideBar";
 import SearchPostsContext from "../../context/SearchPostsContext";
 export default function Header() {
-  const { setSearch } = useContext(SearchPostsContext);
-
-  console.log("header render");
+  const { getPosts } = useContext(SearchPostsContext);
+  let searchValue;
   return (
     <React.Fragment>
       <div className="headerGrid">
@@ -16,21 +15,19 @@ export default function Header() {
           <img src={logo} alt="8knot logo" className="logo" />
         </Link>
         <div className="TopBar">
-          <form action={`/api/posts/`} method="get">
-            <input
-              placeholder="search in 8knot"
-              className="searchField"
-              name="term"
-            />
-            <div
-              role="button"
-              onClick={() => {
-                setSearch(document.querySelector(".searchField").value);
-              }}
-            >
-              Search
-            </div>
-          </form>
+          <input
+            placeholder="search in 8knot"
+            className="searchField"
+            name="term"
+            onChange={(e) => (searchValue = e.target.value)}
+          />
+          <button
+            onClick={() => {
+              getPosts(searchValue);
+            }}
+          >
+            Search
+          </button>
           <SideBar />
           <div>
             Log In/ <Link to="SignUp">Sign-Up</Link>
