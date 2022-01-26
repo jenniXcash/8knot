@@ -16,16 +16,16 @@ const Post = mongoose.model("Post", {
   images: { type: Object, required: false },
 });
 
-const Users = mongoose.model("User", {
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  dataOfCreation: { type: String, required: true },
-  gender: { type: String, required: false },
-  emailAddress: { type: String, required: true },
-  phoneNumber: { type: String, required: false },
-  city: { type: String, required: false },
-  certification: { type: Object, required: true },
-  preferedJobs: { type: Object, required: true },
+const User = mongoose.model("User", {
+  firstName: { type: String },
+  lastName: { type: String },
+  dateOfCreation: { type: String },
+  gender: { type: String },
+  emailAddress: { type: String },
+  phoneNumber: { type: String },
+  city: { type: String },
+  certification: { type: Object },
+  preferedJobs: { type: Object },
 });
 
 app.get("/", async (req, res) => {
@@ -74,10 +74,34 @@ app.get("/api/messages/:id", async (req, res) => {
   res.send(message.find((item) => item.id === +id));
 });
 
-app.post("api/users", async (req, res) => {
-  const newUser = req.query;
-  console.log(req.query);
-  Users.insertOne({ newUser });
+app.post("/api/users", async (req, res) => {
+  console.log(req.body);
+
+  const {
+    firstName,
+    lastName,
+    dateOfCreation,
+    gender,
+    emailAddress,
+    phoneNumber,
+    city,
+    certification,
+    preferedJobs,
+  } = req.body;
+
+  const addUser = new User({
+    firstName: firstName,
+    lastName: lastName,
+    dateOfCreation: dateOfCreation,
+    gender: gender,
+    emailAddress: emailAddress,
+    phoneNumber: phoneNumber,
+    city: city,
+    certification: certification,
+    preferedJobs: preferedJobs,
+  });
+
+  await addUser.save(addUser);
   res.send("New user has been added");
 });
 

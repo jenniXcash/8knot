@@ -4,22 +4,58 @@ export default function SignUp() {
   const [setlmentList, setSetlmentList] = useState([]);
 
   let newUserData = {
+    firstName: "",
+    lastName: "",
+    dateOfCreation: "",
+    gender: "",
+    emailAddress: "",
+    phoneNumber: "",
+    city: "",
     certification: {
       ropeAccessTechnician: false,
       heightWorker: false,
       mastClimber: false,
     },
+    preferedJobs: {
+      windowCleaning: false,
+      sealing: false,
+      concreteReconstruction: false,
+      antiBirdNetsInstalling: false,
+      windowRepairs: false,
+      welding: false,
+      signHanging: false,
+    },
   };
+  const testUser = {
+    firstName: "hadasashvili",
+    lastName: "michalevich",
+    dateOfCreation: "12/12/12",
+    gender: "male",
+    emailAddress: "mals",
+    phoneNumber: "mals",
+    city: "אבו-גוש",
+    certification: { 1: "true" },
+    preferedJobs: { 1: "true" },
+  };
+  //adding a new user to the system
+  function postNewUser(newUserData) {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newUserData),
+    };
 
-  // function postNewUser(newUser) {
-  //   const res = fetch(`api/users/?${newUser}`);
-  //   res
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then(setNewUserDetails(newUser));
-  // }
+    const res = fetch(`api/users`, requestOptions);
+    res
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response);
+      });
+  }
 
+  //fetching a list of settlments from a .gov API
   useEffect(() => {
     const res = fetch(
       "https://data.gov.il/api/3/action/datastore_search?resource_id=5c78e9fa-c2e2-4771-93ff-7f400a12f7ba&limit=9000"
@@ -40,7 +76,6 @@ export default function SignUp() {
     })
     .filter((e) => e !== "לא רשום ")
     .sort();
-  console.log(newUserData);
   return (
     <React.Fragment>
       <div className="signupPage">
@@ -154,6 +189,10 @@ export default function SignUp() {
             name="preferedJob1"
             value="Window Cleaning"
             className="signupFormCheackbox"
+            onChange={(e) => {
+              newUserData.preferedJobs.windowCleaning = e.target.checked;
+              console.log(newUserData);
+            }}
           />
           <label htmlFor="preferedJob1">Window Cleaning</label>
           <input
@@ -162,6 +201,10 @@ export default function SignUp() {
             name="preferedJob2"
             value="Sealing"
             className="signupFormCheackbox"
+            onChange={(e) => {
+              newUserData.preferedJobs.sealing = e.target.checked;
+              console.log(newUserData);
+            }}
           />
           <label htmlFor="preferedJob2">Sealing</label>
           <input
@@ -170,6 +213,11 @@ export default function SignUp() {
             name="preferedJob3"
             value="Concrete Reconstruction"
             className="signupFormCheackbox"
+            onChange={(e) => {
+              newUserData.preferedJobs.concreteReconstruction =
+                e.target.checked;
+              console.log(newUserData);
+            }}
           />
           <label htmlFor="preferedJob3">Concrete Reconstruction</label>
           <input
@@ -178,6 +226,11 @@ export default function SignUp() {
             name="preferedJob4"
             value="Anti-Bird Nets Installing"
             className="signupFormCheackbox"
+            onChange={(e) => {
+              newUserData.preferedJobs.antiBirdNetsInstalling =
+                e.target.checked;
+              console.log(newUserData);
+            }}
           />
           <label htmlFor="preferedJob4">Anti-Bird Nets Installing</label>
           <input
@@ -186,6 +239,10 @@ export default function SignUp() {
             name="preferedJob5"
             value="Window Repairs"
             className="signupFormCheackbox"
+            onChange={(e) => {
+              newUserData.preferedJobs.windowRepairs = e.target.checked;
+              console.log(newUserData);
+            }}
           />
           <label htmlFor="preferdJob5">Window Repairs</label>
           <input
@@ -194,6 +251,10 @@ export default function SignUp() {
             name="welding"
             value="welding"
             className="signupFormCheackbox"
+            onChange={(e) => {
+              newUserData.preferedJobs.welding = e.target.checked;
+              console.log(newUserData);
+            }}
           />
           <label htmlFor="preferedJob6">Welding</label>
           <input
@@ -202,11 +263,20 @@ export default function SignUp() {
             name="preferedJob7"
             value="Sign Hanging"
             className="signupFormCheackbox"
+            onChange={(e) => {
+              newUserData.preferedJobs.signHanging = e.target.checked;
+              console.log(newUserData);
+            }}
           />
           <label htmlFor="preferedJob7">Sign Hanging</label>
           <div></div>
           <div>
-            <button className="signupFormButtons">Save</button>
+            <button
+              className="signupFormButtons"
+              onClick={() => postNewUser(newUserData)}
+            >
+              Save
+            </button>
             <button className="signupFormButtons">Reset</button>
           </div>
         </form>
