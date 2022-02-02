@@ -106,25 +106,9 @@ export default function PostNew() {
               id="image1"
               accept="image/png, image/jpeg"
               className="addImageButton"
+              multiple
             />
-            <input
-              type="file"
-              id="image2"
-              accept="image/png, image/jpeg"
-              className="addImageButton"
-            />
-            <input
-              type="file"
-              id="image3"
-              accept="image/png, image/jpeg"
-              className="addImageButton"
-            />
-            <input
-              type="file"
-              id="image4"
-              accept="image/png, image/jpeg"
-              className="addImageButton"
-            />
+            <div style={{ fontSize: "0.9rem" }}>* Up to 4 files</div>
           </div>
           <div></div>
           <div className="formButtons">

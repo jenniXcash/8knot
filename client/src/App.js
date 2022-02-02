@@ -15,6 +15,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import SingleMsg from "./pages/SingleMsg/SingleMsg";
 import Header from "./components/Header/Header";
 import SearchPostsContext from "./context/SearchPostsContext";
+import NewUserAdded from "./pages/newUserAdded/NewUserAdded";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -33,7 +34,6 @@ function App() {
   }
   useEffect(() => {
     getPosts(search);
-    console.log("used effect, search is:" + search);
   }, [search]);
 
   return (
@@ -47,7 +47,6 @@ function App() {
         <div className="mainFrame">
           <Routes>
             <Route path="/" element={<Home />} />
-
             <Route path="/PostNew" element={<PostNew />} />
             <Route path="/Dms" element={<Dms />} />
             <Route path="/Account" element={<Account />} />
@@ -56,6 +55,7 @@ function App() {
             <Route path="/SignUp" element={<SignUp />} />
             <Route path="/SingleMsg" element={<SingleMsg />} />
             <Route path="/SingleMsg/:id" element={<SingleMsg />} />
+            <Route path="/NewUserAdded" element={<NewUserAdded />} />
           </Routes>
         </div>
       </SearchPostsContext.Provider>

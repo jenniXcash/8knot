@@ -2,9 +2,18 @@ import Express from "express";
 import { readFile } from "fs/promises";
 import mongoose from "mongoose";
 import cowsay from "cowsay";
-import { stringify } from "querystring";
+import dotenv from "dotenv";
+import cloudinary from "cloudinary";
+
 const app = Express();
-app.use(Express.json());
+app.use(Express.json({ limit: "50mb" }));
+app.use(Express.urlencoded({ limit: "50mb", extended: true }));
+dotenv.config();
+cloudinary.config({
+  cloud_name: "eight-knot",
+  api_key: "585755652983716",
+  api_secret: "Jn-1O2L-7Seji1BystbM7mbAoi4",
+});
 
 const Post = mongoose.model("Post", {
   userName: { type: String, required: true },
@@ -19,6 +28,7 @@ const Post = mongoose.model("Post", {
 const User = mongoose.model("User", {
   firstName: { type: String },
   lastName: { type: String },
+  profilePic: { type: String },
   dateOfCreation: { type: String },
   gender: { type: String },
   emailAddress: { type: String },
@@ -27,6 +37,8 @@ const User = mongoose.model("User", {
   certification: { type: Object },
   preferedJobs: { type: Object },
 });
+
+// Posts
 
 app.get("/", async (req, res) => {
   res.send("satan is real");
@@ -58,10 +70,15 @@ app.get("/api/posts/:id", async (req, res) => {
   }
 });
 
+// Israeli setlments
+
 app.get("/api/yeshuvim", async (req, res) => {
   const names = await readFile("./yeshuvim.json", "utf-8");
   res.send(names);
 });
+
+// Messages
+
 app.get("/api/messages", async (req, res) => {
   const messages = await readFile("./messages.json", "utf-8");
   res.send(messages);
@@ -74,36 +91,70 @@ app.get("/api/messages/:id", async (req, res) => {
   res.send(message.find((item) => item.id === +id));
 });
 
-app.post("/api/users", async (req, res) => {
-  console.log(req.body);
+// Users
 
-  const {
-    firstName,
-    lastName,
-    dateOfCreation,
-    gender,
-    emailAddress,
-    phoneNumber,
-    city,
-    certification,
-    preferedJobs,
-  } = req.body;
-
-  const addUser = new User({
-    firstName: firstName,
-    lastName: lastName,
-    dateOfCreation: dateOfCreation,
-    gender: gender,
-    emailAddress: emailAddress,
-    phoneNumber: phoneNumber,
-    city: city,
-    certification: certification,
-    preferedJobs: preferedJobs,
-  });
-
-  await addUser.save(addUser);
-  res.send("New user has been added");
+app.get("/api/users", async (req, res) => {
+  res.send(await User.find());
 });
+
+app.post("/api/users", async (req, res) => {
+  try {
+    const ppStr = req.body.data;
+
+    const uploadedResponse = await cloudinary.uploader.upload(ppStr, {
+      upload_presets: "profilePics",
+    });
+
+    console.log("req.body.userData", req.body.userData);
+    console.log(uploadedResponse.url);
+
+    const {
+      firstName,
+      lastName,
+      dateOfCreation,
+      emailAddress,
+      phoneNumber,
+      city,
+      certification,
+      preferedJobs,
+      profilePic,
+    } = req.body.userData;
+
+    const addUser = new User({
+      firstName: firstName,
+      lastName: lastName,
+      profilePic: uploadedResponse.url,
+      dateOfCreation: ` ${new Date()}`,
+      emailAddress: emailAddress,
+      phoneNumber: phoneNumber,
+      city: city,
+      certification: certification,
+      preferedJobs: preferedJobs,
+    });
+
+    await addUser.save(addUser);
+    console.log("New user has been added");
+
+    res.send("New user has been added");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// app.post("/api/ppupload", async (req, res) => {
+//   try {
+//     const fileStr = req.body.data;
+//     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+//       upload_presets: "profilePics",
+//     });
+//     console.log(uploadedResponse.url);
+//   } catch (error) {
+//     console.log(error);
+//     res
+//       .status(500)
+//       .json({ err: "in the case that something went horribly wrong" });
+//   }
+// });
 
 mongoose.connect(`mongodb://127.0.0.1/8knot`, (err) => {
   if (err) {

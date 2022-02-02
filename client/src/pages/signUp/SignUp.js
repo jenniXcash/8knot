@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./SignUp.css";
 export default function SignUp() {
   const [setlmentList, setSetlmentList] = useState([]);
-
-  let newUserData = {
+  const [previewSource, setPreviewSource] = useState("");
+  const [newUserData, setNewUserData] = useState({
     firstName: "",
     lastName: "",
-    dateOfCreation: "",
-    gender: "",
+    profilePic: "",
     emailAddress: "",
     phoneNumber: "",
     city: "",
@@ -25,36 +24,7 @@ export default function SignUp() {
       welding: false,
       signHanging: false,
     },
-  };
-  const testUser = {
-    firstName: "hadasashvili",
-    lastName: "michalevich",
-    dateOfCreation: "12/12/12",
-    gender: "male",
-    emailAddress: "mals",
-    phoneNumber: "mals",
-    city: "אבו-גוש",
-    certification: { 1: "true" },
-    preferedJobs: { 1: "true" },
-  };
-  //adding a new user to the system
-  function postNewUser(newUserData) {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUserData),
-    };
-
-    const res = fetch(`api/users`, requestOptions);
-    res
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        console.log(response);
-      });
-  }
-
+  });
   //fetching a list of settlments from a .gov API
   useEffect(() => {
     const res = fetch(
@@ -76,18 +46,73 @@ export default function SignUp() {
     })
     .filter((e) => e !== "לא רשום ")
     .sort();
+
+  //adding a new user to the system
+  async function postNewUser(newUserData, base64EncodedImage) {
+    const body = JSON.stringify({
+      data: base64EncodedImage,
+      userData: newUserData,
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+    };
+    const res = await fetch(`api/users`, requestOptions);
+    const json = await res.json();
+  }
+
+  //uploading the profile pic
+  function handleFileInputChange(e) {
+    const file = e.target.files[0];
+    previewFile(file);
+  }
+
+  function previewFile(file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  }
+
+  // function handleSubmitFile(e) {
+  //   e.preventDefault();
+  //   if (!previewSource) return;
+  //   uploadImage(previewSource);
+  //   postNewUser(newUserData);
+  // }
+
+  // async function uploadImage(base64EncodedImage) {
+  //   try {
+  //     const requestOptions = {
+  //       method: "POST",
+  //       body: JSON.stringify({ data: base64EncodedImage }),
+  //       headers: { "Content-Type": "application/json" },
+  //     };
+  //     await fetch("api/upload", requestOptions);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
   return (
     <React.Fragment>
       <div className="signupPage">
         <h1 className="heading">Sign Up to 8Knot</h1>
         {/* start of Signup form */}
-        <form className="signupForm">
+        <div
+          className="signupForm"
+          // onSubmit={handleSubmitFile}
+          // action="/NewUserAdded"
+        >
           <label htmlFor="firstName">First Name:</label>
           <input
             type="text"
             className="signupInputim"
             onChange={(e) => {
-              newUserData.firstName = e.target.value;
+              setNewUserData({ ...newUserData, firstName: e.target.value });
               console.log(newUserData);
             }}
           />
@@ -96,16 +121,33 @@ export default function SignUp() {
             type="text"
             className="signupInputim"
             onChange={(e) => {
-              newUserData.lastName = e.target.value;
+              setNewUserData({ ...newUserData, lastName: e.target.value });
               console.log(newUserData);
             }}
           />
+          <label htmlFor="addProfilePic">Add profile picture: </label>
+
+          <input
+            type="file"
+            name="profilePicture"
+            id="profilePicture"
+            accept="image/*"
+            onChange={handleFileInputChange}
+          />
+          {previewSource && <div>Preview: </div>}
+          {previewSource && (
+            <img
+              src={previewSource}
+              alt="chosen"
+              style={{ width: "250px", borderRadius: "50%" }}
+            />
+          )}
           <label htmlFor="email">Email address: </label>
           <input
             type="email"
             className="signupInputim"
             onChange={(e) => {
-              newUserData.emailAddress = e.target.value;
+              setNewUserData({ ...newUserData, emailAddress: e.target.value });
               console.log(newUserData);
             }}
           />
@@ -114,7 +156,7 @@ export default function SignUp() {
             type="text"
             className="signupInputim"
             onChange={(e) => {
-              newUserData.phoneNumber = e.target.value;
+              setNewUserData({ ...newUserData, phoneNumber: e.target.value });
               console.log(newUserData);
             }}
           />
@@ -148,8 +190,13 @@ export default function SignUp() {
             value="Rope Access Technician"
             className="signupFormCheackbox"
             onChange={(e) => {
-              newUserData.certification.ropeAccessTechnician = e.target.checked;
-              console.log(newUserData);
+              setNewUserData({
+                ...newUserData,
+                preferedJobs: {
+                  ...newUserData.certification,
+                  ropeAccessTechnician: e.target.checked,
+                },
+              });
             }}
           />
           <label htmlFor="certificate1">Rope Access Technician</label>
@@ -160,8 +207,13 @@ export default function SignUp() {
             value="Height Worker"
             className="signupFormCheackbox"
             onChange={(e) => {
-              newUserData.certification.heightWorker = e.target.checked;
-              console.log(newUserData);
+              setNewUserData({
+                ...newUserData,
+                preferedJobs: {
+                  ...newUserData.certification,
+                  heightWorker: e.target.checked,
+                },
+              });
             }}
           />
           <label htmlFor="certificate2">Height Worker</label>
@@ -172,8 +224,13 @@ export default function SignUp() {
             value="Mast Climber"
             className="signupFormCheackbox"
             onChange={(e) => {
-              newUserData.certification.mastClimber = e.target.checked;
-              console.log(newUserData);
+              setNewUserData({
+                ...newUserData,
+                preferedJobs: {
+                  ...newUserData.certification,
+                  mastClimber: e.target.checked,
+                },
+              });
             }}
           />
           <label htmlFor="certificate3">Mast Climber</label>
@@ -190,7 +247,13 @@ export default function SignUp() {
             value="Window Cleaning"
             className="signupFormCheackbox"
             onChange={(e) => {
-              newUserData.preferedJobs.windowCleaning = e.target.checked;
+              setNewUserData({
+                ...newUserData,
+                preferedJobs: {
+                  ...newUserData.preferedJobs,
+                  windowCleaning: e.target.checked,
+                },
+              });
               console.log(newUserData);
             }}
           />
@@ -202,8 +265,13 @@ export default function SignUp() {
             value="Sealing"
             className="signupFormCheackbox"
             onChange={(e) => {
-              newUserData.preferedJobs.sealing = e.target.checked;
-              console.log(newUserData);
+              setNewUserData({
+                ...newUserData,
+                preferedJobs: {
+                  ...newUserData.preferedJobs,
+                  sealing: e.target.checked,
+                },
+              });
             }}
           />
           <label htmlFor="preferedJob2">Sealing</label>
@@ -214,9 +282,13 @@ export default function SignUp() {
             value="Concrete Reconstruction"
             className="signupFormCheackbox"
             onChange={(e) => {
-              newUserData.preferedJobs.concreteReconstruction =
-                e.target.checked;
-              console.log(newUserData);
+              setNewUserData({
+                ...newUserData,
+                preferedJobs: {
+                  ...newUserData.preferedJobs,
+                  concreteReconstruction: e.target.checked,
+                },
+              });
             }}
           />
           <label htmlFor="preferedJob3">Concrete Reconstruction</label>
@@ -227,9 +299,13 @@ export default function SignUp() {
             value="Anti-Bird Nets Installing"
             className="signupFormCheackbox"
             onChange={(e) => {
-              newUserData.preferedJobs.antiBirdNetsInstalling =
-                e.target.checked;
-              console.log(newUserData);
+              setNewUserData({
+                ...newUserData,
+                preferedJobs: {
+                  ...newUserData.preferedJobs,
+                  antiBirdNetsInstalling: e.target.checked,
+                },
+              });
             }}
           />
           <label htmlFor="preferedJob4">Anti-Bird Nets Installing</label>
@@ -240,8 +316,13 @@ export default function SignUp() {
             value="Window Repairs"
             className="signupFormCheackbox"
             onChange={(e) => {
-              newUserData.preferedJobs.windowRepairs = e.target.checked;
-              console.log(newUserData);
+              setNewUserData({
+                ...newUserData,
+                preferedJobs: {
+                  ...newUserData.preferedJobs,
+                  windowRepairs: e.target.checked,
+                },
+              });
             }}
           />
           <label htmlFor="preferdJob5">Window Repairs</label>
@@ -252,8 +333,13 @@ export default function SignUp() {
             value="welding"
             className="signupFormCheackbox"
             onChange={(e) => {
-              newUserData.preferedJobs.welding = e.target.checked;
-              console.log(newUserData);
+              setNewUserData({
+                ...newUserData,
+                preferedJobs: {
+                  ...newUserData.preferedJobs,
+                  welding: e.target.checked,
+                },
+              });
             }}
           />
           <label htmlFor="preferedJob6">Welding</label>
@@ -264,22 +350,30 @@ export default function SignUp() {
             value="Sign Hanging"
             className="signupFormCheackbox"
             onChange={(e) => {
-              newUserData.preferedJobs.signHanging = e.target.checked;
-              console.log(newUserData);
+              setNewUserData({
+                ...newUserData,
+                preferedJobs: {
+                  ...newUserData.preferedJobs,
+                  signHanging: e.target.checked,
+                },
+              });
             }}
           />
           <label htmlFor="preferedJob7">Sign Hanging</label>
           <div></div>
           <div>
             <button
+              type="submit"
               className="signupFormButtons"
-              onClick={() => postNewUser(newUserData)}
+              onClick={() => {
+                postNewUser(newUserData, previewSource);
+              }}
             >
               Save
             </button>
             <button className="signupFormButtons">Reset</button>
           </div>
-        </form>
+        </div>
         {/* End of signup form */}
       </div>
     </React.Fragment>
