@@ -16,13 +16,14 @@ cloudinary.config({
 });
 
 const Post = mongoose.model("Post", {
-  userName: { type: String, required: true },
-  date: { type: String, required: true },
-  time: { type: String, required: true },
-  address: { type: String, required: true },
-  typeOfWork: { type: String, required: true },
-  description: { type: String, required: true },
-  images: { type: Object, required: false },
+  userName: { type: String },
+  date: { type: String },
+  time: { type: String },
+  address: { type: String },
+  typeOfWork: { type: String },
+  description: { type: String },
+  equipment: { type: String },
+  images: { type: Object },
 });
 
 const User = mongoose.model("User", {
@@ -100,13 +101,9 @@ app.get("/api/users", async (req, res) => {
 app.post("/api/users", async (req, res) => {
   try {
     const ppStr = req.body.data;
-
     const uploadedResponse = await cloudinary.uploader.upload(ppStr, {
       upload_presets: "profilePics",
     });
-
-    console.log("req.body.userData", req.body.userData);
-    console.log(uploadedResponse.url);
 
     const {
       firstName,
@@ -131,7 +128,6 @@ app.post("/api/users", async (req, res) => {
       certification: certification,
       preferedJobs: preferedJobs,
     });
-
     await addUser.save(addUser);
     console.log("New user has been added");
 
@@ -140,21 +136,6 @@ app.post("/api/users", async (req, res) => {
     console.log(error);
   }
 });
-
-// app.post("/api/ppupload", async (req, res) => {
-//   try {
-//     const fileStr = req.body.data;
-//     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
-//       upload_presets: "profilePics",
-//     });
-//     console.log(uploadedResponse.url);
-//   } catch (error) {
-//     console.log(error);
-//     res
-//       .status(500)
-//       .json({ err: "in the case that something went horribly wrong" });
-//   }
-// });
 
 mongoose.connect(`mongodb://127.0.0.1/8knot`, (err) => {
   if (err) {
