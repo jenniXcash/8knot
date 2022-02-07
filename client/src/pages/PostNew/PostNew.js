@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./PostNew.css";
 export default function PostNew() {
   const [setlmentList, setSetlmentList] = useState([]);
-  const [picsList, setPicsLIst] = useState([]);
+  const [picsList, setPicsList] = useState([]);
   const [postData, setPostData] = useState({
     userName: "",
     date: "",
@@ -36,12 +36,34 @@ export default function PostNew() {
     .filter((e) => e !== "לא רשום ")
     .sort();
 
-  function handleFileInputChange(e) {
-    const files = e.target.files;
-    const filesAsUrl = [...e.target.files];
-    const reader = new FileReader();
+  function toBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  }
 
-    console.log(filesAsUrl);
+  async function tobase64Handler(files) {
+    const filePathsPromises = [];
+    files.forEach((file) => {
+      filePathsPromises.push(toBase64(file));
+    });
+    const filePaths = await Promise.all(filePathsPromises);
+    // const mappedFiles = filePaths.map((base64File) => ({
+    //   selectedFile: base64File,
+    // }));
+    return filePaths;
+  }
+
+  async function handleFileInputChange(e) {
+    const reader = new FileReader();
+    const files = [...e.target.files];
+    const mappedFiles = await tobase64Handler(files);
+    setPicsList(mappedFiles);
+    console.log(mappedFiles);
+    console.log(picsList);
   }
 
   return (
