@@ -164,7 +164,7 @@ export default function SignUp() {
           <select
             className="signupFormSelect"
             onChange={(e) => {
-              newUserData.city = e.target.value;
+              setNewUserData({ ...newUserData, city: e.target.value });
               console.log(newUserData);
             }}
           >

@@ -2,6 +2,18 @@ import React, { useEffect, useState } from "react";
 import "./PostNew.css";
 export default function PostNew() {
   const [setlmentList, setSetlmentList] = useState([]);
+  const [picsList, setPicsLIst] = useState([]);
+  const [postData, setPostData] = useState({
+    userName: "",
+    date: "",
+    time: "",
+    address: "",
+    method: "",
+    typeOfWork: "",
+    description: "",
+    images: "",
+    equipment: "",
+  });
 
   useEffect(() => {
     const res = fetch(
@@ -24,22 +36,43 @@ export default function PostNew() {
     .filter((e) => e !== "לא רשום ")
     .sort();
 
+  function handleFileInputChange(e) {
+    const files = e.target.files;
+    const filesAsUrl = [...e.target.files];
+    const reader = new FileReader();
+
+    console.log(filesAsUrl);
+  }
+
   return (
     <React.Fragment>
       <div className="postNewGrid">
         <h1 className="heading">Post a new post</h1>
-        <form className="postNewFormDiv">
+        <div className="postNewFormDiv">
           <label htmlFor="type of work" className="postNewLabel">
             Type of work:
           </label>
           <div className="typeOfWorkSelects">
-            <select className="typeOfWorkSelect inputim">
+            <select
+              className="typeOfWorkSelect inputim"
+              onChange={(e) => {
+                setPostData({ ...postData, method: e.target.value });
+                console.log(postData);
+              }}
+            >
+              <option value="null"> </option>
               <option value="rope access">Rope Access</option>
               <option value="aerial platforms">Aerial Platforms</option>
               <option value="cradels">Cradels</option>
               <option value="mast climbing">Mast Climbing</option>
             </select>
-            <select className="typeOfWorkSelect inputim">
+            <select
+              className="typeOfWorkSelect inputim"
+              onChange={(e) => {
+                setPostData({ ...postData, typeOfWork: e.target.value });
+                console.log(postData);
+              }}
+            >
               <option value="null"> </option>
               <option value="window cleaning">window cleaning</option>
               <option value="Sealing">Sealing</option>
@@ -62,12 +95,22 @@ export default function PostNew() {
             cols="30"
             rows="10"
             className="inputim"
+            onChange={(e) => {
+              setPostData({ ...postData, description: e.target.value });
+              console.log(postData);
+            }}
           />
           <label htmlFor="address" className="postNewLabel">
             Address:
           </label>
           <div className="addressInputs">
-            <select className="projetAddress inputim">
+            <select
+              className="projetAddress inputim"
+              onChange={(e) => {
+                setPostData({ ...postData, address: e.target.value });
+                console.log(postData);
+              }}
+            >
               <option>Choose settlement</option>
               {yeshuvimNames.map((yeshuv) => {
                 return (
@@ -96,6 +139,10 @@ export default function PostNew() {
             rows="4"
             cols="50"
             className="inputim"
+            onChange={(e) => {
+              setPostData({ ...postData, equipment: e.target.value });
+              console.log(postData);
+            }}
           />
           <label htmlFor="addImages" className="postNewLabel">
             Add Images:
@@ -107,6 +154,7 @@ export default function PostNew() {
               accept="image/png, image/jpeg"
               className="addImageButton"
               multiple
+              onChange={handleFileInputChange}
             />
             <div style={{ fontSize: "0.9rem" }}>* Up to 4 files</div>
           </div>
@@ -115,7 +163,7 @@ export default function PostNew() {
             <button className="postNewButtons">Post</button>
             <button className="postNewButtons">Reset</button>
           </div>
-        </form>
+        </div>
       </div>
     </React.Fragment>
   );
