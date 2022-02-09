@@ -71,6 +71,49 @@ app.get("/api/posts/:id", async (req, res) => {
   }
 });
 
+app.post("/api/posts", async (req, res) => {
+  const imagesArray = req.body.base64EncodedImagesArray;
+  const {
+    userName,
+    date,
+    time,
+    address,
+    method,
+    typeOfWork,
+    description,
+    images,
+    equipment,
+  } = req.body.postData;
+
+  const postDate = new Date();
+  const fixedMinutes = postDate.getMinutes();
+  if (postDate.getMinutes < 10) {
+    fixedMinutes = `0${postDate.getMinutes()}`;
+  }
+
+  const newPostData = new Post({
+    userName: userName,
+    date: `${postDate.getDate()}/${
+      postDate.getMonth() + 1
+    }/${postDate.getFullYear()}`,
+    time: `${postDate.getHours()}:${fixedMinutes}`,
+    address: address,
+    method: method,
+    typeOfWork: typeOfWork,
+    description: description,
+    images: "",
+    equipment: equipment,
+  });
+  try {
+    await newPostData.save(newPostData);
+    console.log(newPostData);
+    res.send("posted a new post");
+  } catch (error) {
+    console.log(" oh-no, something went wrong");
+    console.log(`error: ${error}`);
+  }
+});
+
 // Israeli setlments
 
 app.get("/api/yeshuvim", async (req, res) => {
@@ -101,9 +144,12 @@ app.get("/api/users", async (req, res) => {
 app.post("/api/users", async (req, res) => {
   try {
     const ppStr = req.body.data;
-    const uploadedResponse = await cloudinary.uploader.upload(ppStr, {
-      upload_presets: "profilePics",
-    });
+    const uploadedResponse = "";
+    if (ppStr) {
+      uploadedResponse = await cloudinary.uploader.upload(ppStr, {
+        upload_presets: "profilePics",
+      });
+    }
 
     const {
       firstName,
@@ -130,7 +176,6 @@ app.post("/api/users", async (req, res) => {
     });
     await addUser.save(addUser);
     console.log("New user has been added");
-
     res.send("New user has been added");
   } catch (error) {
     console.log(error);

@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./PostNew.css";
 export default function PostNew() {
   const [setlmentList, setSetlmentList] = useState([]);
+  //false means there are no errors, If we found an error on submit then it will be changed to true
+  const [postErrors, setPostErrors] = useState({
+    description: false,
+    numberOfPics: false,
+  });
   const [picsList, setPicsList] = useState([]);
   const [postData, setPostData] = useState({
     userName: "",
@@ -36,6 +41,26 @@ export default function PostNew() {
     .filter((e) => e !== "לא רשום ")
     .sort();
 
+  async function sendNewPost(postData, picsList) {
+    const body = JSON.stringify({
+      base64EncodedImagesArray: picsList,
+      postData: postData,
+    });
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+    };
+    if (postData.description.length === 0) {
+      setPostErrors({ ...postErrors, description: true });
+    } else {
+      setPostErrors({ ...postErrors, description: false });
+      const res = await fetch(`/api/posts`, requestOptions);
+      const json = await res.json();
+      console.log(json);
+    }
+  }
+
   function toBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -51,14 +76,10 @@ export default function PostNew() {
       filePathsPromises.push(toBase64(file));
     });
     const filePaths = await Promise.all(filePathsPromises);
-    // const mappedFiles = filePaths.map((base64File) => ({
-    //   selectedFile: base64File,
-    // }));
     return filePaths;
   }
 
   async function handleFileInputChange(e) {
-    const reader = new FileReader();
     const files = [...e.target.files];
     const mappedFiles = await tobase64Handler(files);
     setPicsList(mappedFiles);
@@ -110,7 +131,7 @@ export default function PostNew() {
             </select>
           </div>
           <label htmlFor="description" className="postNewLabel">
-            Description:
+            *Description:
           </label>
           <textarea
             name="projectDescription"
@@ -120,8 +141,13 @@ export default function PostNew() {
             onChange={(e) => {
               setPostData({ ...postData, description: e.target.value });
               console.log(postData);
+              setPostErrors({ ...postErrors, description: false });
             }}
           />
+          {!postData.description && <div></div>}
+          {!postData.description && (
+            <div style={{ fontSize: "0.9rem" }}>*This field is mandatory</div>
+          )}
           <label htmlFor="address" className="postNewLabel">
             Address:
           </label>
@@ -178,11 +204,32 @@ export default function PostNew() {
               multiple
               onChange={handleFileInputChange}
             />
-            <div style={{ fontSize: "0.9rem" }}>* Up to 4 files</div>
+            {picsList.length > 4 && (
+              <div style={{ fontSize: "1.1rem", color: "red" }}>
+                You have chosen {picsList.length} pics. Please choose only 4.
+              </div>
+            )}
+            {picsList.length < 4 && (
+              <div style={{ fontSize: "0.9rem" }}>* Up to 4 files</div>
+            )}
           </div>
+          {postErrors.description && <div></div>}
+          {postErrors.description && (
+            <div style={{ fontSize: "1.1rem", color: "red" }}>
+              You forgot to fill the description field
+            </div>
+          )}
           <div></div>
+
           <div className="formButtons">
-            <button className="postNewButtons">Post</button>
+            <button
+              className="postNewButtons"
+              onClick={() => {
+                sendNewPost(postData, picsList);
+              }}
+            >
+              Post
+            </button>
             <button className="postNewButtons">Reset</button>
           </div>
         </div>

@@ -61,6 +61,7 @@ export default function SignUp() {
     };
     const res = await fetch(`api/users`, requestOptions);
     const json = await res.json();
+    console.log(json);
   }
 
   //uploading the profile pic
