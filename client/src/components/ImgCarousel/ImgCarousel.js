@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./ImgCarousel.css";
 export default function ImgCarousel({ imgURLS, currentImage }) {
   const imgArray = Object.keys(imgURLS).map((key) => {
-    return imgURLS[key];
+    return imgURLS[key].url;
   });
   const [currentIndexOfImg, setCurrentIndexOfImg] = useState(
     imgArray.indexOf(currentImage)

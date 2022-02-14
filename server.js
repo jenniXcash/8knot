@@ -21,6 +21,7 @@ const Post = mongoose.model("Post", {
   time: { type: String },
   address: { type: String },
   typeOfWork: { type: String },
+  method: { type: String },
   description: { type: String },
   equipment: { type: String },
   images: { type: Object },
@@ -41,20 +42,18 @@ const User = mongoose.model("User", {
 
 // Posts
 
-app.get("/", async (req, res) => {
-  res.send("satan is real");
-});
 app.get("/api/posts", async (req, res) => {
   const { term } = req.query;
   try {
     if (term) {
       console.log(term);
-
-      res.send(
-        await Post.find({ description: { $regex: term, $options: "gi" } })
-      );
+      const postsToSend = await Post.find({
+        description: { $regex: term, $options: "gi" },
+      });
+      res.send(postsToSend.reverse());
     } else {
-      res.send(await Post.find());
+      const postsToSend = await Post.find();
+      res.send(postsToSend.reverse());
     }
   } catch (e) {
     console.log("error", e);
@@ -71,43 +70,76 @@ app.get("/api/posts/:id", async (req, res) => {
   }
 });
 
-app.post("/api/posts", async (req, res) => {
-  const imagesArray = req.body.base64EncodedImagesArray;
-  const {
-    userName,
-    date,
-    time,
-    address,
-    method,
-    typeOfWork,
-    description,
-    images,
-    equipment,
-  } = req.body.postData;
-
-  const postDate = new Date();
-  const fixedMinutes = postDate.getMinutes();
-  if (postDate.getMinutes < 10) {
-    fixedMinutes = `0${postDate.getMinutes()}`;
-  }
-
-  const newPostData = new Post({
-    userName: userName,
-    date: `${postDate.getDate()}/${
-      postDate.getMonth() + 1
-    }/${postDate.getFullYear()}`,
-    time: `${postDate.getHours()}:${fixedMinutes}`,
-    address: address,
-    method: method,
-    typeOfWork: typeOfWork,
-    description: description,
-    images: "",
-    equipment: equipment,
+function sendSingleFileToCloudinary(file) {
+  return new Promise((resolve, reject) => {
+    resolve(
+      cloudinary.uploader.upload(file, {
+        upload_presets: "postAttachedImages",
+      })
+    );
+    reject(error);
   });
+}
+
+async function createNewImageUrlsArray(files) {
+  const urlsArray = [];
+  files.forEach((file) => {
+    urlsArray.push(sendSingleFileToCloudinary(file));
+  });
+  const filesUrls = await Promise.all(urlsArray);
+  return filesUrls;
+}
+app.post("/api/posts", async (req, res) => {
   try {
+    const imagesArray = req.body.base64EncodedImagesArray;
+    const {
+      userName,
+      date,
+      time,
+      address,
+      method,
+      typeOfWork,
+      description,
+      images,
+      equipment,
+    } = req.body.postData;
+
+    const postDate = new Date();
+    let fixedMinutes = "";
+    if (postDate.getMinutes() < 10) {
+      fixedMinutes = "0" + postDate.getMinutes();
+    } else {
+      fixedMinutes = postDate.getMinutes();
+    }
+
+    const imagesUrls = await createNewImageUrlsArray(imagesArray);
+
+    // const imagesUrls = imagesArray.map(async (image) => {
+    //   const cloudinaryResponse = await cloudinary.uploader.upload(image, {
+    //     upload_presets: "postAttachedImages",
+    //   });
+    //   return await cloudinaryResponse.url;
+    // });
+
+    const newPostData = new Post({
+      userName: userName,
+      date: `${postDate.getDate()}/${
+        postDate.getMonth() + 1
+      }/${postDate.getFullYear()}`,
+      time: `${postDate.getHours()}:${fixedMinutes}`,
+      address: address,
+      method: method,
+      typeOfWork: typeOfWork,
+      description: description,
+      images: imagesUrls,
+      equipment: equipment,
+    });
+
     await newPostData.save(newPostData);
+
     console.log(newPostData);
-    res.send("posted a new post");
+    res.send({ response: "posted a new post" });
+    console.log(await imagesUrls);
   } catch (error) {
     console.log(" oh-no, something went wrong");
     console.log(`error: ${error}`);
@@ -144,7 +176,7 @@ app.get("/api/users", async (req, res) => {
 app.post("/api/users", async (req, res) => {
   try {
     const ppStr = req.body.data;
-    const uploadedResponse = "";
+    let uploadedResponse = "";
     if (ppStr) {
       uploadedResponse = await cloudinary.uploader.upload(ppStr, {
         upload_presets: "profilePics",
@@ -176,7 +208,7 @@ app.post("/api/users", async (req, res) => {
     });
     await addUser.save(addUser);
     console.log("New user has been added");
-    res.send("New user has been added");
+    res.send({ response: "New user has been added" });
   } catch (error) {
     console.log(error);
   }

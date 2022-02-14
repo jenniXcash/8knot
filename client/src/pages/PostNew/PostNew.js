@@ -83,8 +83,6 @@ export default function PostNew() {
     const files = [...e.target.files];
     const mappedFiles = await tobase64Handler(files);
     setPicsList(mappedFiles);
-    console.log(mappedFiles);
-    console.log(picsList);
   }
 
   return (

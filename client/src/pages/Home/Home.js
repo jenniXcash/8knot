@@ -43,6 +43,7 @@ function Home() {
                 description,
                 images,
                 _id,
+                method,
               }) => (
                 <FeedItem
                   key={_id}
@@ -54,6 +55,7 @@ function Home() {
                   typeOfWork={typeOfWork}
                   description={description}
                   images={images}
+                  method={method}
                 />
               )
             )}

@@ -18,7 +18,7 @@ export default function PostPage() {
         setPosts(post);
         setImageURL(
           Object.keys(post.images).map((e) => {
-            return post.images[e];
+            return post.images[e].url;
           })
         );
       });
@@ -37,7 +37,7 @@ export default function PostPage() {
             </div>
 
             <div></div>
-            <div class="bolder">Type Of Work: </div>
+            <div className="bolder">Type Of Work: </div>
             <div>{post.typeOfWork}</div>
             <div className="bolder">Description:</div>
             <div>{post.description}</div>
@@ -51,7 +51,9 @@ export default function PostPage() {
                   src={src}
                   alt="pic"
                   className="postPageattachedSingleImg"
-                  onClick={() => setImageHover(src)}
+                  onClick={() => {
+                    setImageHover(src);
+                  }}
                 />
               ))}
             </div>

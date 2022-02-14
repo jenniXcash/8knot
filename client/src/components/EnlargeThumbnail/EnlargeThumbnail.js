@@ -5,10 +5,7 @@ import "./EnlargeThumbnail.css";
 export default function EnlargeThumbnail({ imageSrc, setImageHover, post }) {
   useEffect(() => {
     document.querySelector(".realSizedImage").style.overflow = "hidden";
-    return () => {
-      document.querySelector(".realSizedImage").style.overflow = "visible";
-    };
-  });
+  }, []);
   return (
     <React.Fragment>
       <div className="realSizedImage">

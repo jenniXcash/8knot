@@ -13,6 +13,8 @@ export default function FeedItem({
   description,
   images,
   id,
+  method,
+  equipment,
 }) {
   const [replyMsg, setReplyMsg] = useState(false);
 
@@ -40,8 +42,12 @@ export default function FeedItem({
             <div></div>
             <div className="bolder">Type Of Work: </div>
             <div>{typeOfWork}</div>
+            <div className="bolder">Method: </div>
+            <div>{method}</div>
             <div className="bolder">Description:</div>
             <div>{description}</div>
+            <div className="bolder">Equipment: </div>
+            <div>{equipment}</div>
             <div className="bolder">Address: </div>
             <div>{address}</div>
             <div></div>
@@ -49,8 +55,8 @@ export default function FeedItem({
               {imageKeys.map((image) => {
                 return (
                   <img
-                    src={image}
-                    key={image}
+                    src={image.url}
+                    key={image.url}
                     alt="pic which is attached to the post"
                     className="attachedImg"
                   />
