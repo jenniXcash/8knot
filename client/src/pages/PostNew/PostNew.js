@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import AddressAutocomplete from "../../components/AddressAutocomplete/AddressAutocomplete";
 import "./PostNew.css";
 export default function PostNew() {
-  const [setlmentList, setSetlmentList] = useState([]);
+  // const [setlmentList, setSetlmentList] = useState([]);
+  const [address, setAddress] = useState("");
+  console.log(address);
   //false means there are no errors, If we found an error on submit then it will be changed to true
   const [postErrors, setPostErrors] = useState({
     description: false,
@@ -20,28 +23,30 @@ export default function PostNew() {
     equipment: "",
   });
 
-  useEffect(() => {
-    const res = fetch(
-      "https://data.gov.il/api/3/action/datastore_search?resource_id=5c78e9fa-c2e2-4771-93ff-7f400a12f7ba&limit=9000"
-    );
-    res
-      .then((response) => {
-        return response.json();
-      })
-      .then((names) => {
-        setSetlmentList(names.result.records);
-      });
-  }, []);
+  // useEffect(() => {
+  //   const res = fetch(
+  //     "https://data.gov.il/api/3/action/datastore_search?resource_id=5c78e9fa-c2e2-4771-93ff-7f400a12f7ba&limit=9000"
+  //   );
+  //   res
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((names) => {
+  //       setSetlmentList(names.result.records);
+  //     });
+  // }, []);
 
   //mapping a new array so we would get it filtered of unwanted objects and sorted alphabetacly
-  const yeshuvimNames = setlmentList
-    .map((e) => {
-      return e.שם_ישוב;
-    })
-    .filter((e) => e !== "לא רשום ")
-    .sort();
+  // const yeshuvimNames = setlmentList
+  //   .map((e) => {
+  //     return e.שם_ישוב;
+  //   })
+  //   .filter((e) => e !== "לא רשום ")
+  //   .sort();
 
-  async function sendNewPost(postData, picsList) {
+  async function sendNewPost(postData, setPostData, picsList) {
+    console.log(address);
+    console.log(postData);
     const body = JSON.stringify({
       base64EncodedImagesArray: picsList,
       postData: postData,
@@ -150,14 +155,21 @@ export default function PostNew() {
             Address:
           </label>
           <div className="addressInputs">
-            <select
+            <AddressAutocomplete
+              address={address}
+              setAddress={setAddress}
+              postData={postData}
+              setPostData={setPostData}
+            />
+
+            {/* <select
               className="projetAddress inputim"
               onChange={(e) => {
                 setPostData({ ...postData, address: e.target.value });
                 console.log(postData);
               }}
             >
-              <option>Choose settlement</option>
+              <option>Address: </option>
               {yeshuvimNames.map((yeshuv) => {
                 return (
                   <option value={yeshuv} key={yeshuv}>
@@ -175,7 +187,7 @@ export default function PostNew() {
               type="text"
               className="houseNum inputim"
               placeholder="House Number"
-            />
+            /> */}
           </div>
           <label htmlFor="neededEquipment" className="postNewLabel">
             Needed Equipment:{" "}
@@ -223,7 +235,7 @@ export default function PostNew() {
             <button
               className="postNewButtons"
               onClick={() => {
-                sendNewPost(postData, picsList);
+                sendNewPost(postData, setPostData, picsList);
               }}
             >
               Post

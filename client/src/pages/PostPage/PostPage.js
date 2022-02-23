@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import EnlargeThumbnail from "../../components/EnlargeThumbnail/EnlargeThumbnail";
 import FeedItemTooltip from "../../components/FeedItemTooltip/FeedItemTooltip";
+import ShowOnMap from "../../components/ShowOnMap/ShowOnMap";
 import "./PostPage.css";
 
 export default function PostPage() {
@@ -35,14 +36,14 @@ export default function PostPage() {
                 {post.time}
               </div>
             </div>
-
             <div></div>
             <div className="bolder">Type Of Work: </div>
             <div>{post.typeOfWork}</div>
             <div className="bolder">Description:</div>
             <div>{post.description}</div>
             <div className="bolder">Address: </div>
-            <div>{post.address}</div>
+            <div>{post.address[0].formatted_address}</div>
+            <div></div> <ShowOnMap address={post.address[0]} />
             <div></div>
             <div className="postPageAttachedImages">
               {imageURL.map((src) => (

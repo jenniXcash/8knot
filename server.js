@@ -19,7 +19,7 @@ const Post = mongoose.model("Post", {
   userName: { type: String },
   date: { type: String },
   time: { type: String },
-  address: { type: String },
+  address: { type: Object },
   typeOfWork: { type: String },
   method: { type: String },
   description: { type: String },
@@ -41,6 +41,10 @@ const User = mongoose.model("User", {
 });
 
 // Posts
+
+app.get("/", async (req, res) => {
+  res.send("Satan is great");
+});
 
 app.get("/api/posts", async (req, res) => {
   const { term } = req.query;

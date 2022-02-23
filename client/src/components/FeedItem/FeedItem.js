@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import FeedItemTooltip from "../FeedItemTooltip/FeedItemTooltip";
+import ShowOnMap from "../ShowOnMap/ShowOnMap";
 import "./FeedItem.css";
 
 export default function FeedItem({
@@ -17,6 +18,7 @@ export default function FeedItem({
   equipment,
 }) {
   const [replyMsg, setReplyMsg] = useState(false);
+  const [showmap, setShowmap] = useState(false);
 
   const imageKeys = Object.keys(images).map((key) => {
     return images[key];
@@ -38,7 +40,6 @@ export default function FeedItem({
                 {time}
               </div>
             </div>
-
             <div></div>
             <div className="bolder">Type Of Work: </div>
             <div>{typeOfWork}</div>
@@ -49,7 +50,32 @@ export default function FeedItem({
             <div className="bolder">Equipment: </div>
             <div>{equipment}</div>
             <div className="bolder">Address: </div>
-            <div>{address}</div>
+            <div>{address[0] && <div>{address[0].formatted_address}</div>}</div>
+            <div>
+              {!showmap && (
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowmap(!showmap);
+                  }}
+                >
+                  Show Map
+                </div>
+              )}
+              {showmap && (
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowmap(!showmap);
+                  }}
+                >
+                  Hide Map
+                </div>
+              )}
+            </div>
+            {showmap && <ShowOnMap address={address[0]} />}
+            {showmap && <div></div>}
+            <div></div>
             <div></div>
             <div className="attachedImagesToPost">
               {imageKeys.map((image) => {

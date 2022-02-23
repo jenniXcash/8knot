@@ -22,7 +22,6 @@ function App() {
   const [posts, setPosts] = useState([]);
 
   function getPosts(term) {
-    console.log(term);
     const res = fetch(`api/posts/?term=${term}`);
     res
       .then(function (response) {
