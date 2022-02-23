@@ -1,31 +1,16 @@
-import React, { useContext } from "react";
-// import { useState, useEffect } from "react";
+import React from "react";
+import { useEffect, useContext } from "react";
 import SearchPostsContext from "../../context/SearchPostsContext";
 import FeedItem from "../../components/FeedItem/FeedItem";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./Home.css";
 
 function Home() {
-  const { posts } = useContext(SearchPostsContext);
-  // const [posts, setPosts] = useState([]);
-  // const [loading, setLoading] = useState(false);
+  const { posts, getPosts, search } = useContext(SearchPostsContext);
 
-  // function getPosts(term) {
-  //   const res = fetch(`api/posts/?term=${term}`);
-  //   setLoading(true);
-  //   res
-  //     .then(function (response) {
-  //       return response.json();
-  //     })
-  //     .then(function (posts) {
-  //       setPosts(posts);
-  //       setLoading(false);
-  //     });
-  // }
-  // useEffect(() => {
-  //   getPosts(search);
-  //   console.log("used effect, search is:" + search);
-  // }, [search]);
+  useEffect(() => {
+    getPosts(search);
+  }, [search, getPosts]);
 
   return (
     <React.Fragment>
