@@ -1,42 +1,40 @@
 import React from "react";
-
+import { useAuth0 } from "@auth0/auth0-react";
+import RegistrationError from "../../components/RegistrationError/RegistrationError";
 import "./Account.css";
-import userPic from "../../icons/account.svg";
+
 export default function Account() {
-  const fullName = "jenia cash";
-  const city = "Azuz";
-  const region = "south";
-  const professions = ["Window Cleaning", "Painting"];
+  const { user, isAuthenticated } = useAuth0();
+
   return (
     <React.Fragment>
-      <div className="container">
-        <h2>User Name</h2>
-        <img src={userPic} alt="Users Profile Pic" className="profilePic" />
-        <button className="changePicButton">Change Picture</button>
-        <div className="userDetails">
-          <div className="name">
-            <span className="bold">Name: </span>
-            {fullName}
+      {!isAuthenticated && <RegistrationError page={"view messages"} />}
+      {isAuthenticated && (
+        <div className="container">
+          <h2>{user.name}</h2>
+          <img
+            src={user.picture}
+            alt="Users Profile Pic"
+            className="profilePic"
+          />
+          <button className="changePicButton">Change Picture</button>
+          <div className="userDetails">
+            <div className="name">
+              <span className="bold">Name: {user.name}</span>
+            </div>
+            <div className="city">
+              <span className="bold">City: </span>
+            </div>
+
+            <div className="professions">
+              <span className="bold">Professions: </span>
+            </div>
           </div>
-          <div className="city">
-            <span className="bold">City: </span>
-            {city}
-          </div>
-          <div className="region">
-            <span className="bold">Region: </span>
-            {region}
-          </div>
-          <div className="professions">
-            <span className="bold">Professions: </span>
-            {professions.map((e) => (
-              <span key={e}>{e}/ </span>
-            ))}
+          <div className="changeDetails">
+            <button className="changeDetailsButton">Change Details</button>
           </div>
         </div>
-        <div className="changeDetails">
-          <button className="changeDetailsButton">Change Details</button>
-        </div>
-      </div>
+      )}
     </React.Fragment>
   );
 }

@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import AddressAutocomplete from "../../components/AddressAutocomplete/AddressAutocomplete";
+import SearchPostsContext from "../../context/SearchPostsContext";
+import { Navigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import "./SignUp.css";
 export default function SignUp() {
-  const [setlmentList, setSetlmentList] = useState([]);
+  const { setRegistered } = useContext(SearchPostsContext);
+  const { redirect, setRedirect } = useState(false);
+
+  const { user } = useAuth0();
   const [previewSource, setPreviewSource] = useState("");
+  const [address, setAddress] = useState("");
   const [newUserData, setNewUserData] = useState({
     firstName: "",
     lastName: "",
     profilePic: "",
     emailAddress: "",
     phoneNumber: "",
-    city: "",
+    address: "",
     certification: {
       ropeAccessTechnician: false,
       heightWorker: false,
@@ -24,28 +32,8 @@ export default function SignUp() {
       welding: false,
       signHanging: false,
     },
+    auth0User: user,
   });
-  //fetching a list of settlments from a .gov API
-  useEffect(() => {
-    const res = fetch(
-      "https://data.gov.il/api/3/action/datastore_search?resource_id=5c78e9fa-c2e2-4771-93ff-7f400a12f7ba&limit=9000"
-    );
-    res
-      .then((response) => {
-        return response.json();
-      })
-      .then((names) => {
-        setSetlmentList(names.result.records);
-      });
-  }, []);
-
-  //mapping a new array so we would get it filtered of unwanted objects and sorted alphabetacly
-  const yeshuvimNames = setlmentList
-    .map((e) => {
-      return e.שם_ישוב;
-    })
-    .filter((e) => e !== "לא רשום ")
-    .sort();
 
   //adding a new user to the system
   async function postNewUser(newUserData, base64EncodedImage) {
@@ -62,6 +50,7 @@ export default function SignUp() {
     const res = await fetch(`api/users`, requestOptions);
     const json = await res.json();
     console.log(json);
+    setRedirect(!redirect);
   }
 
   //uploading the profile pic
@@ -77,26 +66,6 @@ export default function SignUp() {
       setPreviewSource(reader.result);
     };
   }
-
-  // function handleSubmitFile(e) {
-  //   e.preventDefault();
-  //   if (!previewSource) return;
-  //   uploadImage(previewSource);
-  //   postNewUser(newUserData);
-  // }
-
-  // async function uploadImage(base64EncodedImage) {
-  //   try {
-  //     const requestOptions = {
-  //       method: "POST",
-  //       body: JSON.stringify({ data: base64EncodedImage }),
-  //       headers: { "Content-Type": "application/json" },
-  //     };
-  //     await fetch("api/upload", requestOptions);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
 
   return (
     <React.Fragment>
@@ -161,29 +130,17 @@ export default function SignUp() {
               console.log(newUserData);
             }}
           />
-          <label htmlFor="address">City: </label>
-          <select
-            className="signupFormSelect"
-            onChange={(e) => {
-              setNewUserData({ ...newUserData, city: e.target.value });
-              console.log(newUserData);
-            }}
-          >
-            <option>Choose setlment</option>
-            {yeshuvimNames.map((yeshuv) => {
-              return (
-                <option value={yeshuv} key={yeshuv}>
-                  {yeshuv}
-                </option>
-              );
-            })}
-          </select>
-
+          <label htmlFor="address">Addres: </label>
+          <AddressAutocomplete
+            address={address}
+            setAddress={setAddress}
+            postData={newUserData}
+            setPostData={setNewUserData}
+          />
           <div className="signupFormSpacer"></div>
           <div className="signupFormSpacer"></div>
 
           <label htmlFor="certification">Certification:</label>
-          <div></div>
           <input
             type="checkbox"
             id="certtificate1"
@@ -377,6 +334,7 @@ export default function SignUp() {
         </div>
         {/* End of signup form */}
       </div>
+      {redirect && <Navigate to="/" />}
     </React.Fragment>
   );
 }

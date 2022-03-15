@@ -9,10 +9,14 @@ const app = Express();
 app.use(Express.json({ limit: "50mb" }));
 app.use(Express.urlencoded({ limit: "50mb", extended: true }));
 dotenv.config();
+
+const { CLOUDINARY_API_SECRET, CLOUDINARY_API_KEY, CLOUDINARY_API_NAME } =
+  process.env;
+
 cloudinary.config({
-  cloud_name: "eight-knot",
-  api_key: "585755652983716",
-  api_secret: "Jn-1O2L-7Seji1BystbM7mbAoi4",
+  cloud_name: CLOUDINARY_API_NAME,
+  api_key: CLOUDINARY_API_KEY,
+  api_secret: CLOUDINARY_API_SECRET,
 });
 
 const Post = mongoose.model("Post", {
@@ -25,6 +29,7 @@ const Post = mongoose.model("Post", {
   description: { type: String },
   equipment: { type: String },
   images: { type: Object },
+  userSub: { type: String },
 });
 
 const User = mongoose.model("User", {
@@ -35,11 +40,22 @@ const User = mongoose.model("User", {
   gender: { type: String },
   emailAddress: { type: String },
   phoneNumber: { type: String },
-  city: { type: String },
+  address: { type: Object },
   certification: { type: Object },
   preferedJobs: { type: Object },
+  auth0User: { type: Object },
+  authId: { type: String },
 });
 
+const Message = mongoose.model("Message", {
+  sendersSub: { type: String },
+  recieversSub: { type: String },
+  sendersName: { type: String },
+  content: { type: String },
+  sendersPic: { type: String },
+  date: { type: String },
+  time: { type: String },
+});
 // Posts
 
 app.get("/", async (req, res) => {
@@ -98,14 +114,13 @@ app.post("/api/posts", async (req, res) => {
     const imagesArray = req.body.base64EncodedImagesArray;
     const {
       userName,
-      date,
-      time,
       address,
       method,
       typeOfWork,
       description,
       images,
       equipment,
+      userSub,
     } = req.body.postData;
 
     const postDate = new Date();
@@ -117,13 +132,6 @@ app.post("/api/posts", async (req, res) => {
     }
 
     const imagesUrls = await createNewImageUrlsArray(imagesArray);
-
-    // const imagesUrls = imagesArray.map(async (image) => {
-    //   const cloudinaryResponse = await cloudinary.uploader.upload(image, {
-    //     upload_presets: "postAttachedImages",
-    //   });
-    //   return await cloudinaryResponse.url;
-    // });
 
     const newPostData = new Post({
       userName: userName,
@@ -137,6 +145,7 @@ app.post("/api/posts", async (req, res) => {
       description: description,
       images: imagesUrls,
       equipment: equipment,
+      userSub: userSub,
     });
 
     await newPostData.save(newPostData);
@@ -150,18 +159,15 @@ app.post("/api/posts", async (req, res) => {
   }
 });
 
-// Israeli setlments
-
-app.get("/api/yeshuvim", async (req, res) => {
-  const names = await readFile("./yeshuvim.json", "utf-8");
-  res.send(names);
-});
-
 // Messages
 
-app.get("/api/messages", async (req, res) => {
-  const messages = await readFile("./messages.json", "utf-8");
-  res.send(messages);
+app.get("/api/messages/:user", async (req, res) => {
+  console.log(req.params);
+  const { user } = req.params;
+  const messages = await Message.find({ recieversSub: user });
+
+  console.log(messages);
+  res.send(messages.reverse());
 });
 
 app.get("/api/messages/:id", async (req, res) => {
@@ -171,10 +177,56 @@ app.get("/api/messages/:id", async (req, res) => {
   res.send(message.find((item) => item.id === +id));
 });
 
+app.post("/api/messages", async (req, res) => {
+  try {
+    const { content, date, recieversSub, sendersName, sendersSub, time } =
+      req.body.message;
+    const sPP = await User.find({ auth0User: { sub: sendersSub } });
+
+    const addMessage = new Message({
+      content: content,
+      date: date,
+      recieversSub: recieversSub,
+      sendersName: sendersName,
+      sendersPic: sPP.profilePic,
+      sendersSub: sendersSub,
+      time: time,
+    });
+    console.log(sendersSub);
+    await addMessage.save(addMessage);
+    res.send(true);
+  } catch (error) {
+    console.log(error);
+  }
+});
 // Users
 
 app.get("/api/users", async (req, res) => {
-  res.send(await User.find());
+  const { sub } = req.query;
+  if (sub) {
+    console.log(`sub: ${sub}`);
+    const user = await User.find({ sub: sub });
+    const fullName = `${user[0].firstName} ${user[0].lastName}`;
+    console.log(fullName);
+    res.send({ fullName });
+  } else {
+    res.send(await User.find());
+  }
+});
+
+app.get("/api/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const answer = await User.find({ sub: id });
+    if (Object.keys(answer).length === 1) {
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+  } catch (e) {
+    console.log("error", e);
+    throw e;
+  }
 });
 
 app.post("/api/users", async (req, res) => {
@@ -193,10 +245,11 @@ app.post("/api/users", async (req, res) => {
       dateOfCreation,
       emailAddress,
       phoneNumber,
-      city,
+      address,
       certification,
       preferedJobs,
       profilePic,
+      auth0User,
     } = req.body.userData;
 
     const addUser = new User({
@@ -206,9 +259,11 @@ app.post("/api/users", async (req, res) => {
       dateOfCreation: ` ${new Date()}`,
       emailAddress: emailAddress,
       phoneNumber: phoneNumber,
-      city: city,
+      address: address,
       certification: certification,
       preferedJobs: preferedJobs,
+      auth0User: auth0User,
+      authId: auth0User.sub,
     });
     await addUser.save(addUser);
     console.log("New user has been added");

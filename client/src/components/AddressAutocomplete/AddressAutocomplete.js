@@ -9,15 +9,13 @@ export default function AddressAutocomplete({
   postData,
   setPostData,
 }) {
-  // const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
-
   async function handleSelect(value) {
     const results = await geocodeByAddress(value);
     setAddress(value);
-    // setCoordinates(latLng);
     setPostData({ ...postData, address: results });
-    console.log(postData.address);
+    console.log(results);
   }
+
   return (
     <React.Fragment>
       <PlacesAutoComplete
@@ -39,14 +37,12 @@ export default function AddressAutocomplete({
                 backgroundColor: "rgba(143, 172, 229, 0.3)",
               };
               return (
-                <React.Fragment>
-                  <div
-                    key={suggestion.description}
-                    {...getSuggestionItemProps(suggestion, { style })}
-                  >
-                    {suggestion.description}
-                  </div>
-                </React.Fragment>
+                <div
+                  key={suggestion.description}
+                  {...getSuggestionItemProps(suggestion, { style })}
+                >
+                  {suggestion.description}
+                </div>
               );
             })}
           </div>

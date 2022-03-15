@@ -1,26 +1,31 @@
 import React from "react";
+import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import "./SendMsg.css";
 
-export default function SendMsg({
-  reciever,
-  recieversProfilePic,
-  openOrClose,
-}) {
-  //This Ref referes to the container so we could know whether we click either inside or outside of it
-  // const node = useRef();
-
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", handleClick);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClick);
-  //   };
-  // });
-  // const handleClick = (e) => {
-  //   if (!node.current.contains(e.target)) {
-  //     openOrClose();
-  //   }
-  // };
-
+export default function SendMsg({ reciever }) {
+  const { user } = useAuth0();
+  const [message, setMessage] = useState({
+    sendersSub: user.sub,
+    recieversSub: reciever,
+    sendersName: user.name,
+    content: "",
+    sendersPic: "",
+    date: "",
+    time: "",
+  });
+  async function handleSubmit(message) {
+    console.log("sending a message");
+    const body = JSON.stringify({ message: message });
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+    };
+    const response = await fetch("api/messages", requestOptions);
+    const retrieved = await response.json();
+    console.log(retrieved);
+  }
   return (
     <React.Fragment>
       <div className="sendMsgContainer">
@@ -38,12 +43,25 @@ export default function SendMsg({
             </div> */}
           </div>
           <div></div> <div className="sendMsgSpacer"></div>
-          <form>
-            <textarea className="newMessageText" rows="8" cols="50"></textarea>
+          <div>
+            <textarea
+              className="newMessageText"
+              rows="8"
+              cols="50"
+              onChange={(e) => {
+                setMessage({ ...message, content: e.target.value });
+                console.log(message);
+              }}
+            ></textarea>
             <div>
-              <button className="sendMsgButton">Send</button>
+              <button
+                className="sendMsgButton"
+                onClick={() => handleSubmit(message)}
+              >
+                Send
+              </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </React.Fragment>

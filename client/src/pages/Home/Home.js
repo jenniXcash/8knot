@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useContext } from "react";
+
 import SearchPostsContext from "../../context/SearchPostsContext";
 import FeedItem from "../../components/FeedItem/FeedItem";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -8,9 +9,9 @@ import "./Home.css";
 function Home() {
   const { posts, getPosts, search } = useContext(SearchPostsContext);
 
-  useEffect(() => {
-    getPosts(search);
-  }, [search, getPosts]);
+  // useEffect(() => {
+  //   getPosts(search);
+  // }, [search, getPosts]);
 
   return (
     <React.Fragment>
@@ -29,6 +30,7 @@ function Home() {
                 images,
                 _id,
                 method,
+                userSub,
               }) => (
                 <FeedItem
                   key={_id}
@@ -41,6 +43,7 @@ function Home() {
                   description={description}
                   images={images}
                   method={method}
+                  recieversSub={userSub}
                 />
               )
             )}

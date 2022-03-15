@@ -41,9 +41,10 @@ export default function PostPage() {
             <div>{post.typeOfWork}</div>
             <div className="bolder">Description:</div>
             <div>{post.description}</div>
-            <div className="bolder">Address: </div>
-            <div>{post.address[0].formatted_address}</div>
-            <div></div> <ShowOnMap address={post.address[0]} />
+            {post.address && <div className="bolder">Address: </div>}
+            {post.address && <div>{post.address[0].formatted_address}</div>}
+            <div></div>
+            {post.address && <ShowOnMap address={post.address[0]} />}
             <div></div>
             <div className="postPageAttachedImages">
               {imageURL.map((src) => (

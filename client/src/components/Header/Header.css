@@ -18,6 +18,20 @@
   margin-top: 10px;
 }
 
+.searchMsgButton {
+  border: 1px solid white;
+  border-radius: 10px 10px 10px 10px;
+  background: rgba(143, 172, 229, 0.3);
+  opacity: 0.8;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 5px;
+  margin-top: 50px;
+}
+
+.searchMsgButton:hover {
+  background: rgba(143, 172, 229, 0.7);
+}
 .searchField {
   border: 1px solid white;
   border-radius: 10px 10px 10px 10px;

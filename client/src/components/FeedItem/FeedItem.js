@@ -16,6 +16,7 @@ export default function FeedItem({
   id,
   method,
   equipment,
+  recieversSub,
 }) {
   const [replyMsg, setReplyMsg] = useState(false);
   const [showmap, setShowmap] = useState(false);
@@ -52,7 +53,7 @@ export default function FeedItem({
             <div className="bolder">Address: </div>
             <div>{address[0] && <div>{address[0].formatted_address}</div>}</div>
             <div>
-              {!showmap && (
+              {!showmap && address && (
                 <div
                   onClick={(e) => {
                     e.preventDefault();
@@ -95,6 +96,7 @@ export default function FeedItem({
           userName={userName}
           openOrClose={replyPost}
           replyMsg={replyMsg}
+          recieversSub={recieversSub}
         />
       </div>
     </React.Fragment>

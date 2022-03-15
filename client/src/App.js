@@ -2,6 +2,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 //Style,
 import "./App.css";
 //Pages&Components
@@ -20,6 +21,8 @@ import NewUserAdded from "./pages/newUserAdded/NewUserAdded";
 function App() {
   const [search, setSearch] = useState("");
   const [posts, setPosts] = useState([]);
+  const [registered, setRegistered] = useState();
+  const { user } = useAuth0();
 
   function getPosts(term) {
     const res = fetch(`api/posts/?term=${term}`);
@@ -29,8 +32,22 @@ function App() {
       })
       .then(function (posts) {
         setPosts(posts);
+        setSearch(term);
       });
   }
+
+  useEffect(() => {
+    async function isUserRegistered(id) {
+      const response = await fetch(`api/users/:${id}`);
+      const data = await response.json();
+      setRegistered(data);
+    }
+    if (user && !registered) {
+      const sub = user.sub;
+      isUserRegistered(sub);
+    }
+  }, [user, registered]);
+
   useEffect(() => {
     getPosts(search);
   }, [search]);
@@ -38,7 +55,14 @@ function App() {
   return (
     <React.Fragment>
       <SearchPostsContext.Provider
-        value={{ search, setSearch, posts, getPosts }}
+        value={{
+          search,
+          setSearch,
+          posts,
+          getPosts,
+          registered,
+          setRegistered,
+        }}
       >
         <div className="header">
           <Header />
