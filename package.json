@@ -4,7 +4,7 @@
   "description": "",
   "engines": {
     "node": "16.13.0"
-  }
+  },
   "main": "server.js",
   "type": "module",
   "scripts": {
