@@ -3,11 +3,17 @@ import mongoose from "mongoose";
 import cowsay from "cowsay";
 import dotenv from "dotenv";
 import cloudinary from "cloudinary";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = Express();
 app.use(Express.json({ limit: "50mb" }));
 app.use(Express.urlencoded({ limit: "50mb", extended: true }));
 dotenv.config();
+app.use(Express.static("client/build"));
 
 const { CLOUDINARY_API_SECRET, CLOUDINARY_API_KEY, CLOUDINARY_API_NAME } =
   process.env;
@@ -269,6 +275,10 @@ app.post("/api/users", async (req, res) => {
   }
 });
 
+app.get("*", (req, res) => {
+  res.sendFile(__dirname + "/client/build/index.html");
+});
+
 const { DB_USER, DB_PASS, DB_HOST, DB_NAME } = process.env;
 
 mongoose.connect(
@@ -277,7 +287,7 @@ mongoose.connect(
     if (err) {
       await console.log("dberror", err);
     }
-    app.listen(8000, () =>
+    app.listen(process.env.PORT || 8000, () =>
       console.log(
         cowsay.say({
           text: "server is conneced, DB is connected",
