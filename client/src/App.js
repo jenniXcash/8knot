@@ -12,7 +12,6 @@ import Dms from "./pages/Dms/Dms";
 import Account from "./pages/Account/Account";
 import PostPage from "./pages/PostPage/PostPage";
 import EnlargeThumbnail from "./components/EnlargeThumbnail/EnlargeThumbnail";
-import SignUp from "./pages/SignUp/SignUp";
 import SingleMsg from "./pages/SingleMsg/SingleMsg";
 import Header from "./components/Header/Header";
 import SearchPostsContext from "./context/SearchPostsContext";
@@ -75,7 +74,6 @@ function App() {
             <Route path="/Account" element={<Account />} />
             <Route path="/PostPage/:id" element={<PostPage />} />
             <Route path="/EnlargeThumbnail" element={<EnlargeThumbnail />} />
-            <Route path="/SignUp" element={<SignUp />} />
             <Route path="/SingleMsg" element={<SingleMsg />} />
             <Route path="/SingleMsg/:id" element={<SingleMsg />} />
             <Route path="/NewUserAdded" element={<NewUserAdded />} />
