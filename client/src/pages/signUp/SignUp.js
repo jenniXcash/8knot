@@ -1,11 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import AddressAutocomplete from "../../components/AddressAutocomplete/AddressAutocomplete";
-import SearchPostsContext from "../../context/SearchPostsContext";
 import { Navigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./SignUp.css";
 export default function SignUp() {
-  const { setRegistered } = useContext(SearchPostsContext);
   const { redirect, setRedirect } = useState(false);
 
   const { user } = useAuth0();

@@ -17,7 +17,6 @@
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
   width: 50vw;
   margin-bottom: 20px; */
-
   display: grid;
   grid-template-columns: 100px 30px auto;
   grid-template-rows: 100px 1fr;

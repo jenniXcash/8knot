@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate } from "react-router-dom";
 import SearchPostsContext from "../../context/SearchPostsContext";
@@ -7,8 +7,6 @@ import AddressAutocomplete from "../../components/AddressAutocomplete/AddressAut
 import RegistrationError from "../../components/RegistrationError/RegistrationError";
 import "./PostNew.css";
 export default function PostNew() {
-  const { setSearch } = useContext(SearchPostsContext);
-
   const [address, setAddress] = useState("");
   const { user, isAuthenticated } = useAuth0();
   //false means there are no errors, If we found an error on submit then it will be changed to true

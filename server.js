@@ -1,5 +1,4 @@
 import Express from "express";
-import { readFile } from "fs/promises";
 import mongoose from "mongoose";
 import cowsay from "cowsay";
 import dotenv from "dotenv";
@@ -165,16 +164,13 @@ app.get("/api/messages/:user", async (req, res) => {
   console.log(req.params);
   const { user } = req.params;
   const messages = await Message.find({ recieversSub: user });
-
-  console.log(messages);
   res.send(messages.reverse());
 });
 
 app.get("/api/messages/:id", async (req, res) => {
   const { id } = req.params;
-  let message = await readFile("./messages.json", "utf-8");
-  message = JSON.parse(message);
-  res.send(message.find((item) => item.id === +id));
+  let message = await Message.find();
+  res.send(message);
 });
 
 app.post("/api/messages", async (req, res) => {
@@ -273,17 +269,22 @@ app.post("/api/users", async (req, res) => {
   }
 });
 
-mongoose.connect(`mongodb://127.0.0.1/8knot`, (err) => {
-  if (err) {
-    console.log("dberror", err);
+const { DB_USER, DB_PASS, DB_HOST, DB_NAME } = process.env;
+
+mongoose.connect(
+  `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_NAME}.${DB_HOST}/?retryWrites=true&w=majority`,
+  async (err) => {
+    if (err) {
+      await console.log("dberror", err);
+    }
+    app.listen(8000, () =>
+      console.log(
+        cowsay.say({
+          text: "server is conneced, DB is connected",
+          e: "Xx",
+          T: "U",
+        })
+      )
+    );
   }
-  app.listen(8000, () =>
-    console.log(
-      cowsay.say({
-        text: "server is conneced, DB is connected",
-        e: "Xx",
-        T: "U",
-      })
-    )
-  );
-});
+);
