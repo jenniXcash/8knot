@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import cloudinary from "cloudinary";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { Console } from "console";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -167,7 +168,7 @@ app.post("/api/posts", async (req, res) => {
 // Messages
 
 app.get("/api/messages/:user", async (req, res) => {
-  console.log(req.params);
+  console.log(`req.params: ${req.params}`);
   const { user } = req.params;
   const messages = await Message.find({ recieversSub: user });
   res.send(messages.reverse());

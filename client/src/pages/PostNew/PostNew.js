@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate } from "react-router-dom";
-import SearchPostsContext from "../../context/SearchPostsContext";
 
 import AddressAutocomplete from "../../components/AddressAutocomplete/AddressAutocomplete";
 import RegistrationError from "../../components/RegistrationError/RegistrationError";
