@@ -48,7 +48,6 @@ export default function PostNew() {
 
       const res = await fetch(`/api/posts`, requestOptions);
       const json = await res.json();
-      console.log(json);
       setRedirect(!redirect);
     }
   }
@@ -94,7 +93,6 @@ export default function PostNew() {
                 className="typeOfWorkSelect inputim"
                 onChange={(e) => {
                   setPostData({ ...postData, method: e.target.value });
-                  console.log(postData);
                 }}
               >
                 <option value="null"> </option>
@@ -107,7 +105,6 @@ export default function PostNew() {
                 className="typeOfWorkSelect inputim"
                 onChange={(e) => {
                   setPostData({ ...postData, typeOfWork: e.target.value });
-                  console.log(postData);
                 }}
               >
                 <option value="null"> </option>
@@ -136,7 +133,6 @@ export default function PostNew() {
               className="inputim"
               onChange={(e) => {
                 setPostData({ ...postData, description: e.target.value });
-                console.log(postData);
                 setPostErrors({ ...postErrors, description: false });
               }}
             />
@@ -165,7 +161,6 @@ export default function PostNew() {
               className="inputim"
               onChange={(e) => {
                 setPostData({ ...postData, equipment: e.target.value });
-                console.log(postData);
               }}
             />
             <label htmlFor="addImages" className="postNewLabel">
