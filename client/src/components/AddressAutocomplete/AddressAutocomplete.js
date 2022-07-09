@@ -32,8 +32,8 @@ export default function AddressAutocomplete({
             <div>{loading ? <div>'...Loading'</div> : null}</div>
             {suggestions.map((suggestion) => {
               const style = {
-                borderRadius: "10px",
-                paddingLeft: "10px",
+                borderRadius: "5px",
+                paddingLeft: "5px",
                 backgroundColor: "rgba(143, 172, 229, 0.3)",
               };
               return (

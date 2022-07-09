@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import AddressAutocomplete from "../../components/AddressAutocomplete/AddressAutocomplete";
 import FormInput from "../../components/FormInput/FormInput";
+import FileInput from "../../components/FileInput/FileInput";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
@@ -121,140 +122,77 @@ export default function SignUp() {
     <React.Fragment>
       <div className="signupPage">
         <h1 className="heading">Sign Up to 8Knot</h1>
-        {/* {formError && (
+        {/* Start of sign up form */}
+        <FormInput
+          type={"text"}
+          label={"First name"}
+          onChange={(e) => {
+            setNewUserData({ ...newUserData, firstName: e.target.value });
+          }}
+        />
+        <FormInput
+          type={"text"}
+          label={"Last name"}
+          onChange={(e) => {
+            setNewUserData({ ...newUserData, lastName: e.target.value });
+          }}
+        />
+        <FormInput
+          type="text"
+          label={"Username"}
+          placeholder={"This field is mandatory"}
+          onChange={(e) => {
+            setNewUserData({ ...newUserData, userName: e.target.value });
+            console.log(newUserData);
+          }}
+        />
+        <FormInput
+          type={"password"}
+          label={"password"}
+          onChange={(e) => {
+            setNewUserData({ ...newUserData, password: e.target.value });
+          }}
+        />
+        <FormInput
+          type={"text"}
+          label={"Email"}
+          onChange={(e) => {
+            setNewUserData({ ...newUserData, emailAddress: e.target.value });
+          }}
+        />
+        <FileInput
+          label={"Profile Picture"}
+          name={"profilePicture"}
+          id={"profilePicture"}
+          accept={"image/*"}
+          onChange={handleFileInputChange}
+        />
+        {previewSource && (
           <div>
-            One or more of the mandatory fields was not filled.{" "}
-            <span className="errorMsg">
-              {" "}
-              Please make sure you chose a username, a password and provided an
-              email address.
-            </span>
-          </div>
-        )} */}
-        {/* start of Signup form */}
-        <div className="signupForm">
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            type="text"
-            className="signupInputim"
-            onChange={(e) => {
-              setNewUserData({ ...newUserData, firstName: e.target.value });
-            }}
-          />
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            type="text"
-            className="signupInputim"
-            onChange={(e) => {
-              setNewUserData({ ...newUserData, lastName: e.target.value });
-            }}
-          />
-          <label htmlFor="userName">*Username:</label>
-          <input
-            type="text"
-            className="signupInputim"
-            placeholder="This field is mandatory"
-            onChange={(e) => {
-              setNewUserData({ ...newUserData, username: e.target.value });
-            }}
-            onFocus={() => {
-              setTestTheForm({ ...testTheForm, usernameTaken: false });
-            }}
-            onBlur={async (e) => {
-              setTestTheForm({
-                ...testTheForm,
-                usernameTaken: await testUsername(e.target.value),
-              });
-              console.log(testTheForm);
-            }}
-          />
-
-          {testTheForm.usernameTaken && (
-            <div className="errorMsg"> The Username is already taken.</div>
-          )}
-          {testTheForm.usernameTaken && <div></div>}
-          <label htmlFor="lastName">*Password:</label>
-          <input
-            type="password"
-            className="signupInputim"
-            placeholder="This field is mandatory"
-            ref={passwordRef}
-            onChange={(e) => {
-              setNewUserData({ ...newUserData, password: e.target.value });
-              setTestTheForm({ ...testTheForm, passwordWasEntered: true });
-              console.log(newUserData.password);
-            }}
-          />
-          <div></div>
-          <div>
-            <button
-              className="passwordButtons"
-              onClick={() => {
-                setNewUserData({ ...newUserData, password: genPassword() });
-                setTestTheForm({ ...testTheForm, passwordWasEntered: true });
-                console.log(newUserData.password);
-              }}
-            >
-              Generate password
-            </button>
-            <div>
-              {newUserData.password && (
-                <button className="passwordButtons" onClick={copyPassword}>
-                  Copy
-                </button>
-              )}
-            </div>
-          </div>
-          <label htmlFor="email">*Email address: </label>
-          <input
-            type="email"
-            className="signupInputim"
-            placeholder="This field is mandatory"
-            onChange={(e) => {
-              setNewUserData({ ...newUserData, emailAddress: e.target.value });
-            }}
-            onFocus={() => {
-              setTestTheForm({ ...testTheForm, emailTaken: false });
-            }}
-            onBlur={async (e) => {
-              setTestTheForm({
-                ...testTheForm,
-                emailTaken: await testEmailAddress(e.target.value),
-              });
-              console.log(testTheForm);
-            }}
-          />
-          {testTheForm.emailTaken && (
-            <div className="errorMsg">
-              {" "}
-              The Email address is already in registered.{" "}
-            </div>
-          )}
-          {testTheForm.emailTaken && <div></div>}
-          <label htmlFor="addProfilePic">Add profile picture: </label>
-          <input
-            type="file"
-            name="profilePicture"
-            id="profilePicture"
-            accept="image/*"
-            onChange={handleFileInputChange}
-          />
-          {previewSource && <div>Preview: </div>}
-          {previewSource && (
+            <div>Preview:</div>
             <img
               src={previewSource}
               alt="chosen"
               style={{ width: "250px", borderRadius: "50%" }}
-            />
-          )}
-          <label htmlFor="phoneNumber">Phone Number:</label>
-          <input
-            type="text"
-            className="signupInputim"
-            onChange={(e) => {
-              setNewUserData({ ...newUserData, phoneNumber: e.target.value });
-            }}
-          />
+            />{" "}
+          </div>
+        )}
+        <FormInput
+          type={"text"}
+          label={"Phone number"}
+          onChange={(e) => {
+            setNewUserData({ ...newUserData, phoneNumber: e.target.value });
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "50vw",
+            justifyContent: "space-between",
+            margin: "16px 0 0 0",
+          }}
+        >
           <label htmlFor="address">Addres: </label>
           <AddressAutocomplete
             address={address}
@@ -262,207 +200,8 @@ export default function SignUp() {
             postData={newUserData}
             setPostData={setNewUserData}
           />
-          <div className="signupFormSpacer"></div>
-          <div className="signupFormSpacer"></div>
-
-          <label htmlFor="certification">Certification:</label>
-          <div></div>
-          <input
-            type="checkbox"
-            id="certtificate1"
-            name="certificate1"
-            value="Rope Access Technician"
-            className="signupFormCheackbox"
-            onChange={(e) => {
-              setNewUserData({
-                ...newUserData,
-                certification: {
-                  ...newUserData.certification,
-                  ropeAccessTechnician: e.target.checked,
-                },
-              });
-              console.log(newUserData);
-            }}
-          />
-          <label htmlFor="certificate1">Rope Access Technician</label>
-          <input
-            type="checkbox"
-            id="cerificate2"
-            name="certificate2"
-            value="Height Worker"
-            className="signupFormCheackbox"
-            onChange={(e) => {
-              setNewUserData({
-                ...newUserData,
-                certification: {
-                  ...newUserData.certification,
-                  heightWorker: e.target.checked,
-                },
-              });
-              console.log(newUserData);
-            }}
-          />
-          <label htmlFor="certificate2">Height Worker</label>
-          <input
-            type="checkbox"
-            id="certificate3"
-            name="certificate3"
-            value="Mast Climber"
-            className="signupFormCheackbox"
-            onChange={(e) => {
-              setNewUserData({
-                ...newUserData,
-                certification: {
-                  ...newUserData.certification,
-                  mastClimber: e.target.checked,
-                },
-              });
-            }}
-          />
-          <label htmlFor="certificate3">Mast Climber</label>
-
-          <div className="signupFormSpacer"></div>
-          <div className="signupFormSpacer"></div>
-
-          <label htmlFor="prefered jobs">Prefered Jobs:</label>
-          <div></div>
-          <input
-            type="checkbox"
-            id="preferedJob1"
-            name="preferedJob1"
-            value="Window Cleaning"
-            className="signupFormCheackbox"
-            onChange={(e) => {
-              setNewUserData({
-                ...newUserData,
-                preferedJobs: {
-                  ...newUserData.preferedJobs,
-                  windowCleaning: e.target.checked,
-                },
-              });
-            }}
-          />
-          <label htmlFor="preferedJob1">Window Cleaning</label>
-          <input
-            type="checkbox"
-            id="preferdJob2"
-            name="preferedJob2"
-            value="Sealing"
-            className="signupFormCheackbox"
-            onChange={(e) => {
-              setNewUserData({
-                ...newUserData,
-                preferedJobs: {
-                  ...newUserData.preferedJobs,
-                  sealing: e.target.checked,
-                },
-              });
-            }}
-          />
-          <label htmlFor="preferedJob2">Sealing</label>
-          <input
-            type="checkbox"
-            id="preferedJob3"
-            name="preferedJob3"
-            value="Concrete Reconstruction"
-            className="signupFormCheackbox"
-            onChange={(e) => {
-              setNewUserData({
-                ...newUserData,
-                preferedJobs: {
-                  ...newUserData.preferedJobs,
-                  concreteReconstruction: e.target.checked,
-                },
-              });
-            }}
-          />
-          <label htmlFor="preferedJob3">Concrete Reconstruction</label>
-          <input
-            type="checkbox"
-            id="preferedJob4"
-            name="preferedJob4"
-            value="Anti-Bird Nets Installing"
-            className="signupFormCheackbox"
-            onChange={(e) => {
-              setNewUserData({
-                ...newUserData,
-                preferedJobs: {
-                  ...newUserData.preferedJobs,
-                  antiBirdNetsInstalling: e.target.checked,
-                },
-              });
-            }}
-          />
-          <label htmlFor="preferedJob4">Anti-Bird Nets Installing</label>
-          <input
-            type="checkbox"
-            id="preferedJob5"
-            name="preferedJob5"
-            value="Window Repairs"
-            className="signupFormCheackbox"
-            onChange={(e) => {
-              setNewUserData({
-                ...newUserData,
-                preferedJobs: {
-                  ...newUserData.preferedJobs,
-                  windowRepairs: e.target.checked,
-                },
-              });
-            }}
-          />
-          <label htmlFor="preferdJob5">Window Repairs</label>
-          <input
-            type="checkbox"
-            id="preferedJob6"
-            name="welding"
-            value="welding"
-            className="signupFormCheackbox"
-            onChange={(e) => {
-              setNewUserData({
-                ...newUserData,
-                preferedJobs: {
-                  ...newUserData.preferedJobs,
-                  welding: e.target.checked,
-                },
-              });
-            }}
-          />
-          <label htmlFor="preferedJob6">Welding</label>
-          <input
-            type="checkbox"
-            id="preferedJob7"
-            name="preferedJob7"
-            value="Sign Hanging"
-            className="signupFormCheackbox"
-            onChange={(e) => {
-              setNewUserData({
-                ...newUserData,
-                preferedJobs: {
-                  ...newUserData.preferedJobs,
-                  signHanging: e.target.checked,
-                },
-              });
-            }}
-          />
-          <label htmlFor="preferedJob7">Sign Hanging</label>
-
-          <button
-            type="submit"
-            className="signupFormButtons"
-            onClick={() => {
-              postNewUser(newUserData, previewSource, testTheForm);
-            }}
-          >
-            Save
-          </button>
-          <button
-            className="signupFormButtons"
-            onClick={() => window.location.reload()}
-          >
-            Reset
-          </button>
         </div>
-        {/* End of signup form */}
+        {/* End of sign up form */}
       </div>
     </React.Fragment>
   );
