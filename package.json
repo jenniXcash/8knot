@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/jenniXcash/8knot#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body": "^5.1.0",
     "cloudinary": "^1.28.1",
     "cowsay": "^1.5.0",

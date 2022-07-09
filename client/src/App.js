@@ -16,6 +16,7 @@ import SingleMsg from "./pages/SingleMsg/SingleMsg";
 import Header from "./components/Header/Header";
 import SearchPostsContext from "./context/SearchPostsContext";
 import NewUserAdded from "./pages/newUserAdded/NewUserAdded";
+import SignUp from "./pages/SignUp/SignUp";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -77,6 +78,7 @@ function App() {
             <Route path="/SingleMsg" element={<SingleMsg />} />
             <Route path="/SingleMsg/:id" element={<SingleMsg />} />
             <Route path="/NewUserAdded" element={<NewUserAdded />} />
+            <Route path="/SignUp" element={<SignUp />} />
           </Routes>
         </div>
       </SearchPostsContext.Provider>

@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 import cowsay from "cowsay";
 import dotenv from "dotenv";
 import cloudinary from "cloudinary";
+import bcrypt from "bcrypt";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { Console } from "console";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -41,6 +41,8 @@ const Post = mongoose.model("Post", {
 const User = mongoose.model("User", {
   firstName: { type: String },
   lastName: { type: String },
+  username: { type: Object },
+  password: { type: Object },
   profilePic: { type: String },
   dateOfCreation: { type: String },
   gender: { type: String },
@@ -49,8 +51,6 @@ const User = mongoose.model("User", {
   address: { type: Object },
   certification: { type: Object },
   preferedJobs: { type: Object },
-  auth0User: { type: Object },
-  authId: { type: String },
 });
 
 const Message = mongoose.model("Message", {
@@ -62,6 +62,7 @@ const Message = mongoose.model("Message", {
   date: { type: String },
   time: { type: String },
 });
+
 // Posts
 
 app.get("/", async (req, res) => {
@@ -202,6 +203,7 @@ app.post("/api/messages", async (req, res) => {
     console.log(error);
   }
 });
+
 // Users
 
 app.get("/api/users", async (req, res) => {
@@ -245,6 +247,8 @@ app.post("/api/users", async (req, res) => {
     const {
       firstName,
       lastName,
+      username,
+      password,
       dateOfCreation,
       emailAddress,
       phoneNumber,
@@ -252,12 +256,15 @@ app.post("/api/users", async (req, res) => {
       certification,
       preferedJobs,
       profilePic,
-      auth0User,
     } = req.body.userData;
+
+    const hashedPassword = await bcrypt.hash(password, 10); //Hashing the password
 
     const addUser = new User({
       firstName: firstName,
       lastName: lastName,
+      username: username,
+      password: hashedPassword,
       profilePic: uploadedResponse.url,
       dateOfCreation: ` ${new Date()}`,
       emailAddress: emailAddress,
@@ -265,15 +272,31 @@ app.post("/api/users", async (req, res) => {
       address: address,
       certification: certification,
       preferedJobs: preferedJobs,
-      auth0User: auth0User,
-      authId: auth0User.sub,
+      // auth0User: auth0User,
+      // authId: auth0User.sub,
     });
     await addUser.save(addUser);
     console.log("New user has been added");
-    res.send({ response: "New user has been added" });
+    res.send({ status: 201 });
   } catch (error) {
-    console.log(error);
+    res.status(500).send();
   }
+});
+
+//Here we are looking to see if the username already exists
+//True means that this username is aready occupied, False means that it is not
+app.get(`/api/testUsername`, async (req, res) => {
+  const { username } = req.query;
+  const doesThisExists = await User.find({ username: username });
+  doesThisExists.length === 0 ? res.send(false) : res.send(true);
+});
+
+//Here we are looking to see if the Email address already exists
+//True means that this address is aready occupied, False means that it is not
+app.get(`/api/testAddress`, async (req, res) => {
+  const { address } = req.query;
+  const doesThisExists = await User.find({ emailAddress: address });
+  doesThisExists.length === 0 ? res.send(false) : res.send(true);
 });
 
 app.get("*", (req, res) => {
@@ -283,7 +306,7 @@ app.get("*", (req, res) => {
 const { DB_USER, DB_PASS, DB_HOST, DB_NAME } = process.env;
 
 mongoose.connect(
-  `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_NAME}.${DB_HOST}?retryWrites=true&w=majority`,
+  `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_NAME}.${DB_HOST}/?retryWrites=true&w=majority`,
   async (err) => {
     if (err) {
       await console.log("dberror", err);

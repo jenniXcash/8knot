@@ -1,0 +1,14 @@
+.formInput{
+    display: grid;
+    grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+}
+.textField{
+    border: none;
+    border-radius: 5px;
+    background: rgba(143, 172, 229, 0.3);
+    font-size: inherit;
+    font-family: "Poppins", sans-serif;
+    padding-left: 10px;
+}
