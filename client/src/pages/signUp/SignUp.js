@@ -247,7 +247,7 @@ export default function SignUp() {
           state={newUserData}
           stateFunction={setNewUserData}
         />
-        <div>
+        <div className="submitAndresetButtons">
           <FormButton
             type={"submit"}
             text={"Submit"}
