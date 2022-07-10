@@ -1,13 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import AddressAutocomplete from "../../components/AddressAutocomplete/AddressAutocomplete";
 import FormInput from "../../components/FormInput/FormInput";
 import FileInput from "../../components/FileInput/FileInput";
+import FormButton from "../../components/FormButton/FormButton";
+import ListOfCheakboxes from "../../components/ListOfCheakboxes/ListOfCheakboxes";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const passwordRef = useRef(null);
   const [previewSource, setPreviewSource] = useState("");
   const [address, setAddress] = useState("");
   const [testTheForm, setTestTheForm] = useState({
@@ -64,7 +65,6 @@ export default function SignUp() {
       var randomNumber = Math.floor(Math.random() * chars.length);
       password += chars.substring(randomNumber, randomNumber + 1);
     }
-    passwordRef.current.value = password;
     return password;
   }
   //Copy the new password to the clipboard
@@ -143,23 +143,55 @@ export default function SignUp() {
           placeholder={"This field is mandatory"}
           onChange={(e) => {
             setNewUserData({ ...newUserData, userName: e.target.value });
-            console.log(newUserData);
+          }}
+          onFocus={() => {
+            setTestTheForm({ ...testTheForm, usernameTaken: false });
+          }}
+          onBlur={async (e) => {
+            setTestTheForm({
+              ...testTheForm,
+              usernameTaken: await testUsername(e.target.value),
+            });
+            // console.log(testTheForm);
           }}
         />
+        {testTheForm.usernameTaken && (
+          <div>
+            The username is already taken. Please choose a different one.
+          </div>
+        )}
         <FormInput
           type={"password"}
           label={"password"}
+          placeholder={"This field is mandatory"}
+          value={newUserData.password}
           onChange={(e) => {
             setNewUserData({ ...newUserData, password: e.target.value });
+            console.log(newUserData);
           }}
         />
+        <div>
+          <FormButton
+            text={"Generate Password"}
+            onClick={() => {
+              setNewUserData({ ...newUserData, password: genPassword() });
+              setTestTheForm({ ...testTheForm, passwordWasEntered: true });
+              console.log(newUserData.password);
+            }}
+          />
+          {newUserData.password && (
+            <FormButton text={"Copy password"} onClick={copyPassword()} />
+          )}
+        </div>
         <FormInput
           type={"text"}
           label={"Email"}
+          placeholder={"This field is mandatory"}
           onChange={(e) => {
             setNewUserData({ ...newUserData, emailAddress: e.target.value });
           }}
         />
+
         <FileInput
           label={"Profile Picture"}
           name={"profilePicture"}
@@ -177,6 +209,7 @@ export default function SignUp() {
             />{" "}
           </div>
         )}
+
         <FormInput
           type={"text"}
           label={"Phone number"}
@@ -193,14 +226,36 @@ export default function SignUp() {
             margin: "16px 0 0 0",
           }}
         >
-          <label htmlFor="address">Addres: </label>
           <AddressAutocomplete
+            label={"Address"}
             address={address}
             setAddress={setAddress}
             postData={newUserData}
             setPostData={setNewUserData}
           />
         </div>
+        <ListOfCheakboxes
+          label={"Certification"}
+          optionsArray={Object.keys(newUserData.certification)}
+          state={newUserData}
+          stateFunction={setNewUserData}
+        />
+
+        <ListOfCheakboxes
+          label={"Prefered Jobs"}
+          optionsArray={Object.keys(newUserData.preferedJobs)}
+          state={newUserData}
+          stateFunction={setNewUserData}
+        />
+        <div>
+          <FormButton
+            type={"submit"}
+            text={"Submit"}
+            onClick={() => postNewUser(newUserData, previewSource, testTheForm)}
+          />
+          <FormButton text={"Reset"} onClick={() => window.location.reload()} />
+        </div>
+
         {/* End of sign up form */}
       </div>
     </React.Fragment>

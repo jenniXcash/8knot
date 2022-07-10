@@ -10,6 +10,7 @@ export default function FormInput(props) {
         className="textField"
         placeholder={props.placeholder}
         style={props.style}
+        value={props.value}
         onChange={props.onChange}
         onFocus={props.onFocus}
         onBlur={props.onBlur}

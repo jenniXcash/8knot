@@ -1,0 +1,10 @@
+.formButton{
+    border: 1px solid white;
+  background: rgba(143, 172, 229, 0.3);
+  opacity: 0.8;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 5px;
+  width: fit-content;
+  margin-right: 10px;
+}

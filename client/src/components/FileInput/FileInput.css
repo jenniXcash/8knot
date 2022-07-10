@@ -1,6 +1,7 @@
 .fileInputFlex{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
     justify-content: space-between;   
     margin: 16px 0 0 0;
