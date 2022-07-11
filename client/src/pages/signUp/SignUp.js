@@ -104,9 +104,7 @@ export default function SignUp() {
       body,
     };
     if (
-      !testTheForm.usernameTaken &&
-      !testTheForm.emailTaken &&
-      testTheForm.passwordWasEntered
+     true
     ) {
       const res = await fetch(`api/users`, requestOptions);
       const json = await res.json();
