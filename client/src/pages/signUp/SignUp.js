@@ -92,7 +92,6 @@ export default function SignUp() {
   //adding a new user to the system, but first cheacking for form errors
   //we need the form to include at least a username, password and email
   async function postNewUser(newUserData, base64EncodedImage, testTheForm) {
-    console.log(newUserData);
     const body = JSON.stringify({
       data: base64EncodedImage,
       userData: newUserData,
@@ -103,11 +102,7 @@ export default function SignUp() {
       headers: { "Content-Type": "application/json" },
       body,
     };
-    if (
-      !testTheForm.usernameTaken &&
-      !testTheForm.emailTaken &&
-      testTheForm.passwordWasEntered
-    ) {
+    if (true) {
       const res = await fetch(`api/users`, requestOptions);
       const json = await res.json();
       console.log(json);
@@ -176,7 +171,6 @@ export default function SignUp() {
             onClick={() => {
               setNewUserData({ ...newUserData, password: genPassword() });
               setTestTheForm({ ...testTheForm, passwordWasEntered: true });
-              console.log(newUserData.password);
             }}
           />
           {newUserData.password && (

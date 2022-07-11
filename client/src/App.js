@@ -16,7 +16,7 @@ import SingleMsg from "./pages/SingleMsg/SingleMsg";
 import Header from "./components/Header/Header";
 import SearchPostsContext from "./context/SearchPostsContext";
 import NewUserAdded from "./pages/newUserAdded/NewUserAdded";
-import SignUp from "./pages/signUp/SignUp";
+import SignUp from "./pages/SignUp/SignUp";
 
 function App() {
   const [search, setSearch] = useState("");

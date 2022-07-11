@@ -37,10 +37,5 @@
   "devDependencies": {
     "concurrently": "^7.2.1",
     "nodemon": "^2.0.15"
-  },
-  "browserslist": [
-    "last 1 version",
-    "> 1%",
-    "IE 10"
-  ]
+  }
 }
