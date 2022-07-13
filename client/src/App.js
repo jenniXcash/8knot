@@ -24,16 +24,19 @@ function App() {
   const [registered, setRegistered] = useState();
   const { user } = useAuth0();
 
-  function getPosts(term) {
-    const res = fetch(`api/posts/?term=${term}`);
-    res
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (posts) {
-        setPosts(posts);
-        setSearch(term);
-      });
+  async function getPosts(term) {
+    const res = await fetch(`api/posts/?term=${term}`);
+    const posts = await res.json();
+    setPosts(posts);
+    setSearch(search);
+    // res
+    //   .then(function (response) {
+    //     return response.json();
+    //   })
+    //   .then(function (posts) {
+    //     setPosts(posts);
+    //     setSearch(term);
+    //   });
   }
 
   useEffect(() => {

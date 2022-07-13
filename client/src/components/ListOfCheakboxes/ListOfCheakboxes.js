@@ -2,7 +2,14 @@ import React from "react";
 import "./ListOfCheakboxes.css";
 
 export default function ListOfCheakboxes(props) {
-  const { label, optionsArray, onFocus, onBlur, state, stateFunction } = props;
+  const {
+    label,
+    optionsArray,
+    onFocus,
+    onBlur,
+    state,
+    stateFunction: statefunction,
+  } = props;
 
   //splitting and lowercasing the item name so it will be readable
   function rewriteItemName(str) {
@@ -40,12 +47,11 @@ export default function ListOfCheakboxes(props) {
                 <input
                   type="checkbox"
                   id={`label` + index}
+                  key={index}
                   name={`label` + index}
                   value={item}
-                  state={state}
-                  stateFunction={stateFunction}
                   onChange={(e) => {
-                    stateFunction({
+                    statefunction({
                       ...state,
                       [rewriteLabel(label)]: {
                         ...state[rewriteLabel(label)],

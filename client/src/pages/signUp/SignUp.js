@@ -108,7 +108,6 @@ export default function SignUp() {
       console.log(json);
       (await json) ? navigate("/") : console.log("something wrong");
     } else {
-      console.log("something has accoured");
       window.scrollTo(0, 0);
     }
   }
@@ -137,7 +136,7 @@ export default function SignUp() {
           label={"Username"}
           placeholder={"This field is mandatory"}
           onChange={(e) => {
-            setNewUserData({ ...newUserData, userName: e.target.value });
+            setNewUserData({ ...newUserData, username: e.target.value });
           }}
           onFocus={() => {
             setTestTheForm({ ...testTheForm, usernameTaken: false });
