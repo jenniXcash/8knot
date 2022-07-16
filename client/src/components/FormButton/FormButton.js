@@ -8,11 +8,13 @@ export default function FormButton({
   onBlur,
   text,
   onClick,
+  style,
 }) {
   return (
     <React.Fragment>
       <button
         type={type}
+        style={style}
         className="formButton"
         onClick={onClick}
         onChange={onChange}

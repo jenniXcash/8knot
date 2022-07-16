@@ -72,43 +72,73 @@ export default function SignUp() {
     navigator.clipboard.writeText(newUserData.password);
   }
 
-  //we are cheaking if the username already exists in our DB
-  //Recieving False means that the username is not registered
+  //we are cheaking if the username already exists and if it is constructed properly
+  //True means that we can use the username
   async function testUsername(username) {
+    const testObj = { unique: null, regexPatternCompare: null };
+    const pattern = "^[A-Za-z0-9]{3,16}$";
+
     const res = await fetch(`api/testUsername/?username=${username}`);
-    const json = await res.json();
-    console.log(json);
-    return json;
+    testObj.unique = await res.json();
+
+    testObj.regexPatternCompare = username.match(pattern);
+
+    if (testObj.unique && testObj.regexPatternCompare) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   //we are cheaking if the email already exists in our DB
-  //Recieving False means that the email is not registered
+  //Recieving True means that the email is not registered
   async function testEmailAddress(address) {
+    const testObj = { unique: null, regexPatternCompare: null };
+    // const pattern = "^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$";
+
     const res = await fetch(`api/testAddress/?address=${address}`);
-    const json = await res.json();
-    return json;
+    testObj.unique = await res.json();
+
+    testObj.regexPatternCompare = address.slice("").includes("@", 1);
+
+    if (testObj.unique && testObj.regexPatternCompare) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
+  function validateForm(form) {
+    console.log(form.usernameTaken, form.passwordWasEntered, form.emailTaken);
+    if (form.usernameTaken && form.passwordWasEntered && form.emailTaken) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   //adding a new user to the system, but first cheacking for form errors
   //we need the form to include at least a username, password and email
   async function postNewUser(newUserData, base64EncodedImage, testTheForm) {
-    const body = JSON.stringify({
-      data: base64EncodedImage,
-      userData: newUserData,
-    });
+    if (validateForm(testTheForm)) {
+      const body = JSON.stringify({
+        data: base64EncodedImage,
+        userData: newUserData,
+      });
 
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body,
-    };
-    if (true) {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body,
+      };
+
       const res = await fetch(`api/users`, requestOptions);
       const json = await res.json();
       console.log(json);
       (await json) ? navigate("/") : console.log("something wrong");
-    } else {
+
       window.scrollTo(0, 0);
+    } else {
+      console.log("error");
     }
   }
 
@@ -139,21 +169,19 @@ export default function SignUp() {
             setNewUserData({ ...newUserData, username: e.target.value });
           }}
           onFocus={() => {
-            setTestTheForm({ ...testTheForm, usernameTaken: false });
+            setTestTheForm({ ...testTheForm, usernameTaken: null });
           }}
           onBlur={async (e) => {
             setTestTheForm({
               ...testTheForm,
               usernameTaken: await testUsername(e.target.value),
             });
-            // console.log(testTheForm);
           }}
         />
-        {testTheForm.usernameTaken && (
-          <div>
-            The username is already taken. Please choose a different one.
-          </div>
+        {!testTheForm.usernameTaken && testTheForm.usernameTaken !== null && (
+          <div>The username is already taken</div>
         )}
+
         <FormInput
           type={"password"}
           label={"password"}
@@ -177,14 +205,25 @@ export default function SignUp() {
           )}
         </div>
         <FormInput
-          type={"text"}
+          type={"email"}
           label={"Email"}
           placeholder={"This field is mandatory"}
           onChange={(e) => {
             setNewUserData({ ...newUserData, emailAddress: e.target.value });
           }}
+          onFocus={() => {
+            setTestTheForm({ ...testTheForm, emailTaken: null });
+          }}
+          onBlur={async (e) => {
+            setTestTheForm({
+              ...testTheForm,
+              emailTaken: await testEmailAddress(e.target.value),
+            });
+          }}
         />
-
+        {!testTheForm.emailTaken && testTheForm.emailTaken !== null && (
+          <div>This Email addres is already taken</div>
+        )}
         <FileInput
           label={"Profile Picture"}
           name={"profilePicture"}
@@ -199,7 +238,7 @@ export default function SignUp() {
               src={previewSource}
               alt="chosen"
               style={{ width: "250px", borderRadius: "50%" }}
-            />{" "}
+            />
           </div>
         )}
 

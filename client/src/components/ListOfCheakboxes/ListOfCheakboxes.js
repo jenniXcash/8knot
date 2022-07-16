@@ -46,9 +46,9 @@ export default function ListOfCheakboxes(props) {
               <div className="boxAndLabel">
                 <input
                   type="checkbox"
-                  id={`label` + index}
-                  key={index}
-                  name={`label` + index}
+                  id={label + index}
+                  key={label + index}
+                  name={label + index}
                   value={item}
                   onChange={(e) => {
                     statefunction({

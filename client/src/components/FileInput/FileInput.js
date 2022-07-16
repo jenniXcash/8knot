@@ -5,9 +5,11 @@ export default function FileInput(props) {
   return (
     <React.Fragment>
       <div className="fileInputFlex">
-        <label htmlFor={props.label} className="label">
-          {props.label}:
-        </label>
+        {props.label && (
+          <label htmlFor={props.label} className="label">
+            {props.label}:
+          </label>
+        )}
         <input
           type="file"
           name={props.name}

@@ -4,8 +4,11 @@ import cowsay from "cowsay";
 import dotenv from "dotenv";
 import cloudinary from "cloudinary";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { access } from "fs";
+import e from "express";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -258,7 +261,8 @@ app.post("/api/users", async (req, res) => {
       profilePic,
     } = req.body.userData;
 
-    const hashedPassword = await bcrypt.hash(password, 10); //Hashing the password
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt); //Hashing the password
 
     const addUser = new User({
       firstName: firstName,
@@ -277,9 +281,9 @@ app.post("/api/users", async (req, res) => {
     });
     await addUser.save(addUser);
     console.log("New user has been added");
-    res.send({ status: 201 });
+    res.status(201).send({});
   } catch (error) {
-    res.status(500).send();
+    res.status(500).send(error);
   }
 });
 
@@ -287,16 +291,56 @@ app.post("/api/users", async (req, res) => {
 //True means that this username is aready occupied, False means that it is not
 app.get(`/api/testUsername`, async (req, res) => {
   const { username } = req.query;
-  const doesThisExists = await User.find({ username: username });
-  doesThisExists.length === 0 ? res.send(false) : res.send(true);
+  const uniqueUsername = await User.find({ username: username });
+  uniqueUsername.length === 0 ? res.send(true) : res.send(false);
 });
 
 //Here we are looking to see if the Email address already exists
-//True means that this address is aready occupied, False means that it is not
 app.get(`/api/testAddress`, async (req, res) => {
   const { address } = req.query;
-  const doesThisExists = await User.find({ emailAddress: address });
-  doesThisExists.length === 0 ? res.send(false) : res.send(true);
+  const uniqueEmail = await User.find({ emailAddress: address });
+  console.log(uniqueEmail);
+  uniqueEmail.length === 0 ? res.send(true) : res.send(false);
+});
+
+//Login
+
+const posts = [
+  {
+    username: "jenia",
+    title: "Post 1",
+  },
+  {
+    username: "das",
+    title: "Post 2",
+  },
+];
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (token == null) return res.sendStatus(401).send({});
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403).send({});
+    req.user = user;
+    next();
+  });
+}
+
+app.get("/posts", authenticateToken, (req, res) => {
+  console.log(req.user.name);
+  const filtered = posts.filter((post) => post.username === req.user.name);
+
+  res.send(filtered);
+});
+app.post("/login", async (req, res) => {
+  const username = req.body.username;
+  const user = { name: username };
+
+  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+  res.send({ accessToken: accessToken });
 });
 
 app.get("*", (req, res) => {

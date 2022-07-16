@@ -6,8 +6,6 @@ import "./Header.css";
 import logo from "../../images/logo.svg";
 import SideBar from "../SideBar/SideBar";
 import SearchPostsContext from "../../context/SearchPostsContext";
-import LoginButton from "../LoginButton/LoginButton";
-import LogoutButton from "../LogoutButton/LogoutButton";
 export default function Header() {
   const { getPosts } = useContext(SearchPostsContext);
   const { user } = useAuth0();
@@ -37,14 +35,10 @@ export default function Header() {
           </div>
           <SideBar />
           <div>
-            {user && <div>Hello, {user.name}</div>}
-            {!user && (
-              <div>
-                <LoginButton />
-                <Link to="/SignUp">/Sign up</Link>
-              </div>
-            )}
-            {user && <LogoutButton />}
+            <div>
+              <Link to="/LoginPage">Login</Link>
+              <Link to="/SignUp">/Sign up</Link>
+            </div>
           </div>
         </div>
       </div>

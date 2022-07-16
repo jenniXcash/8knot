@@ -3,8 +3,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-//Style,
+//Style
 import "./App.css";
+//Context
+
 //Pages&Components
 import Home from "./pages/Home/Home";
 import PostNew from "./pages/PostNew/PostNew";
@@ -17,6 +19,7 @@ import Header from "./components/Header/Header";
 import SearchPostsContext from "./context/SearchPostsContext";
 import NewUserAdded from "./pages/newUserAdded/NewUserAdded";
 import SignUp from "./pages/SignUp/SignUp";
+import LoginPage from "./pages/LoginPage/LoginPage";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -82,6 +85,7 @@ function App() {
             <Route path="/SingleMsg/:id" element={<SingleMsg />} />
             <Route path="/NewUserAdded" element={<NewUserAdded />} />
             <Route path="/SignUp" element={<SignUp />} />
+            <Route path="/LoginPage" element={<LoginPage />} />
           </Routes>
         </div>
       </SearchPostsContext.Provider>
