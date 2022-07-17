@@ -133,7 +133,6 @@ export default function SignUp() {
 
       const res = await fetch(`api/users`, requestOptions);
       const json = await res.json();
-      console.log(json);
       (await json) ? navigate("/") : console.log("something wrong");
 
       window.scrollTo(0, 0);
