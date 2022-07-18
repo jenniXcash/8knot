@@ -109,7 +109,7 @@ export default function SignUp() {
   }
 
   function validateForm(form) {
-    console.log(form.usernameTaken, form.passwordWasEntered, form.emailTaken);
+    // console.log(form.usernameTaken, form.passwordWasEntered, form.emailTaken);
     if (form.usernameTaken && form.passwordWasEntered && form.emailTaken) {
       return true;
     } else {
@@ -133,7 +133,6 @@ export default function SignUp() {
 
       const res = await fetch(`api/users`, requestOptions);
       const json = await res.json();
-      console.log(json);
       (await json) ? navigate("/") : console.log("something wrong");
 
       window.scrollTo(0, 0);
@@ -179,7 +178,7 @@ export default function SignUp() {
           }}
         />
         {!testTheForm.usernameTaken && testTheForm.usernameTaken !== null && (
-          <div>The username is already taken</div>
+          <div className="inputError">The username is already taken</div>
         )}
 
         <FormInput
@@ -222,7 +221,7 @@ export default function SignUp() {
           }}
         />
         {!testTheForm.emailTaken && testTheForm.emailTaken !== null && (
-          <div>This Email addres is already taken</div>
+          <div className="inputError">This Email addres is already taken</div>
         )}
         <FileInput
           label={"Profile Picture"}

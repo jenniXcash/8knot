@@ -4,11 +4,8 @@ import cowsay from "cowsay";
 import dotenv from "dotenv";
 import cloudinary from "cloudinary";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { access } from "fs";
-import e from "express";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -68,8 +65,9 @@ const Message = mongoose.model("Message", {
 
 // Posts
 
-app.get("/", async (req, res) => {
-  res.send("Satan is great");
+app.get("/api/all", async (req, res) => {
+  console.log("satan is real");
+  res.send({ message: "Satan is ruler" });
 });
 
 app.get("/api/posts", async (req, res) => {
@@ -276,8 +274,6 @@ app.post("/api/users", async (req, res) => {
       address: address,
       certification: certification,
       preferedJobs: preferedJobs,
-      // auth0User: auth0User,
-      // authId: auth0User.sub,
     });
     await addUser.save(addUser);
     console.log("New user has been added");
@@ -303,48 +299,9 @@ app.get(`/api/testAddress`, async (req, res) => {
   uniqueEmail.length === 0 ? res.send(true) : res.send(false);
 });
 
-//Login
-
-const posts = [
-  {
-    username: "jenia",
-    title: "Post 1",
-  },
-  {
-    username: "das",
-    title: "Post 2",
-  },
-];
-
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-
-  if (token == null) return res.sendStatus(401).send({});
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403).send({});
-    req.user = user;
-    next();
-  });
-}
-
-app.get("/posts", authenticateToken, (req, res) => {
-  console.log(req.user.name);
-  const filtered = posts.filter((post) => post.username === req.user.name);
-
-  res.send(filtered);
-});
-app.post("/login", async (req, res) => {
-  const username = req.body.username;
-  const user = { name: username };
-
-  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-  res.send({ accessToken: accessToken });
-});
-
-app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/client/build/index.html");
+//Users login and auth
+app.get("/users/login", async (req, res) => {
+  res.status(200).send({ message: "satan is king" });
 });
 
 const { DB_USER, DB_PASS, DB_HOST, DB_NAME } = process.env;
@@ -358,7 +315,7 @@ mongoose.connect(
     app.listen(process.env.PORT || 8000, () =>
       console.log(
         cowsay.say({
-          text: "server is conneced, DB is connected",
+          text: `server, DB , port ${process.env.PORT}`,
           e: "Xx",
           T: "U",
         })
