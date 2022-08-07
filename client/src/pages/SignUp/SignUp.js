@@ -110,6 +110,7 @@ export default function SignUp() {
 
   function validateForm(form) {
     // console.log(form.usernameTaken, form.passwordWasEntered, form.emailTaken);
+    console.log(form.usernameTaken, form.passwordWasEntered, form.emailTaken);
     if (form.usernameTaken && form.passwordWasEntered && form.emailTaken) {
       return true;
     } else {
@@ -134,10 +135,9 @@ export default function SignUp() {
       const res = await fetch(`api/users`, requestOptions);
       const json = await res.json();
       (await json) ? navigate("/") : console.log("something wrong");
-
-      window.scrollTo(0, 0);
     } else {
       console.log("error");
+      window.scrollTo(0, 0);
     }
   }
 
@@ -189,6 +189,9 @@ export default function SignUp() {
           onChange={(e) => {
             setNewUserData({ ...newUserData, password: e.target.value });
             console.log(newUserData);
+            e.target.value
+              ? setTestTheForm({ ...testTheForm, passwordWasEntered: true })
+              : setTestTheForm({ ...testTheForm, passwordWasEntered: null });
           }}
         />
         <div>

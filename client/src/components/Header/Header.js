@@ -1,15 +1,17 @@
 import React from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 import "./Header.css";
 import logo from "../../images/logo.svg";
 import SideBar from "../SideBar/SideBar";
+import Greeting from "../Greeting/Greeting";
 import SearchPostsContext from "../../context/SearchPostsContext";
+import UserContext from "../../context/UserContext";
 export default function Header() {
   const { getPosts } = useContext(SearchPostsContext);
-  const { user } = useAuth0();
   let searchValue;
+  const user = useContext(UserContext);
+
   return (
     <React.Fragment>
       <div className="headerGrid">
@@ -36,8 +38,9 @@ export default function Header() {
           <SideBar />
           <div>
             <div>
-              <Link to="/LoginPage">Login</Link>
-              <Link to="/SignUp">/Sign up</Link>
+              {user && <Greeting />}
+              {!user && <Link to="/LoginPage">Login</Link>}
+              {!user && <Link to="/SignUp">/Sign up</Link>}
             </div>
           </div>
         </div>

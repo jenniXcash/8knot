@@ -1,19 +1,29 @@
+//Dependancies
 import Express from "express";
 import mongoose from "mongoose";
 import cowsay from "cowsay";
 import dotenv from "dotenv";
 import cloudinary from "cloudinary";
 import bcrypt from "bcrypt";
+import cookieParser from "cookie-parser";
+//Schema Modules
+import User from "./client/modules/User.mjs";
+import Post from "./client/modules/Post.mjs";
+import Message from "./client/modules/Message.mjs";
+//Modules
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-
+import AuthenticateToken from "./client/modules/AuthnticateToken.mjs";
+//
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+dotenv.config();
 
 const app = Express();
+
+app.use(cookieParser());
 app.use(Express.json({ limit: "50mb" }));
 app.use(Express.urlencoded({ limit: "50mb", extended: true }));
-dotenv.config();
 app.use(Express.static("client/build"));
 
 const { CLOUDINARY_API_SECRET, CLOUDINARY_API_KEY, CLOUDINARY_API_NAME } =
@@ -25,44 +35,6 @@ cloudinary.config({
   api_secret: CLOUDINARY_API_SECRET,
 });
 
-const Post = mongoose.model("Post", {
-  userName: { type: String },
-  date: { type: String },
-  time: { type: String },
-  address: { type: Object },
-  typeOfWork: { type: String },
-  method: { type: String },
-  description: { type: String },
-  equipment: { type: String },
-  images: { type: Object },
-  userSub: { type: String },
-});
-
-const User = mongoose.model("User", {
-  firstName: { type: String },
-  lastName: { type: String },
-  username: { type: Object },
-  password: { type: Object },
-  profilePic: { type: String },
-  dateOfCreation: { type: String },
-  gender: { type: String },
-  emailAddress: { type: String },
-  phoneNumber: { type: String },
-  address: { type: Object },
-  certification: { type: Object },
-  preferedJobs: { type: Object },
-});
-
-const Message = mongoose.model("Message", {
-  sendersSub: { type: String },
-  recieversSub: { type: String },
-  sendersName: { type: String },
-  content: { type: String },
-  sendersPic: { type: String },
-  date: { type: String },
-  time: { type: String },
-});
-
 // Posts
 
 app.get("/api/all", async (req, res) => {
@@ -71,6 +43,8 @@ app.get("/api/all", async (req, res) => {
 });
 
 app.get("/api/posts", async (req, res) => {
+  if (req.cookies) console.log(req.cookies);
+
   const { term } = req.query;
   try {
     if (term) {
@@ -158,9 +132,7 @@ app.post("/api/posts", async (req, res) => {
 
     await newPostData.save(newPostData);
 
-    console.log(newPostData);
     res.send({ response: "posted a new post" });
-    console.log(await imagesUrls);
   } catch (error) {
     console.log(" oh-no, something went wrong");
     console.log(`error: ${error}`);
@@ -170,7 +142,6 @@ app.post("/api/posts", async (req, res) => {
 // Messages
 
 app.get("/api/messages/:user", async (req, res) => {
-  console.log(`req.params: ${req.params}`);
   const { user } = req.params;
   const messages = await Message.find({ recieversSub: user });
   res.send(messages.reverse());
@@ -197,7 +168,6 @@ app.post("/api/messages", async (req, res) => {
       sendersSub: sendersSub,
       time: time,
     });
-    console.log(sendersSub);
     await addMessage.save(addMessage);
     res.send(true);
   } catch (error) {
@@ -210,10 +180,8 @@ app.post("/api/messages", async (req, res) => {
 app.get("/api/users", async (req, res) => {
   const { sub } = req.query;
   if (sub) {
-    console.log(`sub: ${sub}`);
     const user = await User.find({ sub: sub });
     const fullName = `${user[0].firstName} ${user[0].lastName}`;
-    console.log(fullName);
     res.send({ fullName });
   } else {
     res.send(await User.find());
@@ -223,9 +191,9 @@ app.get("/api/users", async (req, res) => {
 app.get("/api/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const answer = await User.find({ sub: id });
+    const answer = await User.find({ _id: id });
     if (Object.keys(answer).length === 1) {
-      res.send(true);
+      res.send(answer);
     } else {
       res.send(false);
     }
@@ -266,7 +234,7 @@ app.post("/api/users", async (req, res) => {
       firstName: firstName,
       lastName: lastName,
       username: username,
-      password: hashedPassword,
+      hash: hashedPassword,
       profilePic: uploadedResponse.url,
       dateOfCreation: ` ${new Date()}`,
       emailAddress: emailAddress,
@@ -277,6 +245,9 @@ app.post("/api/users", async (req, res) => {
     });
     await addUser.save(addUser);
     console.log("New user has been added");
+    const accessToken = jwt.sign(username, process.env.ACCESS_TOKEN_SECRET);
+    res.status(201).cookie("token", accessToken, { httpOnly: true });
+    res.send({ accessToken: accessToken });
     res.status(201).send({});
   } catch (error) {
     res.status(500).send(error);
@@ -295,13 +266,7 @@ app.get(`/api/testUsername`, async (req, res) => {
 app.get(`/api/testAddress`, async (req, res) => {
   const { address } = req.query;
   const uniqueEmail = await User.find({ emailAddress: address });
-  console.log(uniqueEmail);
   uniqueEmail.length === 0 ? res.send(true) : res.send(false);
-});
-
-//Users login and auth
-app.get("/users/login", async (req, res) => {
-  res.status(200).send({ message: "satan is king" });
 });
 
 const { DB_USER, DB_PASS, DB_HOST, DB_NAME } = process.env;

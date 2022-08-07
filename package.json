@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "devStartAuth": "nodemon authServer.js",
+    "StartAuth": "nodemon authServer.js",
     "dev": "concurrently \"nodemon server.js\" \"cd client && npm start\"",
     "heroku-postbuild": "cd client && npm i && npm run build"
   },
@@ -27,6 +27,7 @@
     "bcrypt": "^5.0.1",
     "body": "^5.1.0",
     "cloudinary": "^1.28.1",
+    "cookie-parser": "^1.4.6",
     "cowsay": "^1.5.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",

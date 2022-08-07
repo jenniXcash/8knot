@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate } from "react-router-dom";
-
 import AddressAutocomplete from "../../components/AddressAutocomplete/AddressAutocomplete";
 import RegistrationError from "../../components/RegistrationError/RegistrationError";
+import UserContext from "../../context/UserContext";
 import "./PostNew.css";
+
 export default function PostNew() {
   const [address, setAddress] = useState("");
   const { user, isAuthenticated } = useAuth0();
+  const username = useContext(UserContext);
   //false means there are no errors, If we found an error on submit then it will be changed to true
   const [postErrors, setPostErrors] = useState({
     description: false,
     numberOfPics: false,
   });
+
   const [picsList, setPicsList] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [postData, setPostData] = useState({
-    userName: isAuthenticated ? user.name : "",
+    userName: username,
     date: "",
     time: "",
     address: "",
@@ -33,7 +36,7 @@ export default function PostNew() {
       base64EncodedImagesArray: picsList,
       postData: postData,
     });
-
+    console.log(body.postData);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -77,13 +80,13 @@ export default function PostNew() {
 
   return (
     <React.Fragment>
-      {!isAuthenticated && <RegistrationError page={"post"} />}
-      {isAuthenticated && (
+      {!username && <RegistrationError page={"post"} />}
+      {username && (
         <div className="postNewGrid">
           <h1 className="heading">Post a new post</h1>
           <div className="postNewFormDiv">
             <div>By:</div>
-            <div style={{ fontWeight: "bold" }}>{user.name}</div>
+            <div style={{ fontWeight: "bold" }}>{username}</div>
             <label htmlFor="type of work" className="postNewLabel">
               Type of work:
             </label>

@@ -79,16 +79,17 @@ export default function FeedItem({
             <div></div>
             <div></div>
             <div className="attachedImagesToPost">
-              {imageKeys.map((image) => {
-                return (
-                  <img
-                    src={image.url}
-                    key={image.url}
-                    alt="pic which is attached to the post"
-                    className="attachedImg"
-                  />
-                );
-              })}
+              {imageKeys &&
+                imageKeys.map((image) => {
+                  return (
+                    <img
+                      src={image.url}
+                      key={image.url}
+                      alt="pic which is attached to the post"
+                      className="attachedImg"
+                    />
+                  );
+                })}
             </div>
           </div>
         </Link>
